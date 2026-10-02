@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>시드니 가족여행 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+/* Layout: sticky day-chip rail over stacked day sections; each day = timeline + its own coordinate map, stacking to one column on phones */
+:root{
+  --bg:#f5f6fa;
+  --surface:#ffffff;
+  --ink:#1b2440;
+  --muted:#5d6782;
+  --line:#dfe3ee;
+  --accent:#6b4fa3;        /* jacaranda */
+  --accent-soft:#ece6f7;
+  --meal:#a8742f;          /* sydney sandstone */
+  --meal-soft:#f6eddf;
+  --water:#e3eef8;
+  --water-line:#c6dbef;
+  --route:#6b4fa3;
+  --dot-text:#ffffff;
+  --font-display:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --font-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11141f;--surface:#1a1f2e;--ink:#e8ebf5;--muted:#a3abc4;--line:#2c3346;
+    --accent:#b9a1e6;--accent-soft:#2c2540;--meal:#e0b277;--meal-soft:#352a1b;
+    --water:#16263a;--water-line:#22384f;--route:#b9a1e6;--dot-text:#11141f;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11141f;--surface:#1a1f2e;--ink:#e8ebf5;--muted:#a3abc4;--line:#2c3346;
+  --accent:#b9a1e6;--accent-soft:#2c2540;--meal:#e0b277;--meal-soft:#352a1b;
+  --water:#16263a;--water-line:#22384f;--route:#b9a1e6;--dot-text:#11141f;color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px;padding-block:28px 56px}
+header.top{display:grid;gap:10px;padding-bottom:18px}
+.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--accent);font-weight:600}
+h1{font-family:var(--font-display);font-weight:400;font-size:clamp(30px,6vw,46px);line-height:1.15;margin:0;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--muted);font-size:14px}
+.meta b{color:var(--ink);font-weight:600}
+.note{font-size:13px;color:var(--muted)}
+
+nav.days{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);
+  display:flex;gap:8px;overflow-x:auto;padding-block:10px;margin-inline:-16px;padding-inline:16px;border-bottom:1px solid var(--line)}
+nav.days a{flex:0 0 auto;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--surface);
+  border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+nav.days a small{font-weight:400;color:var(--muted);margin-left:4px}
+nav.days a.today{border-color:var(--accent);background:var(--accent-soft)}
+nav.days a:focus-visible,.stop a:focus-visible,.stop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+section.day{scroll-margin-top:64px;padding-block:30px 6px;border-bottom:1px solid var(--line)}
+.dayhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-bottom:14px}
+.dayhead .date{font-family:var(--font-display);font-size:28px;font-variant-numeric:tabular-nums}
+.dayhead h2{font-size:18px;margin:0;font-weight:600;text-wrap:balance}
+.dayhead .tag{font-size:12px;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 9px;font-weight:600}
+.daygrid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:22px;align-items:start}
+@media (max-width:780px){.daygrid{grid-template-columns:minmax(0,1fr)}.mapcard{order:-1}}
+
+ol.timeline{list-style:none;margin:0;padding:0;display:grid}
+.stop{display:grid;grid-template-columns:52px 26px minmax(0,1fr);gap:0 10px;padding-block:9px;border-top:1px dashed var(--line);border-radius:8px;transition:background .15s}
+.stop:first-child{border-top:none}
+.stop .time{font-variant-numeric:tabular-nums;font-weight:600;font-size:14px;padding-top:1px}
+.stop .badge{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;margin-top:1px}
+.stop.place .badge{background:var(--route);color:var(--dot-text)}
+.stop.meal .badge{background:var(--meal-soft);color:var(--meal);font-size:11px}
+.stop.move .badge{background:transparent;border:1px dashed var(--line);color:var(--muted);font-size:11px}
+.stop .name{font-weight:600}
+.stop.meal .name{color:var(--meal)}
+.stop.move .name{color:var(--muted);font-weight:500}
+.stop .desc{color:var(--muted);font-size:13px;margin-top:2px}
+.stop .row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:5px}
+.stop a.maplink{font-size:12px;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:1px 7px;background:var(--surface)}
+.stop a.maplink:hover{border-color:var(--accent)}
+.stop.hl{background:var(--accent-soft)}
+.line{display:inline-block;font-size:11px;font-weight:700;line-height:1;padding:4px 6px;border-radius:4px;color:#fff;letter-spacing:.02em}
+.l-T1{background:#d97c00}.l-T4{background:#005aa3}.l-T8{background:#00843d}.l-M{background:#168388}
+.l-F{background:#2f8f2f}.l-B{background:#0079b5}.l-BMT{background:#8a6d00}.l-W{background:#6b7280}
+
+.mapcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;position:sticky;top:70px}
+@media (max-width:780px){.mapcard{position:static}}
+.svgfb svg{display:block;width:100%;height:auto;border-radius:10px}
+.leaf{display:none;height:300px;border-radius:10px;position:relative;z-index:0}
+.has-leaflet .leaf{display:block}.has-leaflet .svgfb{display:none}
+.num-pin{background:var(--route);color:var(--dot-text);border:2px solid #fff;border-radius:50%;width:24px;height:24px;display:grid;place-items:center;font:700 12px var(--font-body);box-shadow:0 1px 4px rgba(0,0,0,.35);cursor:pointer}
+.num-pin.hl{outline:3px solid #1b2440;outline-offset:1px}
+.leaflet-popup-content{font-family:var(--font-body);font-size:13px;line-height:1.5}
+.leaflet-popup-content a{color:#6b4fa3;font-weight:600}
+.mapcap{font-size:12px;color:var(--muted);margin-top:8px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.mapcap a{color:var(--accent);text-decoration:none;font-weight:600}
+svg .dot{cursor:pointer}
+svg .dot circle{fill:var(--route);stroke:var(--surface);stroke-width:2}
+svg .dot text{fill:var(--dot-text);font:700 11px var(--font-body);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+svg .dot.hl circle{stroke:var(--ink);stroke-width:3}
+svg .path{fill:none;stroke:var(--route);stroke-width:2;stroke-dasharray:4 5;opacity:.6}
+svg .bg{fill:var(--water)}
+svg .grid{stroke:var(--water-line);stroke-width:1}
+svg .compass{fill:var(--muted);font:600 10px var(--font-body)}
+svg .scale{stroke:var(--muted);stroke-width:2}
+svg .scaletext{fill:var(--muted);font:500 10px var(--font-body)}
+
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:30px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.panel h3{margin:0 0 10px;font-size:16px}
+.panel ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px}
+.panel li span.muted{color:var(--muted)}
+table.cost{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+table.cost td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+table.cost td:last-child{text-align:right;white-space:nowrap;padding-left:10px;font-weight:600}
+table.cost tr.total td{border-bottom:none;font-weight:700;padding-top:10px}
+footer{margin-top:28px;font-size:12px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body style="margin:0">
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">가족 공유용 · 잠정 일정</div>
+    <h1>시드니 가족여행</h1>
+    <div class="meta">
+      <span><b>2026.10.27(화) – 11.2(월)</b> 6박 7일</span>
+      <span><b>6명</b> 엄마, 어른 3명, 조카 2명(8세·5세)</span>
+      <span>숙소 <b>채스우드역 근처</b></span>
+      <span>이동 <b>대중교통(오팔 카드)</b></span>
+    </div>
+    <p class="note">시간은 대략적인 계획이에요. 장소 이름 옆 <b>지도</b>를 누르면 구글 지도에서 열려요. 지도의 번호는 일정표의 번호와 같고, 일정표에서 장소를 누르면 지도에서 그 위치를 보여줘요. 휴대폰에서는 지도의 +, − 버튼이나 두 손가락으로 확대해요.</p>
+  </header>
+
+  <nav class="days" id="daynav" aria-label="날짜 바로가기"></nav>
+  <main id="days"></main>
+
+  <div class="info">
+    <div class="panel">
+      <h3>교통 (오팔)</h3>
+      <ul>
+        <li>어른은 각자 해외결제 되는 비접촉 카드나 오팔 카드 1장씩. 한 카드를 여럿이 같이 쓸 수 없어요.</li>
+        <li>조카 2명은 <b>어린이 오팔 카드</b>가 꼭 필요해요. 공항·편의점에서 살 수 있어요.</li>
+        <li>탈 때, 내릴 때 모두 카드를 찍어요. 블루마운틴처럼 개찰구가 없는 역에서도 내릴 때 찍기.</li>
+        <li>공항은 420번 버스와 마스콧역을 이용해 공항역 이용료를 피해요.</li>
+        <li>일주일 상한: 어른 A$50, 아이 A$25 <span class="muted">(월~일 기준)</span></li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>미리 예약할 것</h3>
+      <ul>
+        <li>타롱가 주 입장권 (온라인이 더 싸요)</li>
+        <li>시닉 월드 입장권 (시간대 선택)</li>
+        <li>10/27 저녁 식당</li>
+        <li>숙소 짐 보관 또는 얼리 체크인 문의</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>챙길 것</h3>
+      <ul>
+        <li>수영장: 수건, 갈아입을 옷, 아이 샴푸. 본다이 아이스버그는 공용 탈의실이라 큰 랩타월이 편해요.</li>
+        <li>10월 말 낮 기온 20도 초중반, 바닷바람은 쌀쌀해서 얇은 겉옷.</li>
+        <li>자외선이 강해요. 모자와 선크림.</li>
+        <li>10/31 할로윈: 아이들 코스튬.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>예상 입장료 (6명)</h3>
+      <table class="cost">
+        <tr><td>대중교통 10/27~11/1</td><td>최대 A$250</td></tr>
+        <tr><td>11/2 공항 이동</td><td>약 A$40~50</td></tr>
+        <tr><td>본다이 아이스버그 수영장</td><td>약 A$50</td></tr>
+        <tr><td>시닉 월드</td><td>약 A$333~</td></tr>
+        <tr><td>타롱가 주</td><td>약 A$247</td></tr>
+        <tr><td>노스 시드니 올림픽 수영장</td><td>약 A$54</td></tr>
+        <tr class="total"><td>합계 (식비 제외)</td><td>약 A$975~</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    이 시기 시드니: 본다이 해안 조각전 Sculpture by the Sea (~11/2), 더 록스 할로윈 축제 Ghost in The Rocks (10/29~11/1), 거리마다 보라색 자카란다 꽃이 피는 철이에요.
+    운영 시간과 가격은 출발 전에 한 번 더 확인하세요.
+  </footer>
+</div>
+
+<script>
+const G = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+
+const DAYS = [
+ {id:"d1", date:"10/27", dow:"화", ymd:"2026-10-27", title:"도착 · 오페라하우스 · 하버 노을", tag:"일몰 약 7:20", stops:[
+  {t:"10:30", type:"move", name:"시드니 공항 도착", desc:"TW501 · 도착 시간은 e티켓으로 확인"},
+  {t:"11:30", type:"move", name:"대중교통으로 채스우드", lines:["B","T8","M"], desc:"420번 버스 → 마스콧역 → T8 → 센트럴역 → 메트로"},
+  {t:"12:45", type:"move", name:"숙소에 짐 두기"},
+  {t:"13:00", type:"meal", name:"점심"},
+  {t:"14:15", type:"move", name:"서큘러 키로 이동", lines:["M"]},
+  {t:"15:00", type:"place", name:"오페라하우스", q:"Sydney Opera House", ll:[-33.8568,151.2153]},
+  {t:"16:00", type:"place", name:"로열 보타닉 가든 피크닉", q:"Royal Botanic Garden Sydney", ll:[-33.8642,151.2166]},
+  {t:"18:30", type:"place", name:"매쿼리 부인의 의자 노을", q:"Mrs Macquarie's Chair Sydney", ll:[-33.8597,151.2228], desc:"오페라하우스와 하버브릿지가 한 화면에"},
+  {t:"20:00", type:"meal", name:"저녁", desc:"서큘러 키 · 더 록스"},
+  {t:"21:15", type:"move", name:"귀가"}
+ ]},
+ {id:"d2", date:"10/28", dow:"수", ymd:"2026-10-28", title:"본다이 · 시내 투어", tag:"수영 1", stops:[
+  {t:"07:30", type:"meal", name:"아침"},
+  {t:"08:30", type:"move", name:"본다이로 출발", lines:["M","T4","B"], desc:"약 50분"},
+  {t:"09:30", type:"place", name:"본다이 아이스버그 수영장", q:"Bondi Icebergs Pool", ll:[-33.8948,151.2743], desc:"바닷물 수영장, 아이용 얕은 풀 · 온수 샤워"},
+  {t:"11:00", type:"place", name:"본다이 → 타마라마 해안 산책", q:"Tamarama Beach Sydney", ll:[-33.9010,151.2700], desc:"Sculpture by the Sea 조각전"},
+  {t:"12:30", type:"meal", name:"점심", desc:"본다이"},
+  {t:"13:45", type:"move", name:"타운홀역으로 이동", lines:["B","T4"]},
+  {t:"14:30", type:"place", name:"시드니 타운홀 (시티홀)", q:"Sydney Town Hall", ll:[-33.8732,151.2061]},
+  {t:"14:45", type:"place", name:"QVB 쇼핑", q:"Queen Victoria Building", ll:[-33.8718,151.2067]},
+  {t:"16:15", type:"place", name:"하이드 파크", q:"Hyde Park Sydney", ll:[-33.8731,151.2111]},
+  {t:"16:45", type:"place", name:"세인트 메리 대성당", q:"St Mary's Cathedral Sydney", ll:[-33.8711,151.2133]},
+  {t:"17:15", type:"place", name:"NSW 주립도서관", q:"State Library of NSW", ll:[-33.8661,151.2131], desc:"미첼 열람실"},
+  {t:"18:00", type:"move", name:"귀가", lines:["M"]},
+  {t:"19:00", type:"meal", name:"저녁"}
+ ]},
+ {id:"d3", date:"10/29", dow:"목", ymd:"2026-10-29", title:"블루마운틴 · 루라 마을", tag:"편도 약 2시간 30분", stops:[
+  {t:"06:45", type:"meal", name:"아침"},
+  {t:"07:30", type:"move", name:"채스우드 출발", lines:["M","BMT"], desc:"센트럴역에서 블루마운틴선으로 환승 · 기차 시간은 전날 앱으로 확인"},
+  {t:"10:00", type:"move", name:"카툼바역 → 686번 버스", lines:["B"]},
+  {t:"10:30", type:"place", name:"시닉 월드", q:"Scenic World Katoomba", ll:[-33.7287,150.3016], desc:"레일웨이 · 스카이웨이 · 케이블웨이 · 워크웨이"},
+  {t:"12:45", type:"meal", name:"점심", desc:"카툼바"},
+  {t:"14:00", type:"place", name:"에코 포인트 · 세 자매 바위", q:"Echo Point Lookout Katoomba", ll:[-33.7320,150.3120]},
+  {t:"15:15", type:"place", name:"루라 마을", q:"Leura Mall NSW", ll:[-33.7124,150.3329], desc:"카툼바역에서 기차 한 정거장"},
+  {t:"17:00", type:"move", name:"루라역에서 기차로 귀가", lines:["BMT","M"], desc:"채스우드 도착 약 7:30"},
+  {t:"19:30", type:"meal", name:"저녁"}
+ ]},
+ {id:"d4", date:"10/30", dow:"금", ymd:"2026-10-30", title:"타롱가 주 · 현대미술관 · 더 록스 · 천문대", tag:"페리", stops:[
+  {t:"07:30", type:"meal", name:"아침"},
+  {t:"08:30", type:"move", name:"서큘러 키로 출발", lines:["M"]},
+  {t:"09:15", type:"move", name:"타롱가행 페리", lines:["F"], desc:"약 12분"},
+  {t:"09:30", type:"place", name:"타롱가 주", q:"Taronga Zoo Sydney", ll:[-33.8430,151.2412]},
+  {t:"12:00", type:"meal", name:"점심", desc:"동물원 안"},
+  {t:"13:15", type:"move", name:"페리로 서큘러 키 복귀", lines:["F"]},
+  {t:"13:45", type:"place", name:"현대미술관 (MCA)", q:"Museum of Contemporary Art Australia", ll:[-33.8599,151.2090]},
+  {t:"15:00", type:"place", name:"더 록스 산책", q:"The Rocks Sydney", ll:[-33.8590,151.2077]},
+  {t:"16:00", type:"place", name:"시드니 천문대", q:"Sydney Observatory", ll:[-33.8597,151.2048], desc:"무료 전시 · 언덕에서 하버브릿지 전망"},
+  {t:"17:00", type:"move", name:"귀가"},
+  {t:"18:30", type:"meal", name:"저녁"}
+ ]},
+ {id:"d5", date:"10/31", dow:"토", ymd:"2026-10-31", title:"시크릿 가든 · 수영장 · 할로윈", tag:"수영 2 · 할로윈", stops:[
+  {t:"08:00", type:"meal", name:"아침"},
+  {t:"09:00", type:"move", name:"밀슨스 포인트역 도착", lines:["T1"], desc:"채스우드에서 약 15분"},
+  {t:"09:15", type:"place", name:"웬디 화이틀리 시크릿 가든", q:"Wendy Whiteley's Secret Garden", ll:[-33.8455,151.2066], desc:"계단이 가파르니 편한 신발"},
+  {t:"10:15", type:"place", name:"노스 시드니 올림픽 수영장", q:"North Sydney Olympic Pool", ll:[-33.8472,151.2125], desc:"온수 수영장 · 가족 탈의실"},
+  {t:"12:30", type:"meal", name:"점심", desc:"밀슨스 포인트 · 키리빌리"},
+  {t:"14:00", type:"place", name:"밀슨스 포인트 산책 · 휴식", q:"Luna Park Sydney", ll:[-33.8477,151.2100], desc:"하버브릿지 아래 공원, 루나파크 외관"},
+  {t:"16:30", type:"move", name:"페리로 서큘러 키", lines:["F"], desc:"약 5분"},
+  {t:"17:00", type:"place", name:"Ghost in The Rocks 할로윈 축제", q:"The Rocks Sydney", ll:[-33.8593,151.2087], desc:"무료 · 아이들 코스튬"},
+  {t:"18:00", type:"meal", name:"저녁", desc:"더 록스"},
+  {t:"19:00", type:"place", name:"오페라하우스 · 하버브릿지 노을과 야경", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"일몰 약 7:30"},
+  {t:"20:30", type:"move", name:"귀가"}
+ ]},
+ {id:"d6", date:"11/1", dow:"일", ymd:"2026-11-01", title:"시드니대학교 · 수산시장 · 달링하버 · 패디스 마켓", tag:"마지막 날", stops:[
+  {t:"08:30", type:"meal", name:"아침"},
+  {t:"09:30", type:"move", name:"시드니대학교로 출발", lines:["M","B"], desc:"약 45분"},
+  {t:"10:15", type:"place", name:"시드니대학교", q:"University of Sydney Quadrangle", ll:[-33.8862,151.1890]},
+  {t:"11:30", type:"move", name:"수산시장으로 이동", desc:"글레브 지나 도보 약 30분 또는 버스"},
+  {t:"12:15", type:"meal", name:"점심", desc:"시드니 수산시장", q:"Sydney Fish Market", ll:[-33.8740,151.1915]},
+  {t:"14:00", type:"place", name:"달링 쿼터 어린이 놀이터", q:"Darling Quarter Playground", ll:[-33.8750,151.2003]},
+  {t:"15:15", type:"place", name:"달링하버 산책", q:"Darling Harbour", ll:[-33.8722,151.1990]},
+  {t:"16:00", type:"place", name:"패디스 마켓", q:"Paddy's Markets Haymarket", ll:[-33.8806,151.2033], desc:"기념품 쇼핑 · 18:00 마감"},
+  {t:"17:30", type:"move", name:"귀가", lines:["M"], desc:"센트럴역에서 메트로"},
+  {t:"18:30", type:"meal", name:"저녁 · 짐 싸기"}
+ ]},
+ {id:"d7", date:"11/2", dow:"월", ymd:"2026-11-02", title:"출국", tag:"TW502 12:15", stops:[
+  {t:"07:00", type:"meal", name:"아침"},
+  {t:"08:00", type:"place", name:"채스우드 출발", q:"Chatswood Station", ll:[-33.7969,151.1803], lines:["M","T8","B"], desc:"메트로 → T8 → 마스콧역 → 420번 버스"},
+  {t:"09:15", type:"place", name:"시드니 공항 도착", q:"Sydney International Airport T1", ll:[-33.9366,151.1660], desc:"출발 3시간 전"},
+  {t:"12:15", type:"move", name:"시드니 출발", desc:"인천 21:15 도착"}
+ ]}
+];
+
+const LINE_LABEL = {T1:"T1",T4:"T4",T8:"T8",M:"메트로",F:"페리",B:"버스",BMT:"블루마운틴선",W:"도보"};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function buildMap(day){
+  const pts = day.stops.filter(s => s.ll);
+  const W = 320, H = 250, P = 26;
+  const lat0 = pts.reduce((a,p)=>a+p.ll[0],0)/pts.length;
+  const k = Math.cos(lat0*Math.PI/180);
+  let xs = pts.map(p => p.ll[1]*k), ys = pts.map(p => -p.ll[0]);
+  let minx=Math.min(...xs), maxx=Math.max(...xs), miny=Math.min(...ys), maxy=Math.max(...ys);
+  const minSpan = 0.006;
+  if (maxx-minx < minSpan){const c=(maxx+minx)/2; minx=c-minSpan/2; maxx=c+minSpan/2;}
+  if (maxy-miny < minSpan){const c=(maxy+miny)/2; miny=c-minSpan/2; maxy=c+minSpan/2;}
+  const sc = Math.min((W-2*P)/(maxx-minx), (H-2*P)/(maxy-miny));
+  const ox = (W - (maxx-minx)*sc)/2, oy = (H - (maxy-miny)*sc)/2;
+  let pos = pts.map((p,i) => ({x: ox+(xs[i]-minx)*sc, y: oy+(ys[i]-miny)*sc}));
+  // nudge overlapping dots apart so every number stays readable
+  for (let it=0; it<60; it++){
+    for (let i=0;i<pos.length;i++) for (let j=i+1;j<pos.length;j++){
+      const dx=pos[j].x-pos[i].x, dy=pos[j].y-pos[i].y, d=Math.hypot(dx,dy)||0.01, min=22;
+      if (d<min){const m=(min-d)/2, ux=dx/d||1, uy=dy/d; pos[i].x-=ux*m; pos[i].y-=uy*m; pos[j].x+=ux*m; pos[j].y+=uy*m;}
+    }
+    pos.forEach(p=>{p.x=Math.max(14,Math.min(W-14,p.x)); p.y=Math.max(14,Math.min(H-14,p.y));});
+  }
+  // scale bar: pick a round distance near 1/4 of width
+  const kmPerPx = 111.32/sc; // 1 deg (k-scaled) ≈ 111.32 km
+  const cand=[0.2,0.5,1,2,5,10,20], target=kmPerPx*80;
+  const km = cand.reduce((a,b)=>Math.abs(b-target)<Math.abs(a-target)?b:a);
+  const barPx = km/kmPerPx;
+  let grid="";
+  for (let g=40; g<W; g+=40) grid+=`<line class="grid" x1="${g}" y1="0" x2="${g}" y2="${H}"/>`;
+  for (let g=40; g<H; g+=40) grid+=`<line class="grid" x1="0" y1="${g}" x2="${W}" y2="${g}"/>`;
+  const path = pos.length>1 ? `<polyline class="path" points="${pos.map(p=>p.x.toFixed(1)+","+p.y.toFixed(1)).join(" ")}"/>` : "";
+  const dots = pos.map((p,i)=>`<g class="dot" data-day="${day.id}" data-n="${i+1}" tabindex="-1"><title>${esc(pts[i].name)}</title><circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="10"/><text x="${p.x.toFixed(1)}" y="${p.y.toFixed(1)}">${i+1}</text></g>`).join("");
+  const scaleTxt = km<1 ? (km*1000)+"m" : km+"km";
+  return `<div class="leaf" id="leaf-${day.id}"></div><div class="svgfb"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(day.date)} 이동 순서 지도">
+    <rect class="bg" x="0" y="0" width="${W}" height="${H}"/>${grid}${path}${dots}
+    <text class="compass" x="${W-14}" y="16" text-anchor="middle">N ↑</text>
+    <line class="scale" x1="12" y1="${H-12}" x2="${(12+barPx).toFixed(1)}" y2="${H-12}"/>
+    <text class="scaletext" x="12" y="${H-17}">${scaleTxt}</text></svg></div>`;
+}
+
+function render(){
+  const nav = document.getElementById("daynav"), main = document.getElementById("days");
+  let today = "";
+  try { today = new Intl.DateTimeFormat("en-CA",{timeZone:"Australia/Sydney"}).format(new Date()); } catch(e){}
+  nav.innerHTML = DAYS.map(d=>`<a href="#${d.id}" class="${d.ymd===today?"today":""}">${d.date}<small>${d.dow}${d.ymd===today?" · 오늘":""}</small></a>`).join("");
+  main.innerHTML = DAYS.map(d=>{
+    let n=0;
+    const items = d.stops.map(s=>{
+      const isPlace = !!s.ll;
+      const badge = isPlace ? (++n) : (s.type==="meal" ? "식" : "→");
+      const lines = (s.lines||[]).map(l=>`<span class="line l-${l}">${LINE_LABEL[l]}</span>`).join("");
+      const map = s.q ? `<a class="maplink" href="${G(s.q)}" target="_blank" rel="noopener">지도</a>` : "";
+      const row = (lines||map) ? `<div class="row">${lines}${map}</div>` : "";
+      return `<li class="stop ${s.type}" ${isPlace?`data-day="${d.id}" data-n="${n}"`:""}>
+        <div class="time">${s.t}</div><div class="badge" aria-hidden="true">${badge}</div>
+        <div><div class="name">${esc(s.name)}</div>${s.desc?`<div class="desc">${esc(s.desc)}</div>`:""}${row}</div></li>`;
+    }).join("");
+    const allQ = d.stops.filter(s=>s.type==="place"&&s.q).map(s=>s.q);
+    const dir = allQ.length>1 ? `https://www.google.com/maps/dir/${allQ.map(q=>encodeURIComponent(q)).join("/")}` : G(allQ[0]||"Sydney");
+    return `<section class="day" id="${d.id}">
+      <div class="dayhead"><span class="date">${d.date} <small style="font-size:16px">(${d.dow})</small></span><h2>${esc(d.title)}</h2>${d.tag?`<span class="tag">${esc(d.tag)}</span>`:""}</div>
+      <div class="daygrid"><ol class="timeline">${items}</ol>
+      <div class="mapcard">${buildMap(d)}<div class="mapcap"><span>번호 순서대로 이동 · 실제 위치 기준</span><a href="${dir}" target="_blank" rel="noopener">구글 지도 경로 보기</a></div></div></div>
+    </section>`;
+  }).join("");
+
+  const setHL = (day,n,on) => document.querySelectorAll(`[data-day="${day}"][data-n="${n}"]`).forEach(el=>el.classList.toggle("hl",on));
+  document.querySelectorAll("[data-n]").forEach(el=>{
+    const day=el.dataset.day, n=el.dataset.n;
+    el.addEventListener("mouseenter",()=>setHL(day,n,true));
+    el.addEventListener("mouseleave",()=>setHL(day,n,false));
+    el.addEventListener("click",()=>{
+      document.querySelectorAll(".hl").forEach(x=>x.classList.remove("hl"));
+      setHL(day,n,true);
+      if (el.tagName.toLowerCase()==="g"){
+        const li=document.querySelector(`li[data-day="${day}"][data-n="${n}"]`);
+        if (li) li.scrollIntoView({block:"center",behavior:"smooth"});
+      }
+    });
+  });
+}
+render();
+
+function initLeaflet(){
+  if (!window.L) return;               // map library blocked or offline: keep the drawn fallback
+  document.body.classList.add("has-leaflet");
+  const route = getComputedStyle(document.documentElement).getPropertyValue("--route").trim() || "#6b4fa3";
+  const markers = {};
+  const mark = (day,n) => {
+    document.querySelectorAll(".hl").forEach(x=>x.classList.remove("hl"));
+    document.querySelectorAll(`[data-day="${day}"][data-n="${n}"]`).forEach(x=>x.classList.add("hl"));
+  };
+  DAYS.forEach(d=>{
+    const pts = d.stops.filter(s=>s.ll);
+    const el = document.getElementById("leaf-"+d.id);
+    if (!el || !pts.length) return;
+    const map = L.map(el, {scrollWheelZoom:false, dragging:!L.Browser.mobile, tap:false});
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+      {maxZoom:19, attribution:'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors'}).addTo(map);
+    const lls = pts.map(s=>s.ll);
+    if (lls.length>1) L.polyline(lls,{color:route,weight:3,dashArray:"6 8",opacity:.85}).addTo(map);
+    pts.forEach((s,i)=>{
+      const n = i+1;
+      const icon = L.divIcon({className:"", html:`<div class="num-pin" data-day="${d.id}" data-n="${n}">${n}</div>`, iconSize:[24,24], iconAnchor:[12,12], popupAnchor:[0,-12]});
+      const m = L.marker(s.ll,{icon, title:s.name}).addTo(map);
+      m.bindPopup(`<b>${esc(s.t)} ${esc(s.name)}</b><br><a href="${G(s.q||s.name)}" target="_blank" rel="noopener">구글 지도에서 열기</a>`);
+      m.on("click",()=>{
+        mark(d.id,n);
+        const li=document.querySelector(`li[data-day="${d.id}"][data-n="${n}"]`);
+        if (li && window.innerWidth>780) li.scrollIntoView({block:"center",behavior:"smooth"});
+      });
+      markers[d.id+"-"+n] = {m, map};
+    });
+    if (lls.length===1) map.setView(lls[0],15); else map.fitBounds(lls,{padding:[30,30],maxZoom:16});
+    setTimeout(()=>map.invalidateSize(),300);
+  });
+  document.querySelectorAll("li[data-n]").forEach(li=>{
+    li.addEventListener("click",e=>{
+      if (e.target.closest("a")) return;
+      const k = markers[li.dataset.day+"-"+li.dataset.n];
+      if (k){ k.map.panTo(k.m.getLatLng()); k.m.openPopup(); }
+    });
+  });
+}
+initLeaflet();
+</script>
+</body>
+</html>

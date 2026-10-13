@@ -363,10 +363,10 @@ const DAYS = [
   {t:"11:00", s:1, name:"본다이–타마라마 해안길", web:"https://sculpturebythesea.com/bondi/", q:"Tamarama Beach Sydney", ll:[-33.9010,151.2700], desc:"해안 산책, 조각 전시 Sculpture by the Sea 구경", fee:"무료", hours:"상시 (낮 시간)", wiki:["Sculpture_by_the_Sea","Bondi_to_Coogee_walk","Tamarama,_New_South_Wales"]},
   {t:"12:30", type:"meal", name:"점심", desc:"본다이"},
   {t:"13:45", type:"move", name:"타운홀역으로 이동", lines:["B","T4"], via:["bondijn"]},
-  {t:"14:30", s:1, name:"시드니 타운홀", q:"Sydney Town Hall", ll:[-33.8732,151.2061], desc:"시청 건물 외관 구경", fee:"무료", hours:"외관 상시 · 내부는 행사 때만", wiki:["Sydney_Town_Hall"]},
+  {t:"14:30", s:1, name:"시드니 타운홀", q:"Sydney Town Hall", ll:[-33.8732,151.2061], desc:"시청 건물 외관 구경", fee:"무료", hours:"외관 상시 · 내부는 행사 때만", img:"townhall"},
   {t:"14:45", s:1, name:"QVB", web:"https://www.qvb.com.au/", q:"Queen Victoria Building", ll:[-33.8718,151.2067], desc:"건물 내부 구경", fee:"무료 입장", hours:"9:00~18:00 (수)", img:"qvb"},
   {t:"16:15", s:1, name:"하이드 파크", q:"Hyde Park Sydney", ll:[-33.8731,151.2111], desc:"공원 산책, 아치볼드 분수", fee:"무료", hours:"상시", img:"hydepark"},
-  {t:"16:45", s:1, name:"세인트 메리 대성당", web:"https://stmaryscathedral.org.au/", q:"St Mary's Cathedral Sydney", ll:[-33.8711,151.2133], desc:"성당 내부 구경", fee:"무료 (기부 환영)", hours:"6:30~18:30 (평일)", wiki:["St_Mary's_Cathedral,_Sydney"]},
+  {t:"16:45", s:1, name:"세인트 메리 대성당", web:"https://stmaryscathedral.org.au/", q:"St Mary's Cathedral Sydney", ll:[-33.8711,151.2133], desc:"성당 내부 구경", fee:"무료 (기부 환영)", hours:"6:30~18:30 (평일)", img:"stmary"},
   {t:"17:15", s:1, name:"NSW 주립도서관", web:"https://www.sl.nsw.gov.au/", q:"State Library of NSW", ll:[-33.8661,151.2131], desc:"미첼 열람실 구경", fee:"무료", hours:"9:00~20:00 (월~목)", img:"library"},
   {t:"18:00", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역에서 메트로", via:["martin"], w:"chatswood"},
   {t:"19:00", type:"meal", name:"저녁"}
@@ -415,7 +415,7 @@ const DAYS = [
   {t:"11:30", type:"move", name:"수산시장으로 이동", desc:"글레브 지나 도보 약 30분 또는 버스"},
   {t:"12:15", s:1, type:"meal", name:"시드니 수산시장", web:"https://www.sydneyfishmarket.com.au/", q:"Sydney Fish Market", ll:[-33.8740,151.1915], desc:"점심 · 해산물", fee:"무료 입장 (음식값 별도)", hours:"7:00~22:00 · 생선 가게는 오전이 활발", wiki:["Sydney_Fish_Market"]},
   {t:"14:00", s:1, name:"달링 쿼터 어린이 놀이터", q:"Darling Quarter Playground", ll:[-33.8750,151.2003], desc:"아이들 놀이 시간", fee:"무료", hours:"상시", wiki:["Darling_Quarter","Darling_Harbour"]},
-  {t:"15:15", s:1, name:"달링하버", web:"https://www.darlingharbour.com/", q:"Darling Harbour", ll:[-33.8722,151.1990], desc:"항구 산책", fee:"무료", hours:"상시", wiki:["Darling_Harbour"]},
+  {t:"15:15", s:1, name:"달링하버", web:"https://www.darlingharbour.com/", q:"Darling Harbour", ll:[-33.8722,151.1990], desc:"항구 산책", fee:"무료", hours:"상시", img:"darling"},
   {t:"16:00", s:1, name:"패디스 마켓", web:"https://www.paddysmarkets.com.au/haymarket", q:"Paddy's Markets Haymarket", ll:[-33.8806,151.2033], desc:"기념품 구경", fee:"무료 입장", hours:"수~일 10:00~18:00", wiki:["Paddy's_Markets","Haymarket,_New_South_Wales"]},
   {t:"17:30", type:"move", name:"귀가", lines:["M"], desc:"센트럴역에서 메트로", via:["central"], w:"chatswood"},
   {t:"18:30", type:"meal", name:"저녁 · 짐 싸기"}
@@ -432,23 +432,26 @@ const DAYS = [
 const PEXELS = id => "https://images.pexels.com/photos/"+id+"/pexels-photo-"+id+".jpeg?auto=compress&cs=tinysrgb&w=800";
 const COMMONS = f => "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(f)+"?width=800";
 const IMG = {
-  botanic:    {src:"images/botanic.jpg"},
-  macquarie:  {src:"images/macquarie.jpg"},
-  bondi:      {src:"images/bondi.jpg"},
-  bluemountains:{src:"images/bluemountains.jpg"},
-  leura:      {src:"images/leura.jpg"},
-  hydepark:   {src:"images/hydepark.jpg"},
-  qvb:        {src:"images/qvb.jpg"},
-  library:    {src:"images/library.jpg"},
+  botanic:    {src:"images/botanic.jpg", credit:"모모"},
+  macquarie:  {src:"images/macquarie.jpg", credit:"모모"},
+  bondi:      {src:"images/bondi.jpg", credit:"모모"},
+  bluemountains:{src:"images/bluemountains.jpg", credit:"모모"},
+  leura:      {src:"images/leura.jpg", credit:"모모"},
+  hydepark:   {src:"images/hydepark.jpg", credit:"모모"},
+  qvb:        {src:"images/qvb.jpg", credit:"모모"},
+  library:    {src:"images/library.jpg", credit:"모모"},
   scenic:     {src:PEXELS(15019037), credit:"Pexels", page:"https://www.pexels.com/photo/a-cable-car-over-the-blue-mountains-in-australia-15019037/"},
   taronga:    {src:"https://images.unsplash.com/photo-1704852149643-56470df32641?w=800&q=70&auto=format&fit=crop", credit:"Unsplash", page:"https://unsplash.com/"},
-  mca:        {src:"images/mca.jpg"},
-  observatory:{src:"images/observatory.jpg"},
-  rocks:      {src:"images/rocks.jpg"},
+  mca:        {src:"images/mca.jpg", credit:"모모"},
+  observatory:{src:"images/observatory.jpg", credit:"모모"},
+  rocks:      {src:"images/rocks.jpg", credit:"모모"},
   wendy:      {src:"https://images.unsplash.com/photo-1689222170034-5585b41670b8?w=800&q=70&auto=format&fit=crop", credit:"Unsplash", page:"https://unsplash.com/"},
   pool:       {src:PEXELS(2333911),  credit:"Pexels", page:"https://www.pexels.com/photo/2333911/"},
-  milsons:    {src:"images/milsons.jpg"},
-  uni:        {src:PEXELS(34494498), credit:"Pexels", page:"https://www.pexels.com/photo/34494498/"},
+  milsons:    {src:"images/milsons.jpg", credit:"모모"},
+  uni:        {src:"images/usyd.jpg", credit:"모모"},
+  townhall:   {src:"images/townhall.jpg", credit:"모모"},
+  stmary:     {src:"images/stmary.jpg", credit:"모모"},
+  darling:    {src:"images/darling.jpg", credit:"모모"},
   ghost:      {src:"https://www.therocks.com/getmedia/846c46b6-0e56-460d-bd1f-651a50004e78/ghost-festival-first-fleet-park.png?width=1200", credit:"The Rocks", page:"https://www.therocks.com/whats-on/campaigns/ghost-in-the-rocks"}
 };
 /* Wikipedia fallback for chosen photos that fail to load */
@@ -587,7 +590,7 @@ initLeaflet();
 
 /* fetch each photo when it scrolls near the screen */
 function showPhoto(fig, src, credit, page, onfail){
-  const cap = credit ? `<figcaption>사진: <a href="${page}" target="_blank" rel="noopener">${esc(credit)}</a></figcaption>` : "";
+  const cap = !credit ? "" : page ? `<figcaption>사진: <a href="${page}" target="_blank" rel="noopener">${esc(credit)}</a></figcaption>` : `<figcaption>사진: ${esc(credit)}</figcaption>`;
   fig.innerHTML = `<div class="ph"><img alt="${esc(fig.dataset.alt)}" loading="lazy"></div>${cap}`;
   const img = fig.querySelector("img");
   img.onerror = onfail;

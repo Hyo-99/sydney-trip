@@ -158,7 +158,7 @@ ol.timeline{list-style:none;margin:0;padding:0;display:grid}
 .content{display:grid;gap:10px;min-width:0}
 .thumb{margin:0;width:100%;max-width:360px;display:grid;gap:4px}
 .thumb .ph{width:100%;aspect-ratio:4/3;border-radius:10px;background:var(--water);overflow:hidden;display:grid;place-items:center;color:var(--muted);font-size:12px}
-.thumb img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 .thumb figcaption{font-size:11px;color:var(--muted)}
 .thumb figcaption a{color:var(--muted)}
 @media (min-width:720px){
@@ -414,7 +414,7 @@ const DAYS = [
   {t:"10:15", s:1, name:"시드니대학교", q:"University of Sydney Quadrangle", ll:[-33.8862,151.1890], desc:"고풍스러운 본관(쿼드랭글) 구경", fee:"무료", hours:"캠퍼스 상시", via:["central"], img:"uni"},
   {t:"11:30", type:"move", name:"수산시장으로 이동", desc:"글레브 지나 도보 약 30분 또는 버스"},
   {t:"12:15", s:1, type:"meal", name:"시드니 수산시장", web:"https://www.sydneyfishmarket.com.au/", q:"Sydney Fish Market", ll:[-33.8740,151.1915], desc:"점심 · 해산물", fee:"무료 입장 (음식값 별도)", hours:"7:00~22:00 · 생선 가게는 오전이 활발", wiki:["Sydney_Fish_Market"]},
-  {t:"14:00", s:1, name:"달링 쿼터 어린이 놀이터", q:"Darling Quarter Playground", ll:[-33.8750,151.2003], desc:"아이들 놀이 시간", fee:"무료", hours:"상시", wiki:["Darling_Quarter","Darling_Harbour"]},
+  {t:"14:00", s:1, name:"달링 쿼터 어린이 놀이터", q:"Darling Quarter Playground", ll:[-33.8750,151.2003], desc:"아이들 놀이 시간", fee:"무료", hours:"상시", img:"playground"},
   {t:"15:15", s:1, name:"달링하버", web:"https://www.darlingharbour.com/", q:"Darling Harbour", ll:[-33.8722,151.1990], desc:"항구 산책", fee:"무료", hours:"상시", img:"darling"},
   {t:"16:00", s:1, name:"패디스 마켓", web:"https://www.paddysmarkets.com.au/haymarket", q:"Paddy's Markets Haymarket", ll:[-33.8806,151.2033], desc:"기념품 구경", fee:"무료 입장", hours:"수~일 10:00~18:00", wiki:["Paddy's_Markets","Haymarket,_New_South_Wales"]},
   {t:"17:30", type:"move", name:"귀가", lines:["M"], desc:"센트럴역에서 메트로", via:["central"], w:"chatswood"},
@@ -441,12 +441,13 @@ const IMG = {
   qvb:        {src:"images/qvb.jpg", credit:"모모"},
   library:    {src:"images/library.jpg", credit:"모모"},
   scenic:     {src:PEXELS(15019037), credit:"Pexels", page:"https://www.pexels.com/photo/a-cable-car-over-the-blue-mountains-in-australia-15019037/"},
-  taronga:    {src:"https://images.unsplash.com/photo-1704852149643-56470df32641?w=800&q=70&auto=format&fit=crop", credit:"Unsplash", page:"https://unsplash.com/"},
+  taronga:    {src:"images/taronga.jpg", credit:"Taronga Zoo", page:"https://www.taronga.org.au/about/building-a-zoo-for-the-future/sky-safari/upgrade"},
   mca:        {src:"images/mca.jpg", credit:"모모"},
   observatory:{src:"images/observatory.jpg", credit:"모모"},
   rocks:      {src:"images/rocks.jpg", credit:"모모"},
-  wendy:      {src:"https://images.unsplash.com/photo-1689222170034-5585b41670b8?w=800&q=70&auto=format&fit=crop", credit:"Unsplash", page:"https://unsplash.com/"},
-  pool:       {src:PEXELS(2333911),  credit:"Pexels", page:"https://www.pexels.com/photo/2333911/"},
+  wendy:      {src:"images/wendy.jpg", credit:"Wendy's Secret Garden", page:"https://www.wendyssecretgarden.org.au/location/"},
+  pool:       {src:"images/pool.jpg", credit:"North Sydney Council", page:"https://www.northsydney.nsw.gov.au/news/article/461/celebrate-the-reopening-of-north-sydney-olympic-pool"},
+  playground: {src:"images/playground.jpg", credit:"Darling Harbour", page:"https://www.darlingharbour.com/see-do-stay/darling-harbour-children-s-playground"},
   milsons:    {src:"images/milsons.jpg", credit:"모모"},
   uni:        {src:"images/usyd.jpg", credit:"모모"},
   townhall:   {src:"images/townhall.jpg", credit:"모모"},

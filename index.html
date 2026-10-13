@@ -351,21 +351,21 @@ const DAYS = [
   {t:"13:30", type:"meal", name:"점심"},
   {t:"14:45", type:"move", name:"서큘러 키로 이동", lines:["M"], w:"quay"},
   {t:"15:30", s:1, name:"오페라하우스", web:"https://www.sydneyoperahouse.com/", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"건물 외관과 앞 계단 구경, 기념사진", fee:"무료 (외관)", hours:"상시 · 내부 투어는 유료 예약", wiki:["Sydney_Opera_House"]},
-  {t:"16:30", s:1, name:"로열 보타닉 가든", web:"https://www.botanicgardens.org.au/royal-botanic-garden-sydney", q:"Royal Botanic Garden Sydney", ll:[-33.8642,151.2166], desc:"잔디밭에서 피크닉, 정원 산책", fee:"무료", hours:"7:00~19:30 (10월 기준)", wiki:["Royal_Botanic_Garden,_Sydney"]},
-  {t:"18:30", s:1, name:"매쿼리 부인의 의자", q:"Mrs Macquarie's Chair Sydney", ll:[-33.8597,151.2228], desc:"노을 감상 · 오페라하우스와 하버브릿지가 한 화면에", fee:"무료", hours:"상시", wiki:["Mrs_Macquarie's_Chair","Mrs_Macquarie's_Point"]},
+  {t:"16:30", s:1, name:"로열 보타닉 가든", web:"https://www.botanicgardens.org.au/royal-botanic-garden-sydney", q:"Royal Botanic Garden Sydney", ll:[-33.8642,151.2166], desc:"잔디밭에서 피크닉, 정원 산책", fee:"무료", hours:"7:00~19:30 (10월 기준)", img:"botanic"},
+  {t:"18:30", s:1, name:"매쿼리 부인의 의자", q:"Mrs Macquarie's Chair Sydney", ll:[-33.8597,151.2228], desc:"노을 감상 · 오페라하우스와 하버브릿지가 한 화면에", fee:"무료", hours:"상시", img:"macquarie"},
   {t:"20:00", type:"meal", name:"저녁", desc:"서큘러 키 · 더 록스"},
   {t:"21:15", type:"move", name:"귀가", lines:["M"], via:["quay"], w:"chatswood"}
  ]},
  {id:"d2", day:2, dow:"수", title:"본다이 · 시내 투어", tag:"수영장", stops:[
   {t:"07:30", type:"meal", name:"아침"},
   {t:"08:30", type:"move", name:"본다이로 출발", lines:["M","T4","B"], desc:"약 50분", w:"chatswood"},
-  {t:"09:30", s:1, name:"본다이 아이스버그 수영장", web:"https://icebergs.com.au/", q:"Bondi Icebergs Pool", ll:[-33.8948,151.2743], desc:"바닷물 수영장, 아이용 얕은 풀 · 온수 샤워", fee:"성인 10AUD, 아동 7AUD (가족권 30AUD)", hours:"6:00~18:30 · 목요일 휴무", via:["martin","bondijn"], wiki:["Bondi_Icebergs_Club","Bondi_Beach"]},
+  {t:"09:30", s:1, name:"본다이 아이스버그 수영장", web:"https://icebergs.com.au/", q:"Bondi Icebergs Pool", ll:[-33.8948,151.2743], desc:"바닷물 수영장, 아이용 얕은 풀 · 온수 샤워", fee:"성인 10AUD, 아동 7AUD (가족권 30AUD)", hours:"6:00~18:30 · 목요일 휴무", via:["martin","bondijn"], img:"bondi"},
   {t:"11:00", s:1, name:"본다이–타마라마 해안길", web:"https://sculpturebythesea.com/bondi/", q:"Tamarama Beach Sydney", ll:[-33.9010,151.2700], desc:"해안 산책, 조각 전시 Sculpture by the Sea 구경", fee:"무료", hours:"상시 (낮 시간)", wiki:["Sculpture_by_the_Sea","Bondi_to_Coogee_walk","Tamarama,_New_South_Wales"]},
   {t:"12:30", type:"meal", name:"점심", desc:"본다이"},
   {t:"13:45", type:"move", name:"타운홀역으로 이동", lines:["B","T4"], via:["bondijn"]},
   {t:"14:30", s:1, name:"시드니 타운홀", q:"Sydney Town Hall", ll:[-33.8732,151.2061], desc:"시청 건물 외관 구경", fee:"무료", hours:"외관 상시 · 내부는 행사 때만", wiki:["Sydney_Town_Hall"]},
   {t:"14:45", s:1, name:"QVB", web:"https://www.qvb.com.au/", q:"Queen Victoria Building", ll:[-33.8718,151.2067], desc:"건물 내부 구경", fee:"무료 입장", hours:"9:00~18:00 (수)", img:"qvb"},
-  {t:"16:15", s:1, name:"하이드 파크", q:"Hyde Park Sydney", ll:[-33.8731,151.2111], desc:"공원 산책, 아치볼드 분수", fee:"무료", hours:"상시", wiki:["Hyde_Park,_Sydney"]},
+  {t:"16:15", s:1, name:"하이드 파크", q:"Hyde Park Sydney", ll:[-33.8731,151.2111], desc:"공원 산책, 아치볼드 분수", fee:"무료", hours:"상시", img:"hydepark"},
   {t:"16:45", s:1, name:"세인트 메리 대성당", web:"https://stmaryscathedral.org.au/", q:"St Mary's Cathedral Sydney", ll:[-33.8711,151.2133], desc:"성당 내부 구경", fee:"무료 (기부 환영)", hours:"6:30~18:30 (평일)", wiki:["St_Mary's_Cathedral,_Sydney"]},
   {t:"17:15", s:1, name:"NSW 주립도서관", web:"https://www.sl.nsw.gov.au/", q:"State Library of NSW", ll:[-33.8661,151.2131], desc:"미첼 열람실 구경", fee:"무료", hours:"9:00~20:00 (월~목)", img:"library"},
   {t:"18:00", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역에서 메트로", via:["martin"], w:"chatswood"},
@@ -377,8 +377,8 @@ const DAYS = [
   {t:"10:00", type:"move", name:"카툼바역 도착 → 686번 버스", lines:["B"], via:["central"], w:"katoomba"},
   {t:"10:30", s:1, name:"시닉 월드", web:"https://www.scenicworld.com.au/", q:"Scenic World Katoomba", ll:[-33.7287,150.3016], desc:"레일웨이 · 스카이웨이 · 케이블웨이 · 워크웨이", fee:"사전 예약 권장 · 성인 64AUD~, 아동 38.40AUD~", hours:"9:00~17:00", img:"scenic"},
   {t:"12:45", type:"meal", name:"점심", desc:"카툼바"},
-  {t:"14:00", s:1, name:"에코 포인트 · 세 자매 바위", q:"Echo Point Lookout Katoomba", ll:[-33.7320,150.3120], desc:"세 자매 바위 전망대", fee:"무료", hours:"상시", wiki:["Three_Sisters_(Australia)"]},
-  {t:"15:15", s:1, name:"루라 마을", q:"Leura Mall NSW", ll:[-33.7124,150.3329], desc:"작은 마을 거리, 카페·상점 구경 · 카툼바역에서 기차 한 정거장", fee:"무료", hours:"상점은 대부분 17:00 무렵 마감", via:["katoomba"], wiki:["Leura,_New_South_Wales"]},
+  {t:"14:00", s:1, name:"에코 포인트 · 세 자매 바위", q:"Echo Point Lookout Katoomba", ll:[-33.7320,150.3120], desc:"세 자매 바위 전망대", fee:"무료", hours:"상시", img:"bluemountains"},
+  {t:"15:15", s:1, name:"루라 마을", q:"Leura Mall NSW", ll:[-33.7124,150.3329], desc:"작은 마을 거리, 카페·상점 구경 · 카툼바역에서 기차 한 정거장", fee:"무료", hours:"상점은 대부분 17:00 무렵 마감", via:["katoomba"], img:"leura"},
   {t:"17:00", type:"move", name:"루라역에서 기차로 귀가", lines:["BMT","M"], desc:"채스우드역 도착 약 7:30", via:["central"], w:"chatswood"},
   {t:"19:30", type:"meal", name:"저녁"}
  ]},
@@ -432,16 +432,22 @@ const DAYS = [
 const PEXELS = id => "https://images.pexels.com/photos/"+id+"/pexels-photo-"+id+".jpeg?auto=compress&cs=tinysrgb&w=800";
 const COMMONS = f => "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(f)+"?width=800";
 const IMG = {
-  qvb:        {src:PEXELS(8704313),  credit:"Pexels", page:"https://www.pexels.com/photo/brown-concrete-building-under-white-sky-8704313/"},
-  library:    {src:PEXELS(30484324), credit:"Pexels", page:"https://www.pexels.com/photo/spacious-public-library-with-skylight-and-bookshelves-30484324/"},
+  botanic:    {src:"images/botanic.jpg"},
+  macquarie:  {src:"images/macquarie.jpg"},
+  bondi:      {src:"images/bondi.jpg"},
+  bluemountains:{src:"images/bluemountains.jpg"},
+  leura:      {src:"images/leura.jpg"},
+  hydepark:   {src:"images/hydepark.jpg"},
+  qvb:        {src:"images/qvb.jpg"},
+  library:    {src:"images/library.jpg"},
   scenic:     {src:PEXELS(15019037), credit:"Pexels", page:"https://www.pexels.com/photo/a-cable-car-over-the-blue-mountains-in-australia-15019037/"},
   taronga:    {src:"https://images.unsplash.com/photo-1704852149643-56470df32641?w=800&q=70&auto=format&fit=crop", credit:"Unsplash", page:"https://unsplash.com/"},
-  mca:        {src:COMMONS("The_Museum_of_Contemporary_Art,_Sydney.jpg"), credit:"Wikimedia Commons", page:"https://commons.wikimedia.org/wiki/File:The_Museum_of_Contemporary_Art,_Sydney.jpg"},
-  observatory:{src:"https://unsplash.com/photos/Q2qcnjLf7DI/download?w=800", credit:"Unsplash", page:"https://unsplash.com/photos/a-large-bridge-over-a-river-next-to-a-lush-green-field-Q2qcnjLf7DI", wiki:["Sydney_Observatory"]},
-  rocks:      {src:PEXELS(2853626),  credit:"Pexels", page:"https://www.pexels.com/photo/2853626/"},
+  mca:        {src:"images/mca.jpg"},
+  observatory:{src:"images/observatory.jpg"},
+  rocks:      {src:"images/rocks.jpg"},
   wendy:      {src:"https://images.unsplash.com/photo-1689222170034-5585b41670b8?w=800&q=70&auto=format&fit=crop", credit:"Unsplash", page:"https://unsplash.com/"},
   pool:       {src:PEXELS(2333911),  credit:"Pexels", page:"https://www.pexels.com/photo/2333911/"},
-  milsons:    {src:COMMONS("MV_Pemulwuy_at_Milsons_Point,_November_2016_(4).jpg"), credit:"Wikimedia Commons", page:"https://commons.wikimedia.org/wiki/File:MV_Pemulwuy_at_Milsons_Point,_November_2016_(4).jpg"},
+  milsons:    {src:"images/milsons.jpg"},
   uni:        {src:PEXELS(34494498), credit:"Pexels", page:"https://www.pexels.com/photo/34494498/"},
   ghost:      {src:"https://www.therocks.com/getmedia/846c46b6-0e56-460d-bd1f-651a50004e78/ghost-festival-first-fleet-park.png?width=1200", credit:"The Rocks", page:"https://www.therocks.com/whats-on/campaigns/ghost-in-the-rocks"}
 };
@@ -581,7 +587,8 @@ initLeaflet();
 
 /* fetch each photo when it scrolls near the screen */
 function showPhoto(fig, src, credit, page, onfail){
-  fig.innerHTML = `<div class="ph"><img alt="${esc(fig.dataset.alt)}" loading="lazy"></div><figcaption>사진: <a href="${page}" target="_blank" rel="noopener">${esc(credit)}</a></figcaption>`;
+  const cap = credit ? `<figcaption>사진: <a href="${page}" target="_blank" rel="noopener">${esc(credit)}</a></figcaption>` : "";
+  fig.innerHTML = `<div class="ph"><img alt="${esc(fig.dataset.alt)}" loading="lazy"></div>${cap}`;
   const img = fig.querySelector("img");
   img.onerror = onfail;
   img.src = src;

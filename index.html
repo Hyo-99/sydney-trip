@@ -686,8 +686,14 @@ function initLeaflet(){
       if (p.kind==="sight") markers[p.key] = {m, map};
       else markers[p.key] = markers[p.key] || {m, map};
     });
-    map.fitBounds(lls,{padding:[28,28],maxZoom:16});
-    setTimeout(()=>map.invalidateSize(),300);
+    const fit = ()=>{ map.invalidateSize(); map.fitBounds(lls,{padding:[28,28],maxZoom:16}); };
+    fit();
+    setTimeout(fit,300);
+    /* the map box can be sized late (hidden pane, slow layout): refit once it is really visible */
+    if ("IntersectionObserver" in window){
+      const io = new IntersectionObserver(es=>{ if (es[0].isIntersecting){ io.disconnect(); fit(); } });
+      io.observe(el);
+    }
   });
   document.querySelectorAll("li[data-key]").forEach(li=>{
     li.addEventListener("click",e=>{

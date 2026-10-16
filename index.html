@@ -291,6 +291,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted)}
           <li><input type="checkbox" id="c6-1"><label for="c6-1"><span>현지 맥도날드 먹어 보기</span><span class="sub">McDonald's Plaza Metro George St 또는 서큘러 키 앞 매장 · 호주 치킨, 소고기 👍</span></label></li>
           <li><input type="checkbox" id="c6-2"><label for="c6-2"><span>스테이크 &amp; 파르마 (호주식)</span></label></li>
           <li><input type="checkbox" id="c6-3"><label for="c6-3"><span>피시 앤 칩스</span></label></li>
+          <li><input type="checkbox" id="c6-10"><label for="c6-10"><span>미트파이</span><span class="sub">호주 국민 간식 · 다진 소고기 + 그레이비 소스를 넣은 파이</span></label></li>
           <li><input type="checkbox" id="c6-4"><label for="c6-4"><span>시드니 3대(?) 커피</span><span class="sub">캄포스 커피 / 검션 커피 / 싱글오</span></label></li>
           <li><input type="checkbox" id="c6-5"><label for="c6-5"><span>메시나 젤라또</span></label></li>
           <li><input type="checkbox" id="c6-6"><label for="c6-6"><span>부스트 주스</span></label></li>
@@ -415,18 +416,19 @@ const DAYS = [
  {id:"d6", day:6, dow:"일", title:"맨리 · 수산시장 · 달링하버 · QVB 쇼핑", tag:"마지막 여행 날", stops:[
   {t:"08:00", type:"meal", name:"아침"},
   {t:"08:45", type:"move", name:"서큘러 키로 출발", lines:["M"], desc:"마틴 플레이스역에서 내려 걸어서 약 12분", via:["chatswood","martin"], w:"quay"},
-  {t:"09:30", type:"move", name:"맨리행 페리", lines:["F"], desc:"F1 · 약 30분 · 일반 페리만 오팔 사용 가능 (고속 페리는 안 됨)", w:"manly"},
+  {t:"09:30", type:"move", name:"맨리행 페리", lines:["F"], desc:"F1 일반 페리 약 30분 · 맨리 고속 페리(약 20분)도 오팔 사용 가능, 요금 동일", w:"manly"},
   {t:"10:00", s:1, name:"맨리 비치", q:"Manly Beach", ll:[-33.7970,151.2885], desc:"코르소 거리 지나 해변 산책, 모래놀이", fee:"무료", hours:"상시", wiki:["Manly_Beach","Manly,_New_South_Wales"]},
   {t:"10:45", s:1, name:"셸리 비치", q:"Shelly Beach Manly", ll:[-33.8000,151.2975], desc:"파도가 잔잔한 작은 만, 아이들 발 담그기", fee:"무료", hours:"상시", wiki:["Shelly_Beach_(Manly)","Cabbage_Tree_Bay"]},
   {t:"11:45", type:"move", name:"페리로 서큘러 키 복귀", lines:["F"], via:["manly"], w:"quay"},
   {t:"12:30", type:"move", name:"라이트레일로 수산시장", lines:["LR"], desc:"L2 서큘러 키 → 센트럴, L1 센트럴 → 피시 마켓역 · 약 40분", via:["central"], w:"fishlr"},
   {t:"13:15", s:1, type:"meal", name:"시드니 수산시장", web:"https://www.sydneyfishmarket.com.au/", q:"Sydney Fish Market", ll:[-33.8740,151.1915], desc:"점심 · 해산물", fee:"무료 입장 (음식값 별도)", hours:"7:00~22:00 · 생선 가게는 오전이 활발", wiki:["Sydney_Fish_Market"]},
   {t:"14:30", s:1, name:"달링 쿼터 어린이 놀이터", q:"Darling Quarter Playground", ll:[-33.8750,151.2003], desc:"아이들 놀이 시간 · 달링하버 산책", fee:"무료", hours:"상시", img:"playground"},
-  {t:"15:30", s:1, name:"시드니 타운홀", q:"Sydney Town Hall", ll:[-33.8732,151.2061], desc:"시청 건물 외관 구경", fee:"무료", hours:"외관 상시 · 내부는 행사 때만", img:"townhall"},
-  {t:"15:45", s:1, name:"QVB · 아케이드", web:"https://www.qvb.com.au/", q:"Queen Victoria Building", ll:[-33.8718,151.2067], desc:"QVB 건물 구경 · 주변 아케이드(스트랜드 아케이드 등) 쇼핑", fee:"무료 입장", hours:"일요일 11:00~17:00", img:"qvb"},
-  {t:"16:30", s:1, name:"레고 스토어 (for kids)", q:"LEGO Store Pitt Street Mall Sydney", ll:[-33.8700,151.2085], desc:"피트 스트리트 몰 · 2층 규모의 큰 레고 매장", fee:"무료 입장", hours:"시간은 방문 전 확인", wiki:["Pitt_Street_Mall"]},
-  {t:"17:15", type:"move", name:"귀가", lines:["M"], desc:"가디갈역에서 메트로", via:["gadigal"], w:"chatswood"},
-  {t:"18:00", type:"meal", name:"저녁 · 짐 싸기"}
+  {t:"15:15", s:1, name:"패디스 마켓", web:"https://www.paddysmarkets.com.au/haymarket/trading-hours", q:"Paddy's Markets Haymarket", ll:[-33.8796,151.2047], desc:"놀이터에서 걸어서 약 10분 · 차이나타운 옆 큰 실내 시장 · 기념품, 저렴한 잡화, 과일", fee:"무료 입장", hours:"수~일 10:00~18:00 · 월·화 휴무", wiki:["Paddy's_Markets"]},
+  {t:"16:00", s:1, name:"시드니 타운홀", q:"Sydney Town Hall", ll:[-33.8732,151.2061], desc:"시청 건물 외관 구경", fee:"무료", hours:"외관 상시 · 내부는 행사 때만", img:"townhall"},
+  {t:"16:15", s:1, name:"QVB · 아케이드", web:"https://www.qvb.com.au/", q:"Queen Victoria Building", ll:[-33.8718,151.2067], desc:"QVB 건물 구경 · 주변 아케이드(스트랜드 아케이드 등) 쇼핑", fee:"무료 입장", hours:"일요일 11:00~17:00", img:"qvb"},
+  {t:"16:45", s:1, name:"레고 스토어 (for kids)", q:"LEGO Store Pitt Street Mall Sydney", ll:[-33.8700,151.2085], desc:"피트 스트리트 몰 · 2층 규모의 큰 레고 매장", fee:"무료 입장", hours:"시간은 방문 전 확인", wiki:["Pitt_Street_Mall"]},
+  {t:"17:30", type:"move", name:"귀가", lines:["M"], desc:"가디갈역에서 메트로", via:["gadigal"], w:"chatswood"},
+  {t:"18:15", type:"meal", name:"저녁 · 짐 싸기"}
  ]},
  {id:"d7", day:7, dow:"월", title:"출국", tag:"12:15 출발", stops:[
   {t:"07:00", type:"meal", name:"아침"},

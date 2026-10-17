@@ -111,7 +111,15 @@ section.day{scroll-margin-top:64px;padding-block:30px 10px;border-bottom:1px sol
 .dayhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-bottom:14px}
 .dayhead .date{font-family:var(--font-display);font-size:28px}
 .dayhead .date small{font-size:16px}
-.dayhead h2{font-size:18px;margin:0;font-weight:600;text-wrap:balance}
+.dayhead h2{flex-basis:100%;font-size:16px;line-height:1.55;margin:2px 0 0;font-weight:600;text-wrap:pretty}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;margin:-4px 0 14px}
+.opt{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:14px}
+.opt b{font-weight:700;margin-right:8px}
+.opt.minus b{color:var(--muted)}
+.opt.plus b{color:var(--accent)}
+.opt .optnote{font-size:12px;color:var(--muted)}
+.opt ul{margin:6px 0 0;padding-left:18px}
+.opt li{margin:2px 0}
 .dayhead .tag{font-size:12px;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 9px;font-weight:600}
 
 .mapcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:18px}
@@ -225,7 +233,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted)}
           <li><input type="checkbox" id="c2-5"><label for="c2-5"><span>샌들이나 아쿠아슈즈 (수영장 · 해변)</span></label></li>
           <li><input type="checkbox" id="c2-6"><label for="c2-6"><span>멀미 봉투</span><span class="sub">버스 탈 일이 있어요.</span></label></li>
           <li><input type="checkbox" id="c2-11"><label for="c2-11"><span>상비약</span><span class="sub">아이들 상비약과 멀미약만 필요하면 챙겨 오기. 진통제와 소화제는 모모가 현지에서 준비해요.</span></label></li>
-          <li><input type="checkbox" id="c2-12"><label for="c2-12"><span>수영장 준비물: 수영복, 수건, 갈아입을 옷, 아이 샴푸·바디워시</span><span class="sub">4일째 노스 시드니 올림픽 수영장용이에요. 온수 수영장이고 가족 탈의실이 있어서 아이들 씻기기 편해요. 수건은 꼭 챙겨 오기.</span></label></li>
+          <li><input type="checkbox" id="c2-12"><label for="c2-12"><span>수영장 준비물: 수영복, 수건, 갈아입을 옷, 아이 샴푸·바디워시</span><span class="sub">5일째 노스 시드니 올림픽 수영장용이에요. 온수 수영장이고 가족 탈의실이 있어서 아이들 씻기기 편해요. 수건은 꼭 챙겨 오기.</span></label></li>
           <li><input type="checkbox" id="c2-7"><label for="c2-7"><span>접이식 우산 (가구당 1~2개면 충분)</span>
             <span class="sub">일기예보가 잘 안 맞고, 비가 와도 금방 그치는 경우가 많아요. 공기가 깨끗해서 비도 깨끗한 편이라 현지 사람들은 그냥 맞고 다녀요.</span></label></li>
           <li><input type="checkbox" id="c2-8"><label for="c2-8"><span>젓가락, 나무젓가락, 종이컵 여러 개</span>
@@ -344,95 +352,102 @@ const WP = {
   milsons:  {name:"밀슨스 포인트역",   q:"Milsons Point Station",           ll:[-33.8461,151.2118]},
   twharf:   {name:"타롱가 선착장",     q:"Taronga Zoo Wharf",               ll:[-33.8455,151.2393]},
   manly:    {name:"맨리 선착장",       q:"Manly Wharf",                     ll:[-33.8000,151.2843]},
-  fishlr:   {name:"피시 마켓역 (라이트레일)", q:"Fish Market Light Rail Stop Sydney", ll:[-33.8729,151.1944]}
+  fishlr:   {name:"피시 마켓역 (라이트레일)", q:"Fish Market Light Rail Stop Sydney", ll:[-33.8729,151.1944]},
+  stjames:  {name:"세인트 제임스역",   q:"St James Station Sydney",         ll:[-33.8708,151.2112]},
+  townhall: {name:"타운홀역",          q:"Town Hall Station Sydney",        ll:[-33.8735,151.2068]},
+  leurast:  {name:"루라역",            q:"Leura Station",                   ll:[-33.7121,150.3312]},
+  milwharf: {name:"밀슨스 포인트 선착장", q:"Milsons Point Wharf",          ll:[-33.8488,151.2101]}
 };
 /* s = sight (numbered), w = waypoint on this timeline item, via = waypoints passed before this item (map only)
    fee / hours = shown under each sight; img = chosen photo, wiki = Wikipedia fallback photos */
 const DAYS = [
- {id:"d1", day:1, dow:"화", title:"도착 · 오페라하우스 · 하버 노을", tag:"일몰 약 7:20", stops:[
+ {id:"d1", day:1, dow:"화", out:"13:40", title:"도착 · 채스우드 점심 · 맨리 비치 (피시 앤 칩스) · 오페라하우스 & 오페라 바 · 채스우드 슈퍼마켓 장보기 · 숙소 저녁", stops:[
   {t:"10:15", type:"move", name:"시드니 공항 착륙", w:"airport"},
-  {t:"11:00", type:"move", name:"공항 나와서 숙소로 출발", lines:["B","T8","M"], desc:"420번 버스 → 마스콧역 → T8 → 센트럴역 → 메트로 → 채스우드역 → 도보 6분"},
+  {t:"11:00", type:"move", name:"공항 나와서 숙소로 출발", lines:["B","T8","M"], desc:"420번 버스 → 마스콧역 → T8 → 센트럴역 → 메트로 → 채스우드역 → 도보 7분"},
   {t:"12:20", type:"move", name:"숙소 도착", desc:"얼리체크인 가능하면 하고, 불가하면 짐만 맡기기", via:["mascot","central"], w:"chatswood"},
-  {t:"12:45", type:"meal", name:"점심", desc:"채스우드역 상점가에서 Dine-in 또는 Takeaway · 슈퍼에서 피크닉 간식 구입"},
-  {t:"14:20", type:"move", name:"오페라하우스로 이동", lines:["M"], desc:"마틴 플레이스역에서 내려 걸어서 약 15분", w:"martin"},
-  {t:"15:00", s:1, name:"오페라하우스", web:"https://www.sydneyoperahouse.com/", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"건물 외관과 앞 계단 구경", fee:"무료 (외관)", hours:"상시 · 내부 투어는 유료 예약", wiki:["Sydney_Opera_House"]},
-  {t:"15:30", s:1, name:"로열 보타닉 가든", web:"https://www.botanicgardens.org.au/royal-botanic-garden-sydney", q:"Royal Botanic Garden Sydney", ll:[-33.8642,151.2166], desc:"잔디밭에서 피크닉, 정원 산책", fee:"무료", hours:"7:00~19:30 (10월 기준)", img:"botanic"},
-  {t:"16:30", s:1, name:"매쿼리 부인의 의자", q:"Mrs Macquarie's Chair Sydney", ll:[-33.8597,151.2228], desc:"걸어서 이동 · 노을 감상 (일몰 약 19:20) · 오페라하우스와 하버브릿지가 한 화면에", fee:"무료", hours:"상시", img:"macquarie"},
-  {t:"19:45", type:"meal", name:"저녁 (외식)", desc:"서큘러 키 · 더 록스"},
-  {t:"21:00", type:"move", name:"귀가", lines:["M"], via:["martin"], w:"chatswood"}
+  {t:"12:40", type:"meal", name:"점심 (외식)", desc:"채스우드역 주변"},
+  {t:"13:40", type:"move", name:"숙소 출발 → 서큘러 키", lines:["M"], desc:"메트로로 마틴 플레이스역 → 걸어서 약 12분", via:["martin"], w:"quay"},
+  {t:"14:30", type:"move", name:"맨리행 페리", lines:["F"], desc:"고속 페리 약 20분 또는 F1 일반 페리 약 30분 · 둘 다 오팔 사용 가능, 요금 같음 · 오페라하우스와 하버브릿지 옆을 지나가요", w:"manly"},
+  {t:"15:00", s:1, name:"맨리 비치", q:"Manly Beach", ll:[-33.7970,151.2885], desc:"코르소 거리 지나 해변 산책, 모래놀이 · 피시 앤 칩스 간식", fee:"무료", hours:"상시", wiki:["Manly_Beach","Manly,_New_South_Wales"]},
+  {t:"16:45", type:"move", name:"페리로 서큘러 키 복귀", lines:["F"], via:["manly"], w:"quay"},
+  {t:"17:30", s:1, name:"오페라하우스", web:"https://www.sydneyoperahouse.com/", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"서큘러 키에서 걸어서 약 5분 · 건물 외관과 앞 계단 구경", fee:"무료 (외관)", hours:"상시 · 내부 투어는 유료 예약", wiki:["Sydney_Opera_House"]},
+  {t:"18:00", s:1, name:"오페라 바", web:"https://operabar.com.au/", q:"Opera Bar Sydney", ll:[-33.8580,151.2127], desc:"하버브릿지를 보며 음료 한잔 · 해 질 녘까지 (일몰 약 7:05)", fee:"음료값 별도", hours:"매일 낮~밤 (방문 전 확인)", wiki:["Sydney_Opera_House"]},
+  {t:"19:15", type:"move", name:"채스우드로 귀가", lines:["M"], desc:"마틴 플레이스역까지 걸어서 약 15분 → 메트로", via:["martin"], w:"chatswood"},
+  {t:"19:50", s:1, name:"슈퍼마켓 장보기", q:"Woolworths Chatswood", ll:[-33.7964,151.1828], desc:"저녁거리, 도시락 재료, 아침거리, 군것질거리 · 늦은 시간이니 저녁은 통닭·샐러드처럼 바로 먹을 수 있는 걸로 하면 편해요", fee:"", hours:"보통 밤까지 영업 (방문 전 확인)"},
+  {t:"20:30", type:"meal", name:"저녁 (숙소)"}
  ]},
- {id:"d2", day:2, dow:"수", title:"타롱가 주 · 미술관 · 대성당 · 하이드 파크", tag:"페리", stops:[
-  {t:"07:30", type:"meal", name:"아침"},
-  {t:"08:15", type:"move", name:"서큘러 키로 출발", lines:["M"], desc:"마틴 플레이스역에서 내려 걸어서 약 12분", via:["chatswood","martin"], w:"quay"},
-  {t:"08:45", type:"move", name:"타롱가행 페리", lines:["F"], desc:"4번 부두 · 약 12분 · 30분 간격"},
-  {t:"09:00", type:"move", name:"셔틀버스로 동물원 위쪽 입구", lines:["B"], desc:"무료 셔틀(Zoo Express) · 케이블카(Sky Safari)는 공사로 운행 안 함", w:"twharf"},
-  {t:"09:30", s:1, name:"타롱가 주", web:"https://www.taronga.org.au/sydney-zoo", q:"Taronga Zoo Sydney", ll:[-33.8430,151.2412], desc:"개장 시간에 입장 · 기린 구역 먼저 · 11:00 물개 공연, 12:00 새 공연 · 위에서 아래로 내려오며 구경", fee:"온라인 예매 권장 · 성인 51.30AUD~, 아동 29.70AUD~ (가족권 있음)", hours:"9:30~17:00", img:"taronga"},
-  {t:"12:30", type:"meal", name:"점심", desc:"동물원 안 (도시락도 좋아요)"},
-  {t:"13:30", type:"move", name:"페리로 서큘러 키 복귀", lines:["F"], via:["twharf"], w:"quay"},
-  {t:"14:15", s:1, name:"NSW 주립도서관", web:"https://www.sl.nsw.gov.au/", q:"State Library of NSW", ll:[-33.8661,151.2131], desc:"미첼 열람실 구경", fee:"무료", hours:"9:00~20:00 (월~목)", img:"library"},
-  {t:"15:00", s:1, name:"NSW 주립미술관", web:"https://www.artgallery.nsw.gov.au/", q:"Art Gallery of New South Wales", ll:[-33.8688,151.2174], desc:"상설전 관람 · 미술관 카페에서 쉬기", fee:"무료 (일부 특별전 유료)", hours:"10:00~17:00 · 수요일은 22:00까지", wiki:["Art_Gallery_of_New_South_Wales"]},
-  {t:"16:45", s:1, name:"세인트 메리 대성당", web:"https://stmaryscathedral.org.au/", q:"St Mary's Cathedral Sydney", ll:[-33.8711,151.2133], desc:"성당 내부 구경", fee:"무료 (기부 환영)", hours:"6:30~18:30 (평일)", img:"stmary"},
-  {t:"17:15", s:1, name:"하이드 파크", q:"Hyde Park Sydney", ll:[-33.8731,151.2111], desc:"공원 산책, 아치볼드 분수", fee:"무료", hours:"상시", img:"hydepark"},
-  {t:"17:45", type:"move", name:"귀가", lines:["M"], desc:"가디갈역에서 메트로", via:["gadigal"], w:"chatswood"},
-  {t:"18:30", type:"meal", name:"저녁"}
+ {id:"d2", day:2, dow:"수", out:"07:55", title:"타롱가 주 (위쪽부터 핵심만) · 하이드 파크 · 세인트 메리 대성당 · 주립미술관 (수요일 야간 개장) · 주립도서관 · 숙소 저녁",
+  minus:["타롱가 주 체류 시간 줄이기","하이드 파크 · 대성당 · 미술관 · 도서관 중 일부 생략"], stops:[
+  {t:"07:15", type:"meal", name:"아침 · 도시락 싸기"},
+  {t:"07:55", type:"move", name:"숙소 출발 → 서큘러 키", lines:["M"], desc:"메트로로 마틴 플레이스역 → 걸어서 약 12분", via:["chatswood","martin"], w:"quay"},
+  {t:"08:45", type:"move", name:"타롱가행 페리", lines:["F"], desc:"약 12분 · 30분 간격이라 전날 시간표 확인"},
+  {t:"09:00", type:"move", name:"238번 버스로 동물원 위쪽 정문", lines:["B"], desc:"케이블카(스카이 사파리)는 공사로 2027년 말까지 운행 안 함 · 붐비는 날엔 동물원 셔틀버스도 운행", w:"twharf"},
+  {t:"09:30", s:1, name:"타롱가 주", web:"https://www.taronga.org.au/sydney-zoo", q:"Taronga Zoo Sydney", ll:[-33.8430,151.2412], desc:"언덕이라 위쪽 정문에서 시작해 내려오며 핵심만 구경 · 11:00 물개 공연 · 도시락 점심 · 아래쪽 입구로 나오면 선착장까지 걸어서 3분", fee:"온라인 예매 권장 · 성인 51.30AUD~, 아동 29.70AUD~ (가족권 있음)", hours:"9:30~17:00", img:"taronga"},
+  {t:"14:00", type:"move", name:"페리로 서큘러 키", lines:["F"], via:["twharf"], w:"quay"},
+  {t:"14:30", type:"move", name:"기차로 세인트 제임스역", lines:["T8"], desc:"시티 서클 기차 (T2·T3·T8 아무거나) · 약 5분", w:"stjames"},
+  {t:"14:45", s:1, name:"하이드 파크", q:"Hyde Park Sydney", ll:[-33.8722,151.2113], desc:"공원 산책, 아치볼드 분수 · 간식 피크닉", fee:"무료", hours:"상시", img:"hydepark"},
+  {t:"15:20", s:1, name:"세인트 메리 대성당", web:"https://stmaryscathedral.org.au/", q:"St Mary's Cathedral Sydney", ll:[-33.8711,151.2133], desc:"성당 내부 구경 · 미술관보다 먼저 (평일 18:30에 닫아요)", fee:"무료 (기부 환영)", hours:"6:30~18:30 (평일)", img:"stmary"},
+  {t:"15:50", s:1, name:"NSW 주립미술관", web:"https://www.artgallery.nsw.gov.au/", q:"Art Gallery of New South Wales", ll:[-33.8688,151.2174], desc:"상설전 관람 · 미술관 카페에서 쉬기", fee:"무료 (일부 특별전 유료)", hours:"10:00~17:00 · 수요일은 밤까지 야간 개장", wiki:["Art_Gallery_of_New_South_Wales"]},
+  {t:"17:45", s:1, name:"NSW 주립도서관", web:"https://www.sl.nsw.gov.au/", q:"State Library of NSW", ll:[-33.8661,151.2131], desc:"미첼 열람실 구경 · 마틴 플레이스역과 가까워 마지막 순서", fee:"무료", hours:"월~목 9:00~20:00", img:"library"},
+  {t:"18:20", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역에서 메트로, 환승 없이 채스우드까지", via:["martin"], w:"chatswood"},
+  {t:"18:50", type:"meal", name:"저녁 (숙소)"}
  ]},
- {id:"d3", day:3, dow:"목", title:"블루마운틴 · 루라 마을", tag:"편도 약 2시간 30분", stops:[
-  {t:"06:45", type:"meal", name:"아침"},
-  {t:"07:30", type:"move", name:"채스우드역 출발", lines:["M","BMT"], desc:"센트럴역에서 블루마운틴선으로 환승 · 기차 시간은 전날 앱으로 확인", w:"chatswood"},
-  {t:"10:00", type:"move", name:"카툼바역 도착 → 686번 버스", lines:["B"], via:["central"], w:"katoomba"},
-  {t:"10:30", s:1, name:"시닉 월드", web:"https://www.scenicworld.com.au/", q:"Scenic World Katoomba", ll:[-33.7287,150.3016], desc:"레일웨이 · 스카이웨이 · 케이블웨이 · 워크웨이", fee:"사전 예약 권장 · 성인 64AUD~, 아동 38.40AUD~", hours:"9:00~17:00", img:"scenic"},
-  {t:"12:45", type:"meal", name:"점심", desc:"카툼바"},
-  {t:"14:00", s:1, name:"에코 포인트 · 세 자매 바위", q:"Echo Point Lookout Katoomba", ll:[-33.7320,150.3120], desc:"세 자매 바위 전망대", fee:"무료", hours:"상시", img:"bluemountains"},
-  {t:"15:15", s:1, name:"루라 마을", q:"Leura Mall NSW", ll:[-33.7124,150.3329], desc:"작은 마을 거리, 카페·상점 구경 · 카툼바역에서 기차 한 정거장", fee:"무료", hours:"상점은 대부분 17:00 무렵 마감", via:["katoomba"], img:"leura"},
-  {t:"17:00", type:"move", name:"루라역에서 기차로 귀가", lines:["BMT","M"], desc:"채스우드역 도착 약 7:30", via:["central"], w:"chatswood"},
-  {t:"19:30", type:"meal", name:"저녁"}
+ {id:"d3", day:3, dow:"목", out:"07:35", title:"블루마운틴 · 시닉 월드 · 루라 마을 (도시락 점심) · 숙소 저녁", stops:[
+  {t:"07:00", type:"meal", name:"아침 · 도시락 싸기"},
+  {t:"07:35", type:"move", name:"숙소 출발 → 07:51 기차", lines:["M","BMT"], desc:"센트럴역에서 블루마운틴선 · 07:51이 센트럴역 출발 시각이라면 07:05에 나와야 해요. 전날 앱으로 꼭 확인", w:"chatswood"},
+  {t:"10:45", type:"move", name:"카툼바역 도착 → 686번 버스", lines:["B"], via:["central"], w:"katoomba"},
+  {t:"11:15", s:1, name:"시닉 월드", web:"https://www.scenicworld.com.au/", q:"Scenic World Katoomba", ll:[-33.7287,150.3016], desc:"레일웨이 · 스카이웨이 · 케이블웨이 · 워크웨이", fee:"사전 예약 권장 · 성인 64AUD~, 아동 38.40AUD~", hours:"평일 10:00~16:00", img:"scenic"},
+  {t:"13:00", type:"move", name:"686번 버스 → 기차 한 정거장 루라역", lines:["B","BMT"], via:["katoomba"], w:"leurast"},
+  {t:"13:30", s:1, type:"meal", name:"루라 마을", q:"Leura Mall NSW", ll:[-33.7124,150.3329], desc:"도시락 점심 · 작은 마을 거리, 카페·상점 구경", fee:"무료", hours:"상점은 대부분 17:00 무렵 마감", img:"leura"},
+  {t:"16:30", type:"move", name:"루라역에서 기차로 귀가", lines:["BMT","M"], desc:"채스우드 도착 약 7:00~7:30", via:["leurast","central"], w:"chatswood"},
+  {t:"19:30", type:"meal", name:"저녁 (숙소)"}
  ]},
- {id:"d4", day:4, dow:"금", title:"노스 시드니 수영장 · 시크릿 가든 · 하버브릿지 · 천문대", tag:"수영장", stops:[
+ {id:"d4", day:4, dow:"금", out:"08:35", title:"수산시장 (구경·점심) · 시드니대학교 · 싱글오 카페 · 패디스 마켓 · 타운홀 · QVB · 로열 아케이드 · 레고 스토어 · 달링하버 놀이터 · 달링하버 저녁 & 야경",
+  minus:["시드니대학교","수산시장 (빼면 숙소 출발 10:00)","달링하버 (놀이터 · 저녁 · 야경)"], stops:[
   {t:"08:00", type:"meal", name:"아침"},
-  {t:"09:00", type:"move", name:"밀슨스 포인트역 도착", lines:["T1"], desc:"채스우드역에서 약 15분", via:["chatswood"], w:"milsons"},
-  {t:"09:15", s:1, name:"노스 시드니 올림픽 수영장", web:"https://northsydneyolympicpool.com.au/", q:"North Sydney Olympic Pool", ll:[-33.8478,151.2113], desc:"하버브릿지 아래 온수 수영장, 아이 물놀이장 · 가족 탈의실", fee:"성인 11AUD, 아동 8.80AUD", hours:"매일 운영 · 시간은 홈페이지 확인", img:"pool"},
-  {t:"11:45", type:"meal", name:"점심", desc:"밀슨스 포인트 · 키리빌리"},
-  {t:"13:00", s:1, name:"웬디 화이틀리 시크릿 가든", web:"https://www.wendyssecretgarden.org.au/", q:"Wendy Whiteley's Secret Garden", ll:[-33.8455,151.2066], desc:"정원 산책 · 계단이 가파르니 편한 신발", fee:"무료", hours:"상시 (낮 시간 권장)", img:"wendy"},
-  {t:"14:15", s:1, name:"하버브릿지 걸어서 건너기", q:"Sydney Harbour Bridge", ll:[-33.8523,151.2108], desc:"밀슨스 포인트 → 더 록스, 약 30~40분 · 다리 위에서 오페라하우스와 하버 전망", fee:"무료", hours:"상시", img:"milsons"},
-  {t:"15:00", s:1, name:"시드니 천문대", web:"https://powerhouse.com.au/visit/sydney-observatory", q:"Sydney Observatory", ll:[-33.8597,151.2048], desc:"천문 전시 구경, 언덕 잔디밭에서 하버브릿지 보며 쉬기", fee:"무료 전시 · 가이드 투어는 유료 예약", hours:"수~일 (시간 사전 확인)", img:"observatory"},
-  {t:"16:15", type:"move", name:"귀가", lines:["T1"], desc:"윈야드역에서 T1, 채스우드까지 한 번에", via:["wynyard"], w:"chatswood"},
-  {t:"18:30", type:"meal", name:"저녁"}
+  {t:"08:35", type:"move", name:"숙소 출발 → 수산시장", lines:["M","LR"], desc:"메트로로 센트럴역 → 라이트레일 L1 → 피시 마켓역", via:["central"], w:"fishlr"},
+  {t:"09:30", s:1, type:"meal", name:"시드니 수산시장", web:"https://www.sydneyfishmarket.com.au/", q:"Sydney Fish Market", ll:[-33.8740,151.1915], desc:"구경 (오전이 가장 활기차요) · 11:30 이른 점심 (해산물)", fee:"무료 입장 (음식값 별도)", hours:"7:00~22:00", wiki:["Sydney_Fish_Market"]},
+  {t:"12:00", s:1, name:"시드니대학교", web:"https://www.sydney.edu.au/", q:"University of Sydney Quadrangle", ll:[-33.8858,151.1890], desc:"버스 약 15분 또는 걸어서 약 25분 · 본관 쿼드랭글 중심으로 짧게", fee:"무료", hours:"캠퍼스 상시", img:"uni"},
+  {t:"13:15", s:1, name:"싱글오 카페", web:"https://singleo.com.au/surryhills/", q:"Single O Surry Hills", ll:[-33.8814,151.2097], desc:"버스로 센트럴역 → 걸어서 약 10분 · 서리힐스의 유명 커피집", fee:"음료값 별도", hours:"평일 7:00~15:30", wiki:["Surry_Hills,_New_South_Wales"]},
+  {t:"14:15", s:1, name:"패디스 마켓", web:"https://www.paddysmarkets.com.au/haymarket/trading-hours", q:"Paddy's Markets Haymarket", ll:[-33.8796,151.2047], desc:"걸어서 약 15분 · 차이나타운 옆 큰 실내 시장 · 기념품, 저렴한 잡화, 과일", fee:"무료 입장", hours:"수~일 10:00~18:00", wiki:["Paddy's_Markets"]},
+  {t:"15:15", s:1, name:"시드니 타운홀", q:"Sydney Town Hall", ll:[-33.8732,151.2061], desc:"걸어서 약 10분 · 시청 건물 외관 구경", fee:"무료", hours:"외관 상시", img:"townhall"},
+  {t:"15:30", s:1, name:"QVB · 로열 아케이드", web:"https://www.qvb.com.au/", q:"Queen Victoria Building", ll:[-33.8718,151.2067], desc:"QVB 건물 구경 · 로열 아케이드 등 주변 아케이드 쇼핑", fee:"무료 입장", hours:"평일 상점은 대부분 18:00 무렵 마감", img:"qvb"},
+  {t:"16:30", s:1, name:"레고 스토어 (for kids)", q:"LEGO Store Pitt Street Mall Sydney", ll:[-33.8700,151.2085], desc:"피트 스트리트 몰 · 2층 규모의 큰 레고 매장", fee:"무료 입장", hours:"시간은 방문 전 확인", wiki:["Pitt_Street_Mall"]},
+  {t:"17:00", s:1, name:"달링 쿼터 어린이 놀이터", q:"Darling Quarter Playground", ll:[-33.8750,151.2003], desc:"걸어서 약 15분 · 아이들 놀이 시간", fee:"무료", hours:"상시", img:"playground"},
+  {t:"18:15", s:1, type:"meal", name:"달링하버 저녁 & 야경", q:"Darling Harbour Sydney", ll:[-33.8720,151.1993], desc:"저녁 (외식) · 해 진 뒤 야경 (일몰 약 7:10)", fee:"음식값 별도", hours:"상시", img:"darling"},
+  {t:"20:00", type:"move", name:"귀가", lines:["T1"], desc:"타운홀역에서 T1, 환승 없이 채스우드까지", via:["townhall"], w:"chatswood"}
  ]},
- {id:"d5", day:5, dow:"토", title:"본다이 · 왓슨스 베이 · 할로윈 · 하버 야경", tag:"할로윈", stops:[
-  {t:"07:30", type:"meal", name:"아침"},
-  {t:"08:15", type:"move", name:"본다이로 출발", lines:["M","T4","B"], desc:"약 50분", w:"chatswood"},
-  {t:"09:15", s:1, name:"본다이 비치", q:"Bondi Beach", ll:[-33.8910,151.2765], desc:"모래사장 산책, 아이들 모래놀이 · 아이스버그 수영장은 위 산책로에서 구경", fee:"무료", hours:"상시", via:["martin","bondijn"], img:"bondi"},
-  {t:"10:15", s:1, name:"본다이–타마라마 해안길", web:"https://sculpturebythesea.com/bondi/", q:"Tamarama Beach Sydney", ll:[-33.9010,151.2700], desc:"해안 산책, 조각 전시 Sculpture by the Sea 구경", fee:"무료", hours:"상시 (낮 시간)", img:"bondibeach"},
-  {t:"11:30", type:"move", name:"380번 버스로 왓슨스 베이", lines:["B"], desc:"본다이 비치에서 갈아타지 않고 약 30~40분"},
-  {t:"12:15", s:1, type:"meal", name:"왓슨스 베이", q:"Watsons Bay Sydney", ll:[-33.8440,151.2810], desc:"점심 · 피시 앤 칩스", fee:"무료 (음식값 별도)", hours:"상시", wiki:["Watsons_Bay"]},
-  {t:"13:30", s:1, name:"갭 파크", q:"Gap Park Watsons Bay", ll:[-33.8435,151.2860], desc:"바다 절벽 전망대", fee:"무료", hours:"상시", wiki:["The_Gap_(Sydney)","Watsons_Bay"]},
-  {t:"14:15", s:1, name:"캠프 코브", q:"Camp Cove Sydney", ll:[-33.8395,151.2790], desc:"파도가 잔잔한 작은 해변에서 휴식", fee:"무료", hours:"상시", wiki:["Camp_Cove","Watsons_Bay"]},
-  {t:"15:15", type:"move", name:"페리로 서큘러 키", lines:["F"], desc:"F9 · 약 25분 · 오팔 사용 가능 (사설 페리는 오팔 안 됨)", w:"quay"},
-  {t:"16:00", s:1, name:"더 록스", web:"https://www.therocks.com/whats-on/campaigns/ghost-in-the-rocks", q:"The Rocks Sydney", ll:[-33.8593,151.2087], desc:"할로윈 축제 Ghost in The Rocks · 아이들 코스튬", fee:"무료 (음식·체험은 별도)", hours:"16:00~23:00", img:"ghost"},
-  {t:"18:00", type:"meal", name:"저녁", desc:"더 록스"},
-  {t:"19:00", s:1, name:"오페라하우스 · 하버브릿지", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"노을과 야경 (일몰 약 7:30)", fee:"무료", hours:"상시", wiki:["Sydney_Harbour_Bridge","Sydney_Opera_House"]},
-  {t:"20:30", type:"move", name:"귀가", lines:["M"], via:["martin"], w:"chatswood"}
+ {id:"d5", day:5, dow:"토", out:"09:00", title:"웬디 화이틀리 시크릿 가든 · 노스 시드니 올림픽 풀 · 밀슨스 포인트 페리 · 서큘러 키 점심 · 현대미술관 & 카페 · 천문대 피크닉 & 선셋 · 고스트 인 더 록스 · 오페라하우스 프로젝션 쇼",
+  minus:["웬디 화이틀리 시크릿 가든 (빼면 숙소 출발 09:45)","오페라하우스 프로젝션 쇼"], stops:[
+  {t:"08:15", type:"meal", name:"아침"},
+  {t:"09:00", type:"move", name:"숙소 출발 → 밀슨스 포인트역", lines:["T1"], desc:"채스우드역에서 약 15분", w:"milsons"},
+  {t:"09:30", s:1, name:"웬디 화이틀리 시크릿 가든", web:"https://www.wendyssecretgarden.org.au/", q:"Wendy Whiteley's Secret Garden", ll:[-33.8455,151.2066], desc:"역에서 걸어서 약 10분 · 정원 산책 · 계단이 가파르니 편한 신발", fee:"무료", hours:"상시 (낮 시간 권장)", img:"wendy"},
+  {t:"10:30", s:1, name:"노스 시드니 올림픽 풀", web:"https://northsydneyolympicpool.com.au/", q:"North Sydney Olympic Pool", ll:[-33.8478,151.2113], desc:"걸어서 약 10분 · 간식 지참 · 하버브릿지 아래 온수 수영장, 아이 물놀이장 · 가족 탈의실", fee:"성인 11AUD, 아동 8.80AUD", hours:"주말 7:00~19:00", img:"pool"},
+  {t:"13:00", type:"move", name:"밀슨스 포인트에서 페리 → 서큘러 키", lines:["F"], desc:"약 10분 · 오팔 사용 가능", via:["milwharf"], w:"quay"},
+  {t:"13:30", s:1, type:"meal", name:"점심 · 맥도날드", q:"McDonald's Circular Quay Sydney", ll:[-33.8614,151.2104], desc:"서큘러 키 (Sydney Gateway)", fee:"음식값 별도", hours:"상시"},
+  {t:"14:15", s:1, name:"현대미술관 & 카페", web:"https://www.mca.com.au/", q:"Museum of Contemporary Art Australia", ll:[-33.8599,151.2090], desc:"서큘러 키 바로 옆 · 미술관 카페에서 하버 보며 쉬기", fee:"무료 (일부 특별전 유료)", hours:"토요일 10:00~17:00 · 화요일 휴관", img:"mca"},
+  {t:"17:00", s:1, type:"meal", name:"천문대 언덕 피크닉 & 선셋", web:"https://powerhouse.com.au/visit/sydney-observatory", q:"Sydney Observatory", ll:[-33.8597,151.2048], desc:"더 록스에서 저녁거리 포장 → 언덕 잔디밭에서 저녁 피크닉 · 일몰 약 7:20", fee:"무료", hours:"언덕 상시", img:"observatory"},
+  {t:"19:40", s:1, name:"고스트 인 더 록스", web:"https://www.therocks.com/whats-on/campaigns/ghost-in-the-rocks", q:"The Rocks Sydney", ll:[-33.8593,151.2087], desc:"할로윈 축제 · 아이들 코스튬 · 어두워진 뒤 분위기", fee:"무료 (음식·체험은 별도)", hours:"토요일 낮~23:00", img:"ghost"},
+  {t:"20:30", s:1, name:"오페라하우스 프로젝션 쇼", web:"https://www.sydneyoperahouse.com/experiences/badu-gili-story-keepers", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"바두 길리 · 동쪽 지붕에 비추는 약 6분 쇼 · 앞 큰 계단 위쪽에서 보기 · 20:30 · 21:00 · 21:30 · 22:00", fee:"무료", hours:"매일 밤", wiki:["Sydney_Opera_House"]},
+  {t:"20:45", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역까지 걸어서 약 15분 → 메트로 · 숙소 약 21:15 · 오늘 밤 짐을 반쯤 싸 두면 6·7일째가 편해요", via:["martin"], w:"chatswood"}
  ]},
- {id:"d6", day:6, dow:"일", title:"맨리 · 수산시장 · 달링하버 · QVB 쇼핑", tag:"마지막 여행 날", stops:[
-  {t:"08:00", type:"meal", name:"아침"},
-  {t:"08:45", type:"move", name:"서큘러 키로 출발", lines:["M"], desc:"마틴 플레이스역에서 내려 걸어서 약 12분", via:["chatswood","martin"], w:"quay"},
-  {t:"09:30", type:"move", name:"맨리행 페리", lines:["F"], desc:"F1 일반 페리 약 30분 · 맨리 고속 페리(약 20분)도 오팔 사용 가능, 요금 동일", w:"manly"},
-  {t:"10:00", s:1, name:"맨리 비치", q:"Manly Beach", ll:[-33.7970,151.2885], desc:"코르소 거리 지나 해변 산책, 모래놀이", fee:"무료", hours:"상시", wiki:["Manly_Beach","Manly,_New_South_Wales"]},
-  {t:"10:45", s:1, name:"셸리 비치", q:"Shelly Beach Manly", ll:[-33.8000,151.2975], desc:"파도가 잔잔한 작은 만, 아이들 발 담그기", fee:"무료", hours:"상시", wiki:["Shelly_Beach_(Manly)","Cabbage_Tree_Bay"]},
-  {t:"11:45", type:"move", name:"페리로 서큘러 키 복귀", lines:["F"], via:["manly"], w:"quay"},
-  {t:"12:30", type:"move", name:"라이트레일로 수산시장", lines:["LR"], desc:"L2 서큘러 키 → 센트럴, L1 센트럴 → 피시 마켓역 · 약 40분", via:["central"], w:"fishlr"},
-  {t:"13:15", s:1, type:"meal", name:"시드니 수산시장", web:"https://www.sydneyfishmarket.com.au/", q:"Sydney Fish Market", ll:[-33.8740,151.1915], desc:"점심 · 해산물", fee:"무료 입장 (음식값 별도)", hours:"7:00~22:00 · 생선 가게는 오전이 활발", wiki:["Sydney_Fish_Market"]},
-  {t:"14:30", s:1, name:"달링 쿼터 어린이 놀이터", q:"Darling Quarter Playground", ll:[-33.8750,151.2003], desc:"아이들 놀이 시간 · 달링하버 산책", fee:"무료", hours:"상시", img:"playground"},
-  {t:"15:15", s:1, name:"패디스 마켓", web:"https://www.paddysmarkets.com.au/haymarket/trading-hours", q:"Paddy's Markets Haymarket", ll:[-33.8796,151.2047], desc:"놀이터에서 걸어서 약 10분 · 차이나타운 옆 큰 실내 시장 · 기념품, 저렴한 잡화, 과일", fee:"무료 입장", hours:"수~일 10:00~18:00 · 월·화 휴무", wiki:["Paddy's_Markets"]},
-  {t:"16:00", s:1, name:"시드니 타운홀", q:"Sydney Town Hall", ll:[-33.8732,151.2061], desc:"시청 건물 외관 구경", fee:"무료", hours:"외관 상시 · 내부는 행사 때만", img:"townhall"},
-  {t:"16:15", s:1, name:"QVB · 아케이드", web:"https://www.qvb.com.au/", q:"Queen Victoria Building", ll:[-33.8718,151.2067], desc:"QVB 건물 구경 · 주변 아케이드(스트랜드 아케이드 등) 쇼핑", fee:"무료 입장", hours:"일요일 11:00~17:00", img:"qvb"},
-  {t:"16:45", s:1, name:"레고 스토어 (for kids)", q:"LEGO Store Pitt Street Mall Sydney", ll:[-33.8700,151.2085], desc:"피트 스트리트 몰 · 2층 규모의 큰 레고 매장", fee:"무료 입장", hours:"시간은 방문 전 확인", wiki:["Pitt_Street_Mall"]},
-  {t:"17:30", type:"move", name:"귀가", lines:["M"], desc:"가디갈역에서 메트로", via:["gadigal"], w:"chatswood"},
-  {t:"18:15", type:"meal", name:"저녁 · 짐 싸기"}
+ {id:"d6", day:6, dow:"일", out:"09:15", title:"록스 마켓 · 본다이 비치 (도시락 점심) · 조각 전시 해안산책 · 로열 보타닉 가든 피크닉 · 매쿼리 부인의 의자 선셋 · 서큘러 키 저녁 (외식)",
+  minus:["로열 보타닉 가든","매쿼리 부인의 의자"], plus:["오페라하우스 프로젝션 쇼 (20:30 · 21:00 · 21:30 · 22:00) · 저녁 먹고 귀가 길에"], stops:[
+  {t:"08:30", type:"meal", name:"아침 · 도시락 싸기"},
+  {t:"09:15", type:"move", name:"숙소 출발 → 서큘러 키", lines:["M"], desc:"메트로로 마틴 플레이스역 → 걸어서 약 12분", via:["chatswood","martin"], w:"quay"},
+  {t:"10:00", s:1, name:"록스 마켓", web:"https://www.therocks.com/things-to-do/the-rocks-markets", q:"The Rocks Markets", ll:[-33.8589,151.2084], desc:"수공예품, 그림, 길거리 음식 · 1시간 정도 구경", fee:"무료 입장", hours:"토·일 10:00~17:00", img:"rocks"},
+  {t:"11:00", type:"move", name:"333번 버스로 본다이 비치", lines:["B"], desc:"서큘러 키에서 갈아타지 않고 약 45~50분 · 조각전 마지막 주말이라 늦을수록 붐비니 11시 출발 지키기"},
+  {t:"12:00", s:1, name:"본다이 비치", q:"Bondi Beach", ll:[-33.8910,151.2765], desc:"도시락 점심 · 모래사장 산책, 아이들 모래놀이", fee:"무료", hours:"상시", img:"bondi"},
+  {t:"12:45", s:1, name:"본다이–타마라마 해안길 · 조각 전시", web:"https://sculpturebythesea.com/bondi/", q:"Tamarama Beach Sydney", ll:[-33.9010,151.2700], desc:"Sculpture by the Sea (11/2까지) · 해안 산책 약 2km", fee:"무료", hours:"상시 (낮 시간)", img:"bondibeach"},
+  {t:"14:30", type:"move", name:"333번 버스로 시내", lines:["B"], desc:"세인트 제임스역 근처에서 내려 보타닉 가든까지 걸어서 약 10분", w:"stjames"},
+  {t:"15:30", s:1, name:"로열 보타닉 가든", web:"https://www.botanicgardens.org.au/royal-botanic-garden-sydney", q:"Royal Botanic Garden Sydney", ll:[-33.8642,151.2166], desc:"잔디밭에서 간식 피크닉, 정원 산책", fee:"무료", hours:"7:00~19:30 (10~11월 기준)", img:"botanic"},
+  {t:"18:45", s:1, name:"매쿼리 부인의 의자", q:"Mrs Macquarie's Chair Sydney", ll:[-33.8597,151.2228], desc:"여행 마지막 선셋 (일몰 약 7:15) · 오페라하우스와 하버브릿지가 한 화면에", fee:"무료", hours:"상시", img:"macquarie"},
+  {t:"19:30", type:"meal", name:"저녁 (외식)", desc:"서큘러 키 · 매쿼리 부인의 의자에서 걸어서 약 25분", w:"quay"},
+  {t:"21:00", type:"move", name:"귀가 · 짐 마무리", lines:["M"], desc:"마틴 플레이스역에서 메트로", via:["martin"], w:"chatswood"}
  ]},
- {id:"d7", day:7, dow:"월", title:"출국", tag:"12:15 출발", stops:[
-  {t:"07:00", type:"meal", name:"아침"},
-  {t:"08:00", type:"move", name:"채스우드역 출발", lines:["M","T8","B"], desc:"메트로 → T8 → 마스콧역 → 420번 버스", w:"chatswood"},
+ {id:"d7", day:7, dow:"월", out:"08:00", title:"숙소 출발 · 공항 · 귀국 (12:15 출발)", stops:[
+  {t:"07:00", type:"meal", name:"아침 · 체크아웃"},
+  {t:"08:00", type:"move", name:"숙소 출발 → 공항", lines:["M","T8","B"], desc:"메트로 → T8 → 마스콧역 → 420번 버스 · 짐이 있으니 여유 있게 07:50 출발도 좋아요", w:"chatswood"},
   {t:"09:15", type:"move", name:"시드니 공항 도착", desc:"출발 3시간 전", via:["central","mascot"], w:"airport"},
   {t:"12:15", type:"move", name:"시드니 출발"}
  ]}
@@ -496,14 +511,28 @@ const PATHS = {"t8":"|u`nEiwwy[gCKmAIoAKcBSkH}@cEk@kAWoBu@{AaA_As@_YuVqYkWeAgAiA
   "w_lego_gad":"nfvmEi{{y[pA@p@?fDPhDF`CFn@APoDr@DjDPJ["};
 const PT = {chats:[-33.7969,151.1803], martin:[-33.8679,151.2104], centralM:[-33.8839,151.2071], central:[-33.8832,151.2063],
   quay:[-33.8607,151.2112], twharf:[-33.8455,151.2393], milsons:[-33.8461,151.2118], wynyard:[-33.8658,151.2058],
-  katoomba:[-33.7123,150.3115], leura:[-33.7128,150.3305], mascot:[-33.9236,151.1872], manly:[-33.8000,151.2843]};
+  katoomba:[-33.7123,150.3115], leura:[-33.7128,150.3305], mascot:[-33.9236,151.1872], manly:[-33.8000,151.2843],
+  opera:[-33.8570,151.2157], stjames:[-33.8708,151.2112], townhall:[-33.8735,151.2068]};
 const LEGS = {
- d1:[["bus","bus_air_mascot"],["rail","t8"],["rail","m1c",PT.centralM,PT.chats],["rail","m1c",PT.chats,PT.martin],["walk","w_martin_opera"],["walk","w_opera_bot"],["walk","w_bot_macq"],["walk","w_macq_qrest"],["walk","w_qrest_martin"],["rail","m1c",PT.martin,PT.chats]],
- d2:[["rail","m1c",PT.chats,PT.martin],["walk","w_martin_quay"],["ferry","f2"],["bus","bus_twharf_tzoo"],["walk","w_tzoo_twharf"],["ferry","f2",PT.twharf,PT.quay],["walk","w_quay_lib"],["walk","w_lib_ag"],["walk","w_ag_stm"],["walk","w_stm_hyde"],["walk","w_hyde_gad"],["rail","m1g"]],
- d3:[["rail","m1c",PT.chats,PT.centralM],["rail","bmt"],["bus","bus_kat_scenic"],["bus","bus_scenic_echo"],["bus","bus_echo_kat"],["rail","bkl"],["walk","w_leuras_lmall"],["walk","w_lmall_leuras"],["rail","bmt",PT.leura,PT.central],["rail","m1c",PT.centralM,PT.chats]],
- d4:[["rail","t1",PT.chats,PT.milsons],["walk","w_mil_pool"],["walk","w_pool_wendy"],["walk","w_wendy_obs"],["walk","w_obs_wyn"],["rail","t1",PT.wynyard,PT.chats]],
- d5:[["rail","m1c",PT.chats,PT.martin],["rail","t4"],["bus","bus_bjn_bb"],["walk","w_bb_ice_tam"],["walk","w_tam_bbstop"],["bus","bus_bb_wb"],["walk","w_wb_gap"],["walk","w_gap_camp"],["walk","w_camp_wbw"],["ferry","f9"],["walk","w_quay_rocks"],["walk","w_rocks_opera"],["walk","w_opera_martin"],["rail","m1c",PT.martin,PT.chats]],
- d6:[["rail","m1c",PT.chats,PT.martin],["walk","w_martin_quay"],["ferry","f1"],["walk","w_manly_mbeach"],["walk","w_mbeach_shelly"],["walk","w_shelly_manly"],["ferry","f1",PT.manly,PT.quay],["rail","l2"],["rail","l1"],["walk","w_fish_play"],["walk","w_play_th"],["walk","w_th_qvb"],["walk","w_qvb_lego"],["walk","w_lego_gad"],["rail","m1g"]],
+ d1:[["bus","bus_air_mascot"],["rail","t8"],["rail","m1c",PT.centralM,PT.chats],["rail","m1c",PT.chats,PT.martin],["walk","w_martin_quay"],["ferry","f1"],["walk","w_manly_mbeach"],
+     ["walk","w_rocks_opera",PT.quay,PT.opera],["walk",[PT.opera,[-33.8580,151.2127]]],["walk","w_opera_martin"],["rail","m1c",PT.martin,PT.chats],["walk",[PT.chats,[-33.7964,151.1828]]]],
+ d2:[["rail","m1c",PT.chats,PT.martin],["walk","w_martin_quay"],["ferry","f2"],["bus","bus_twharf_tzoo"],["walk","w_tzoo_twharf"],
+     ["rail",[PT.quay,[-33.8640,151.2125],PT.stjames]],["walk",[PT.stjames,[-33.8722,151.2113]]],["walk","w_stm_hyde"],["walk","w_ag_stm"],["walk","w_lib_ag"],["walk",[[-33.8661,151.2131],PT.martin]],["rail","m1c",PT.martin,PT.chats]],
+ d3:[["rail","m1c",PT.chats,PT.centralM],["rail","bmt"],["bus","bus_kat_scenic"],["rail","bkl"],["walk","w_leuras_lmall"],["rail","bmt",PT.leura,PT.central],["rail","m1c",PT.centralM,PT.chats]],
+ d4:[["rail","m1c",PT.chats,PT.centralM],["rail","l1"],
+     ["bus",[[-33.8729,151.1944],[-33.8790,151.1925],[-33.8835,151.1905],[-33.8858,151.1890]]],
+     ["bus",[[-33.8858,151.1890],[-33.8868,151.1960],[-33.8850,151.2010],[-33.8832,151.2063]]],
+     ["walk",[[-33.8832,151.2063],[-33.8822,151.2082],[-33.8814,151.2097]]],
+     ["walk",[[-33.8814,151.2097],[-33.8808,151.2072],[-33.8796,151.2047]]],
+     ["walk",[[-33.8796,151.2047],[-33.8770,151.2055],[-33.8745,151.2060],[-33.8732,151.2061]]],
+     ["walk","w_th_qvb"],["walk","w_qvb_lego"],["walk","w_play_th"],["walk",[[-33.8750,151.2003],[-33.8720,151.1993]]],
+     ["rail",[PT.townhall,PT.wynyard]],["rail","t1",PT.wynyard,PT.chats]],
+ d5:[["rail","t1",PT.chats,PT.milsons],["walk",[PT.milsons,[-33.8455,151.2090],[-33.8455,151.2066]]],["walk","w_pool_wendy"],["walk",[[-33.8478,151.2113],[-33.8488,151.2101]]],
+     ["ferry",[[-33.8488,151.2101],[-33.8530,151.2112],[-33.8580,151.2112],PT.quay]],["walk","w_quay_rocks"],["walk",[[-33.8593,151.2087],[-33.8596,151.2066],[-33.8597,151.2048]]],
+     ["walk","w_rocks_opera"],["walk","w_opera_martin"],["rail","m1c",PT.martin,PT.chats]],
+ d6:[["rail","m1c",PT.chats,PT.martin],["walk","w_martin_quay"],["walk","w_quay_rocks"],
+     ["bus",[PT.quay,[-33.8650,151.2118],PT.stjames,[-33.8765,151.2115],[-33.8790,151.2170],[-33.8830,151.2245],[-33.8870,151.2340],[-33.8915,151.2478]]],["bus","bus_bjn_bb"],
+     ["walk","w_bb_ice_tam"],["walk","w_tam_bbstop"],["walk",[PT.stjames,[-33.8680,151.2140],[-33.8642,151.2166]]],["walk","w_bot_macq"],["walk","w_macq_qrest"],["walk","w_qrest_martin"],["rail","m1c",PT.martin,PT.chats]],
  d7:[["rail","m1c",PT.chats,PT.centralM],["rail","t8",PT.central,PT.mascot],["bus","bus_mascot_air"]]
 };
 function decodePath(s){
@@ -520,8 +549,8 @@ function decodePath(s){
   return pts;
 }
 function legPoints(leg){
-  const src = PATHS[leg[1]]; if(!src) return [];
-  let pts = decodePath(src);
+  let pts = Array.isArray(leg[1]) ? leg[1].slice() : (PATHS[leg[1]] ? decodePath(PATHS[leg[1]]) : []);
+  if(!pts.length) return [];
   const [, , a, b] = leg;
   if(a && b){
     const near = p => { let bi=0, bd=Infinity; pts.forEach((q,i)=>{ const d=(q[0]-p[0])**2+((q[1]-p[1])*.83)**2; if(d<bd){bd=d;bi=i;} }); return bi; };
@@ -619,7 +648,8 @@ function render(){
         <div class="content ${thumb?"has-thumb":""}"><div><div class="name">${esc(s.name)}</div>${s.desc?`<div class="desc">${esc(s.desc)}</div>`:""}${info}${row}</div>${thumb}</div></li>`;
     }).join("");
     return `<section class="day" id="${d.id}">
-      <div class="dayhead"><span class="date">${d.day}일째 <small>(${d.dow})</small></span><h2>${esc(d.title)}</h2>${d.tag?`<span class="tag">${esc(d.tag)}</span>`:""}</div>
+      <div class="dayhead"><span class="date">${d.day}일째 <small>(${d.dow})</small></span>${d.out?`<span class="tag">숙소 출발 ${esc(d.out)}</span>`:""}<h2>${esc(d.title)}</h2></div>
+      ${(d.minus||d.plus)?`<div class="opts">${d.minus?`<div class="opt minus"><b>− 마이너스 옵션</b><span class="optnote">컨디션 봐서 빼도 되는 일정</span><ul>${d.minus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}${d.plus?`<div class="opt plus"><b>+ 플러스 옵션</b><span class="optnote">컨디션 봐서 더해도 되는 일정</span><ul>${d.plus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}</div>`:""}
       <div class="mapcard"><div class="leaf" id="leaf-${d.id}"></div><div class="svgfb">${buildSvg(d)}</div><div class="maplegend">경로 · <b>점선</b> 걷기 · <b>실선</b> 기차·메트로·버스 · <b>긴 점선</b> 페리</div></div>
       <ol class="timeline">${items}</ol>
     </section>`;

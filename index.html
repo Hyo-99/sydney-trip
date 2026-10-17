@@ -299,6 +299,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted)}
 
       <div class="panel">
         <h3>6. 먹킷리스트 · 시드니 맛 Tour</h3>
+        <p class="sub" style="margin:0 0 10px">안타깝게도 호주에서는 맛있는 음식을 크게 기대하기 어려워요 😅 외식 물가가 한국의 2배 이상으로 비싸고, 정성 어린 맛있는 음식은 찾기도 어렵고 찾아도 비싸요. 대신 세계 각국 이민자들의 음식이 섞인 독특한 음식 문화를 경험할 수 있어요.</p>
         <ul class="check">
           <li><input type="checkbox" id="c6-1"><label for="c6-1"><span>현지 맥도날드 먹어 보기</span><span class="sub">McDonald's Plaza Metro George St 또는 서큘러 키 앞 매장 · 호주 치킨, 소고기 👍</span></label></li>
           <li><input type="checkbox" id="c6-2"><label for="c6-2"><span>스테이크 &amp; 파르마 (호주식)</span></label></li>
@@ -310,7 +311,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted)}
         </ul>
         <div class="local"><b>울워스(호주 슈퍼마켓 체인 1대장)에서 사 먹어 볼 것</b>
           <ul class="check">
-            <li><input type="checkbox" id="c6-7"><label for="c6-7"><span>신선한 호주 과일</span></label></li>
+            <li><input type="checkbox" id="c6-7"><label for="c6-7"><span>신선한 호주 제철 과일</span><span class="sub">딸기: 7~10월 · 망고: 11~2월</span></label></li>
             <li><input type="checkbox" id="c6-8"><label for="c6-8"><span>Drumstick 아이스크림</span><span class="sub">호주의 부라보콘</span></label></li>
             <li><input type="checkbox" id="c6-9"><label for="c6-9"><span>Connoisseur 아이스크림</span><span class="sub">호주의 나뚜루</span></label></li>
           </ul></div>
@@ -396,7 +397,8 @@ const DAYS = [
   {t:"18:20", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역에서 메트로, 환승 없이 채스우드까지", via:["martin"], w:"chatswood"},
   {t:"18:50", type:"meal", name:"저녁 (숙소)"}
  ]},
- {id:"d3", day:3, dow:"목", date:"2026-10-29", back:"18:00", sunset:"19:23", wx:[-33.7123,150.3115], out:"07:35", title:"블루마운틴 · 시닉 월드 · 루라 마을", stops:[
+ {id:"d3", day:3, dow:"목", date:"2026-10-29", back:"18:00", sunset:"19:23", wx:[-33.7123,150.3115], out:"07:35", title:"블루마운틴 · 시닉 월드 · 루라 마을",
+  plus:["채스우드 미니 투어 (도서관 및 상점가)"], stops:[
   {t:"07:00", type:"meal", name:"아침"},
   {t:"07:35", type:"move", name:"숙소 출발 → 07:51 기차", lines:["M","BMT"], desc:"센트럴역에서 블루마운틴선 · 07:51이 센트럴역 출발 시각이라면 07:05에 나와야 해요. 전날 앱으로 꼭 확인", w:"chatswood"},
   {t:"10:45", type:"move", name:"카툼바역 도착 → 686번 버스", lines:["B"], via:["central"], w:"katoomba"},

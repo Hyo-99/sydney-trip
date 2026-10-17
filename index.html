@@ -406,12 +406,12 @@ const DAYS = [
   {t:"19:30", type:"meal", name:"저녁 (숙소)"}
  ]},
  {id:"d4", day:4, dow:"금", date:"2026-10-30", back:"20:30", sunset:"19:20", out:"08:35", title:"수산시장 · 시드니대학교 · 싱글오 카페 · 패디스 마켓 · 타운홀 · QVB · 로열 아케이드 · 레고 스토어 · 달링하버",
-  minus:["시드니대학교","수산시장 (빼면 숙소 출발 10:00)","달링하버 (놀이터 · 저녁 · 야경)"], stops:[
+  minus:["시드니대학교","싱글오 카페","수산시장 (빼면 숙소 출발 10:00)","달링하버 (놀이터 · 저녁 · 야경)"], stops:[
   {t:"08:00", type:"meal", name:"아침"},
   {t:"08:35", type:"move", name:"숙소 출발 → 수산시장", lines:["M","LR"], desc:"메트로로 센트럴역 → 라이트레일 L1 → 피시 마켓역", via:["central"], w:"fishlr"},
   {t:"09:30", s:1, type:"meal", name:"시드니 수산시장", web:"https://www.sydneyfishmarket.com.au/", q:"Sydney Fish Market", ll:[-33.8740,151.1915], desc:"구경 (오전이 가장 활기차요) · 11:30 이른 점심 (해산물)", fee:"무료 입장 (음식값 별도)", hours:"7:00~22:00", wiki:["Sydney_Fish_Market"]},
   {t:"12:00", s:1, name:"시드니대학교", web:"https://www.sydney.edu.au/", q:"University of Sydney Quadrangle", ll:[-33.8858,151.1890], desc:"버스 약 15분 또는 걸어서 약 25분 · 본관 쿼드랭글 중심으로 짧게", fee:"무료", hours:"캠퍼스 상시", img:"uni"},
-  {t:"13:15", s:1, name:"싱글오 카페", web:"https://singleo.com.au/surryhills/", q:"Single O Surry Hills", ll:[-33.8814,151.2097], desc:"버스로 센트럴역 → 걸어서 약 10분 · 서리힐스의 유명 커피집", fee:"음료값 별도", hours:"평일 7:00~15:30", wiki:["Surry_Hills,_New_South_Wales"]},
+  {t:"13:15", s:1, name:"싱글오 카페", web:"https://singleo.com.au/surryhills/", q:"Single O Surry Hills", ll:[-33.8814,151.2097], desc:"버스로 센트럴역 → 걸어서 약 10분 · 서리힐스의 유명 커피집", fee:"음료값 별도", hours:"평일 7:00~15:30", img:"singleo"},
   {t:"14:15", s:1, name:"패디스 마켓", web:"https://www.paddysmarkets.com.au/haymarket/trading-hours", q:"Paddy's Markets Haymarket", ll:[-33.8796,151.2047], desc:"걸어서 약 15분 · 차이나타운 옆 큰 실내 시장 · 기념품, 저렴한 잡화, 과일", fee:"무료 입장", hours:"수~일 10:00~18:00", wiki:["Paddy's_Markets"]},
   {t:"15:15", s:1, name:"시드니 타운홀", q:"Sydney Town Hall", ll:[-33.8732,151.2061], desc:"걸어서 약 10분 · 시청 건물 외관 구경", fee:"무료", hours:"외관 상시", img:"townhall"},
   {t:"15:30", s:1, name:"QVB · 로열 아케이드", web:"https://www.qvb.com.au/", q:"Queen Victoria Building", ll:[-33.8718,151.2067], desc:"QVB 건물 구경 · 로열 아케이드 등 주변 아케이드 쇼핑", fee:"무료 입장", hours:"평일 상점은 대부분 18:00 무렵 마감", img:"qvb"},
@@ -591,6 +591,7 @@ const IMG = {
   darling:    {src:"images/darling.jpg", credit:"모모"},
   operabar:   {src:"images/operabar.jpg", credit:"모모"},
   lego:       {src:"images/lego.jpg", credit:"모모"},
+  singleo:    {src:"images/singleo.jpg", credit:"Single O", page:"https://singleo.com.au/"},
   badugili:   {src:"images/badugili.jpg", credit:"Sydney Opera House", page:"https://www.sydneyoperahouse.com/experiences/badu-gili"},
   ghost:      {src:"https://www.therocks.com/getmedia/846c46b6-0e56-460d-bd1f-651a50004e78/ghost-festival-first-fleet-park.png?width=1200", credit:"The Rocks", page:"https://www.therocks.com/whats-on/campaigns/ghost-in-the-rocks"}
 };

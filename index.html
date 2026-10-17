@@ -381,7 +381,7 @@ const DAYS = [
  ]},
  {id:"d2", day:2, dow:"수", date:"2026-10-28", back:"18:50", sunset:"19:19", out:"07:55", title:"타롱가 주 · 하이드 파크 · 세인트 메리 대성당 · 주립미술관 · 주립도서관",
   minus:["타롱가 주 체류 시간 줄이기","하이드 파크 · 대성당 · 미술관 · 도서관 중 일부 생략"], stops:[
-  {t:"07:15", type:"meal", name:"아침 · 도시락 싸기"},
+  {t:"07:15", type:"meal", name:"아침"},
   {t:"07:55", type:"move", name:"숙소 출발 → 서큘러 키", lines:["M"], desc:"메트로로 마틴 플레이스역 → 걸어서 약 12분", via:["chatswood","martin"], w:"quay"},
   {t:"08:45", type:"move", name:"타롱가행 페리", lines:["F"], desc:"약 12분 · 30분 간격이라 전날 시간표 확인"},
   {t:"09:00", type:"move", name:"238번 버스로 동물원 위쪽 정문", lines:["B"], desc:"케이블카(스카이 사파리)는 공사로 2027년 말까지 운행 안 함 · 붐비는 날엔 동물원 셔틀버스도 운행", w:"twharf"},
@@ -395,15 +395,15 @@ const DAYS = [
   {t:"18:20", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역에서 메트로, 환승 없이 채스우드까지", via:["martin"], w:"chatswood"},
   {t:"18:50", type:"meal", name:"저녁 (숙소)"}
  ]},
- {id:"d3", day:3, dow:"목", date:"2026-10-29", back:"19:30", sunset:"19:23", wx:[-33.7123,150.3115], out:"07:35", title:"블루마운틴 · 시닉 월드 · 루라 마을", stops:[
-  {t:"07:00", type:"meal", name:"아침 · 도시락 싸기"},
+ {id:"d3", day:3, dow:"목", date:"2026-10-29", back:"18:00", sunset:"19:23", wx:[-33.7123,150.3115], out:"07:35", title:"블루마운틴 · 시닉 월드 · 루라 마을", stops:[
+  {t:"07:00", type:"meal", name:"아침"},
   {t:"07:35", type:"move", name:"숙소 출발 → 07:51 기차", lines:["M","BMT"], desc:"센트럴역에서 블루마운틴선 · 07:51이 센트럴역 출발 시각이라면 07:05에 나와야 해요. 전날 앱으로 꼭 확인", w:"chatswood"},
   {t:"10:45", type:"move", name:"카툼바역 도착 → 686번 버스", lines:["B"], via:["central"], w:"katoomba"},
   {t:"11:15", s:1, name:"시닉 월드", web:"https://www.scenicworld.com.au/", q:"Scenic World Katoomba", ll:[-33.7287,150.3016], desc:"레일웨이 · 스카이웨이 · 케이블웨이 · 워크웨이", fee:"사전 예약 권장 · 성인 64AUD~, 아동 38.40AUD~", hours:"평일 10:00~16:00", img:"scenic"},
   {t:"13:00", type:"move", name:"686번 버스 → 기차 한 정거장 루라역", lines:["B","BMT"], via:["katoomba"], w:"leurast"},
-  {t:"13:30", s:1, type:"meal", name:"루라 마을", q:"Leura Mall NSW", ll:[-33.7124,150.3329], desc:"도시락 점심 · 작은 마을 거리, 카페·상점 구경", fee:"무료", hours:"상점은 대부분 17:00 무렵 마감", img:"leura"},
-  {t:"16:30", type:"move", name:"루라역에서 기차로 귀가", lines:["BMT","M"], desc:"채스우드 도착 약 7:00~7:30", via:["leurast","central"], w:"chatswood"},
-  {t:"19:30", type:"meal", name:"저녁 (숙소)"}
+  {t:"13:30", s:1, type:"meal", name:"루라 마을", q:"Leura Mall NSW", ll:[-33.7124,150.3329], desc:"도시락 점심 · 작은 마을 거리, 카페·상점 구경 · 약 1시간 반 머물고 15:00 기차", fee:"무료", hours:"상점은 대부분 17:00 무렵 마감", img:"leura"},
+  {t:"15:00", type:"move", name:"루라역에서 기차로 귀가", lines:["BMT","M"], desc:"센트럴역에서 메트로로 환승 · 채스우드 도착 약 17:45 · 기차가 1시간 간격이라 시간표 미리 확인", via:["leurast","central"], w:"chatswood"},
+  {t:"18:00", type:"meal", name:"저녁 (숙소)"}
  ]},
  {id:"d4", day:4, dow:"금", date:"2026-10-30", back:"20:30", sunset:"19:20", out:"08:35", title:"수산시장 · 시드니대학교 · 싱글오 카페 · 패디스 마켓 · 타운홀 · QVB · 로열 아케이드 · 레고 스토어 · 달링하버",
   minus:["시드니대학교","싱글오 카페","수산시장 (빼면 숙소 출발 10:00)","달링하버 (놀이터 · 저녁 · 야경)"], stops:[
@@ -436,7 +436,7 @@ const DAYS = [
  ]},
  {id:"d6", day:6, dow:"일", date:"2026-11-01", back:"21:30", sunset:"19:22", out:"09:15", title:"록스 마켓 · 본다이 비치 · 조각 전시 해안산책 · 로열 보타닉 가든 · 매쿼리 부인의 의자 선셋",
   minus:["로열 보타닉 가든","매쿼리 부인의 의자"], plus:["오페라하우스 프로젝션 쇼 (20:30 · 21:00 · 21:30 · 22:00) · 저녁 먹고 귀가 길에"], stops:[
-  {t:"08:30", type:"meal", name:"아침 · 도시락 싸기"},
+  {t:"08:30", type:"meal", name:"아침"},
   {t:"09:15", type:"move", name:"숙소 출발 → 서큘러 키", lines:["M"], desc:"메트로로 마틴 플레이스역 → 걸어서 약 12분", via:["chatswood","martin"], w:"quay"},
   {t:"10:00", s:1, name:"록스 마켓", web:"https://www.therocks.com/things-to-do/the-rocks-markets", q:"The Rocks Markets", ll:[-33.8589,151.2084], desc:"수공예품, 그림, 길거리 음식 · 1시간 정도 구경", fee:"무료 입장", hours:"토·일 10:00~17:00", img:"rocks"},
   {t:"11:00", type:"move", name:"333번 버스로 본다이 비치", lines:["B"], desc:"서큘러 키에서 갈아타지 않고 약 45~50분 · 조각전 마지막 주말이라 늦을수록 붐비니 11시 출발 지키기"},

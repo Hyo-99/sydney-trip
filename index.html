@@ -169,7 +169,8 @@ ol.timeline{list-style:none;margin:0;padding:0;display:grid}
 .content{display:grid;gap:10px;min-width:0}
 .thumb{margin:0;width:100%;max-width:360px;display:grid;gap:4px}
 .thumb .ph{width:100%;aspect-ratio:4/3;border-radius:10px;background:var(--water);overflow:hidden;display:grid;place-items:center;color:var(--muted);font-size:12px}
-.thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.thumb .ph{position:relative}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 .thumb figcaption{font-size:11px;color:var(--muted)}
 .thumb figcaption a{color:var(--muted)}
 @media (min-width:720px){
@@ -589,7 +590,7 @@ const IMG = {
   townhall:   {src:"images/townhall.jpg", credit:"모모"},
   stmary:     {src:"images/stmary.jpg", credit:"모모"},
   darling:    {src:"images/darling.jpg", credit:"모모"},
-  operabar:   {src:"images/operabar.jpg", credit:"모모"},
+  operabar:   {src:"images/operabar.jpg", credit:"모모", pos:"center 85%"},   /* keep the coffee (lower right) in frame */
   lego:       {src:"images/lego.jpg", credit:"모모"},
   singleo:    {src:"images/singleo.jpg", credit:"Single O", page:"https://singleo.com.au/"},
   badugili:   {src:"images/badugili.jpg", credit:"Sydney Opera House", page:"https://www.sydneyoperahouse.com/experiences/badu-gili"},
@@ -780,10 +781,11 @@ function initLeaflet(){
 initLeaflet();
 
 /* fetch each photo when it scrolls near the screen */
-function showPhoto(fig, src, credit, page, onfail){
+function showPhoto(fig, src, credit, page, onfail, pos){
   const cap = !credit ? "" : page ? `<figcaption>사진: <a href="${page}" target="_blank" rel="noopener">${esc(credit)}</a></figcaption>` : `<figcaption>사진: ${esc(credit)}</figcaption>`;
   fig.innerHTML = `<div class="ph"><img alt="${esc(fig.dataset.alt)}" loading="lazy"></div>${cap}`;
   const img = fig.querySelector("img");
+  if (pos) img.style.objectPosition = pos;
   img.onerror = onfail;
   img.src = src;
 }
@@ -819,7 +821,7 @@ async function loadWiki(fig){
 }
 function loadPhoto(fig){
   const im = IMG[fig.dataset.img];
-  if (im) showPhoto(fig, im.src, im.credit, im.page, ()=>loadWiki(fig));
+  if (im) showPhoto(fig, im.src, im.credit, im.page, ()=>loadWiki(fig), im.pos);
   else loadWiki(fig);
 }
 (function(){

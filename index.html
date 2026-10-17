@@ -374,7 +374,7 @@ const DAYS = [
   {t:"15:00", s:1, name:"맨리 비치", q:"Manly Beach", ll:[-33.7970,151.2885], desc:"코르소 거리 지나 해변 산책, 모래놀이 · 피시 앤 칩스 간식", fee:"무료", hours:"상시", wiki:["Manly_Beach","Manly,_New_South_Wales"]},
   {t:"16:45", type:"move", name:"페리로 서큘러 키 복귀", lines:["F"], via:["manly"], w:"quay"},
   {t:"17:30", s:1, name:"오페라하우스", web:"https://www.sydneyoperahouse.com/", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"서큘러 키에서 걸어서 약 5분 · 건물 외관과 앞 계단 구경", fee:"무료 (외관)", hours:"상시 · 내부 투어는 유료 예약", wiki:["Sydney_Opera_House"]},
-  {t:"18:00", s:1, name:"오페라 바", web:"https://operabar.com.au/", q:"Opera Bar Sydney", ll:[-33.8580,151.2127], desc:"하버브릿지를 보며 음료 한잔 · 해 질 녘까지 (일몰 약 7:18)", fee:"음료값 별도", hours:"매일 낮~밤 (방문 전 확인)", wiki:["Sydney_Opera_House"]},
+  {t:"18:00", s:1, name:"오페라 바", web:"https://operabar.com.au/", q:"Opera Bar Sydney", ll:[-33.8580,151.2127], desc:"하버브릿지를 보며 음료 한잔 · 해 질 녘까지 (일몰 약 7:18)", fee:"음료값 별도", hours:"매일 낮~밤 (방문 전 확인)", img:"operabar"},
   {t:"19:15", type:"move", name:"채스우드로 귀가", lines:["M"], desc:"마틴 플레이스역까지 걸어서 약 15분 → 메트로", via:["martin"], w:"chatswood"},
   {t:"19:50", s:1, name:"슈퍼마켓 장보기", q:"Woolworths Chatswood", ll:[-33.7964,151.1828], desc:"저녁거리, 도시락 재료, 아침거리, 군것질거리 · 늦은 시간이니 저녁은 통닭·샐러드처럼 바로 먹을 수 있는 걸로 하면 편해요", fee:"", hours:"보통 밤까지 영업 (방문 전 확인)"},
   {t:"20:30", type:"meal", name:"저녁 (숙소)"}
@@ -415,7 +415,7 @@ const DAYS = [
   {t:"14:15", s:1, name:"패디스 마켓", web:"https://www.paddysmarkets.com.au/haymarket/trading-hours", q:"Paddy's Markets Haymarket", ll:[-33.8796,151.2047], desc:"걸어서 약 15분 · 차이나타운 옆 큰 실내 시장 · 기념품, 저렴한 잡화, 과일", fee:"무료 입장", hours:"수~일 10:00~18:00", wiki:["Paddy's_Markets"]},
   {t:"15:15", s:1, name:"시드니 타운홀", q:"Sydney Town Hall", ll:[-33.8732,151.2061], desc:"걸어서 약 10분 · 시청 건물 외관 구경", fee:"무료", hours:"외관 상시", img:"townhall"},
   {t:"15:30", s:1, name:"QVB · 로열 아케이드", web:"https://www.qvb.com.au/", q:"Queen Victoria Building", ll:[-33.8718,151.2067], desc:"QVB 건물 구경 · 로열 아케이드 등 주변 아케이드 쇼핑", fee:"무료 입장", hours:"평일 상점은 대부분 18:00 무렵 마감", img:"qvb"},
-  {t:"16:30", s:1, name:"레고 스토어 (for kids)", q:"LEGO Store Pitt Street Mall Sydney", ll:[-33.8700,151.2085], desc:"피트 스트리트 몰 · 2층 규모의 큰 레고 매장", fee:"무료 입장", hours:"시간은 방문 전 확인", wiki:["Pitt_Street_Mall"]},
+  {t:"16:30", s:1, name:"레고 스토어 (for kids)", q:"LEGO Store Pitt Street Mall Sydney", ll:[-33.8700,151.2085], desc:"피트 스트리트 몰 · 2층 규모의 큰 레고 매장", fee:"무료 입장", hours:"시간은 방문 전 확인", img:"lego"},
   {t:"17:00", s:1, name:"달링 쿼터 어린이 놀이터", q:"Darling Quarter Playground", ll:[-33.8750,151.2003], desc:"걸어서 약 15분 · 아이들 놀이 시간", fee:"무료", hours:"상시", img:"playground"},
   {t:"18:15", s:1, type:"meal", name:"달링하버 저녁 & 야경", q:"Darling Harbour Sydney", ll:[-33.8720,151.1993], desc:"저녁 (외식) · 해 진 뒤 야경 (일몰 약 7:20)", fee:"음식값 별도", hours:"상시", img:"darling"},
   {t:"20:00", type:"move", name:"귀가", lines:["T1"], desc:"타운홀역에서 T1, 환승 없이 채스우드까지", via:["townhall"], w:"chatswood"}
@@ -431,7 +431,7 @@ const DAYS = [
   {t:"14:15", s:1, name:"현대미술관 & 카페", web:"https://www.mca.com.au/", q:"Museum of Contemporary Art Australia", ll:[-33.8599,151.2090], desc:"서큘러 키 바로 옆 · 미술관 카페에서 하버 보며 쉬기", fee:"무료 (일부 특별전 유료)", hours:"토요일 10:00~17:00 · 화요일 휴관", img:"mca"},
   {t:"17:00", s:1, type:"meal", name:"천문대 언덕 피크닉 & 선셋", web:"https://powerhouse.com.au/visit/sydney-observatory", q:"Sydney Observatory", ll:[-33.8597,151.2048], desc:"더 록스에서 저녁거리 포장 → 언덕 잔디밭에서 저녁 피크닉 · 일몰 약 7:21", fee:"무료", hours:"언덕 상시", img:"observatory"},
   {t:"19:40", s:1, name:"고스트 인 더 록스", web:"https://www.therocks.com/whats-on/campaigns/ghost-in-the-rocks", q:"The Rocks Sydney", ll:[-33.8593,151.2087], desc:"할로윈 축제 · 아이들 코스튬 · 어두워진 뒤 분위기", fee:"무료 (음식·체험은 별도)", hours:"토요일 낮~23:00", img:"ghost"},
-  {t:"20:30", s:1, name:"오페라하우스 프로젝션 쇼", web:"https://www.sydneyoperahouse.com/experiences/badu-gili-story-keepers", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"바두 길리 · 동쪽 지붕에 비추는 약 6분 쇼 · 앞 큰 계단 위쪽에서 보기 · 20:30 · 21:00 · 21:30 · 22:00", fee:"무료", hours:"매일 밤", wiki:["Sydney_Opera_House"]},
+  {t:"20:30", s:1, name:"오페라하우스 프로젝션 쇼", web:"https://www.sydneyoperahouse.com/experiences/badu-gili", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"바두 길리 · 동쪽 지붕에 비추는 약 6분 쇼 · 앞 큰 계단 위쪽에서 보기 · 20:30 · 21:00 · 21:30 · 22:00", fee:"무료", hours:"매일 밤", img:"badugili"},
   {t:"20:45", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역까지 걸어서 약 15분 → 메트로 · 숙소 약 21:15 · 오늘 밤 짐을 반쯤 싸 두면 6·7일째가 편해요", via:["martin"], w:"chatswood"}
  ]},
  {id:"d6", day:6, dow:"일", date:"2026-11-01", back:"21:30", sunset:"19:22", out:"09:15", title:"록스 마켓 · 본다이 비치 · 조각 전시 해안산책 · 로열 보타닉 가든 · 매쿼리 부인의 의자 선셋",
@@ -589,10 +589,13 @@ const IMG = {
   townhall:   {src:"images/townhall.jpg", credit:"모모"},
   stmary:     {src:"images/stmary.jpg", credit:"모모"},
   darling:    {src:"images/darling.jpg", credit:"모모"},
+  operabar:   {src:"images/operabar.jpg", credit:"모모"},
+  lego:       {src:"images/lego.jpg", credit:"모모"},
+  badugili:   {src:"images/badugili.jpg", credit:"Sydney Opera House", page:"https://www.sydneyoperahouse.com/experiences/badu-gili"},
   ghost:      {src:"https://www.therocks.com/getmedia/846c46b6-0e56-460d-bd1f-651a50004e78/ghost-festival-first-fleet-park.png?width=1200", credit:"The Rocks", page:"https://www.therocks.com/whats-on/campaigns/ghost-in-the-rocks"}
 };
 /* Wikipedia fallback for chosen photos that fail to load */
-const IMG_FALLBACK = {qvb:["Queen_Victoria_Building"], library:["State_Library_of_New_South_Wales"], scenic:["Scenic_World"], taronga:["Taronga_Zoo_Sydney"],
+const IMG_FALLBACK = {operabar:["Sydney_Opera_House"], lego:["Pitt_Street_Mall"], badugili:["Sydney_Opera_House"], qvb:["Queen_Victoria_Building"], library:["State_Library_of_New_South_Wales"], scenic:["Scenic_World"], taronga:["Taronga_Zoo_Sydney"],
   mca:["Museum_of_Contemporary_Art_Australia"], observatory:["Sydney_Observatory"], rocks:["The_Rocks,_Sydney"], wendy:["Wendy_Whiteley's_Secret_Garden","Lavender_Bay,_New_South_Wales"],
   pool:["North_Sydney_Olympic_Pool"], uni:["Main_Quadrangle,_University_of_Sydney","University_of_Sydney"], milsons:["Milsons_Point,_New_South_Wales","Luna_Park_Sydney"], ghost:["The_Rocks,_Sydney"]};
 const LINE_LABEL = {T1:"T1",T4:"T4",T8:"T8",M:"메트로",F:"페리",B:"버스",BMT:"블루마운틴선",LR:"라이트레일"};

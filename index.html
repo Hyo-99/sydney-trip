@@ -120,6 +120,9 @@ section.day{scroll-margin-top:64px;padding-block:30px 10px;border-bottom:1px sol
 .opt .optnote{font-size:12px;color:var(--muted)}
 .opt ul{margin:6px 0 0;padding-left:18px}
 .opt li{margin:2px 0}
+.dayhead .tags{display:flex;flex-wrap:wrap;gap:6px}
+.dayhead .tag.sun{color:var(--meal);background:var(--meal-soft)}
+.dayhead .tag.wx{color:var(--ink);background:var(--surface);border:1px solid var(--line);font-weight:500}
 .dayhead .tag{font-size:12px;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 9px;font-weight:600}
 
 .mapcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:18px}
@@ -361,7 +364,7 @@ const WP = {
 /* s = sight (numbered), w = waypoint on this timeline item, via = waypoints passed before this item (map only)
    fee / hours = shown under each sight; img = chosen photo, wiki = Wikipedia fallback photos */
 const DAYS = [
- {id:"d1", day:1, dow:"화", out:"13:40", title:"도착 · 채스우드 점심 · 맨리 비치 (피시 앤 칩스) · 오페라하우스 & 오페라 바 · 채스우드 슈퍼마켓 장보기 · 숙소 저녁", stops:[
+ {id:"d1", day:1, dow:"화", date:"2026-10-27", back:"20:30", sunset:"19:18", out:"13:40", title:"도착 · 채스우드 점심 · 맨리 비치 (피시 앤 칩스) · 오페라하우스 & 오페라 바 · 채스우드 슈퍼마켓 장보기 · 숙소 저녁", stops:[
   {t:"10:15", type:"move", name:"시드니 공항 착륙", w:"airport"},
   {t:"11:00", type:"move", name:"공항 나와서 숙소로 출발", lines:["B","T8","M"], desc:"420번 버스 → 마스콧역 → T8 → 센트럴역 → 메트로 → 채스우드역 → 도보 7분"},
   {t:"12:20", type:"move", name:"숙소 도착", desc:"얼리체크인 가능하면 하고, 불가하면 짐만 맡기기", via:["mascot","central"], w:"chatswood"},
@@ -371,12 +374,12 @@ const DAYS = [
   {t:"15:00", s:1, name:"맨리 비치", q:"Manly Beach", ll:[-33.7970,151.2885], desc:"코르소 거리 지나 해변 산책, 모래놀이 · 피시 앤 칩스 간식", fee:"무료", hours:"상시", wiki:["Manly_Beach","Manly,_New_South_Wales"]},
   {t:"16:45", type:"move", name:"페리로 서큘러 키 복귀", lines:["F"], via:["manly"], w:"quay"},
   {t:"17:30", s:1, name:"오페라하우스", web:"https://www.sydneyoperahouse.com/", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"서큘러 키에서 걸어서 약 5분 · 건물 외관과 앞 계단 구경", fee:"무료 (외관)", hours:"상시 · 내부 투어는 유료 예약", wiki:["Sydney_Opera_House"]},
-  {t:"18:00", s:1, name:"오페라 바", web:"https://operabar.com.au/", q:"Opera Bar Sydney", ll:[-33.8580,151.2127], desc:"하버브릿지를 보며 음료 한잔 · 해 질 녘까지 (일몰 약 7:05)", fee:"음료값 별도", hours:"매일 낮~밤 (방문 전 확인)", wiki:["Sydney_Opera_House"]},
+  {t:"18:00", s:1, name:"오페라 바", web:"https://operabar.com.au/", q:"Opera Bar Sydney", ll:[-33.8580,151.2127], desc:"하버브릿지를 보며 음료 한잔 · 해 질 녘까지 (일몰 약 7:18)", fee:"음료값 별도", hours:"매일 낮~밤 (방문 전 확인)", wiki:["Sydney_Opera_House"]},
   {t:"19:15", type:"move", name:"채스우드로 귀가", lines:["M"], desc:"마틴 플레이스역까지 걸어서 약 15분 → 메트로", via:["martin"], w:"chatswood"},
   {t:"19:50", s:1, name:"슈퍼마켓 장보기", q:"Woolworths Chatswood", ll:[-33.7964,151.1828], desc:"저녁거리, 도시락 재료, 아침거리, 군것질거리 · 늦은 시간이니 저녁은 통닭·샐러드처럼 바로 먹을 수 있는 걸로 하면 편해요", fee:"", hours:"보통 밤까지 영업 (방문 전 확인)"},
   {t:"20:30", type:"meal", name:"저녁 (숙소)"}
  ]},
- {id:"d2", day:2, dow:"수", out:"07:55", title:"타롱가 주 (위쪽부터 핵심만) · 하이드 파크 · 세인트 메리 대성당 · 주립미술관 (수요일 야간 개장) · 주립도서관 · 숙소 저녁",
+ {id:"d2", day:2, dow:"수", date:"2026-10-28", back:"18:50", sunset:"19:19", out:"07:55", title:"타롱가 주 (위쪽부터 핵심만) · 하이드 파크 · 세인트 메리 대성당 · 주립미술관 (수요일 야간 개장) · 주립도서관 · 숙소 저녁",
   minus:["타롱가 주 체류 시간 줄이기","하이드 파크 · 대성당 · 미술관 · 도서관 중 일부 생략"], stops:[
   {t:"07:15", type:"meal", name:"아침 · 도시락 싸기"},
   {t:"07:55", type:"move", name:"숙소 출발 → 서큘러 키", lines:["M"], desc:"메트로로 마틴 플레이스역 → 걸어서 약 12분", via:["chatswood","martin"], w:"quay"},
@@ -392,7 +395,7 @@ const DAYS = [
   {t:"18:20", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역에서 메트로, 환승 없이 채스우드까지", via:["martin"], w:"chatswood"},
   {t:"18:50", type:"meal", name:"저녁 (숙소)"}
  ]},
- {id:"d3", day:3, dow:"목", out:"07:35", title:"블루마운틴 · 시닉 월드 · 루라 마을 (도시락 점심) · 숙소 저녁", stops:[
+ {id:"d3", day:3, dow:"목", date:"2026-10-29", back:"19:30", sunset:"19:23", wx:[-33.7123,150.3115], out:"07:35", title:"블루마운틴 · 시닉 월드 · 루라 마을 (도시락 점심) · 숙소 저녁", stops:[
   {t:"07:00", type:"meal", name:"아침 · 도시락 싸기"},
   {t:"07:35", type:"move", name:"숙소 출발 → 07:51 기차", lines:["M","BMT"], desc:"센트럴역에서 블루마운틴선 · 07:51이 센트럴역 출발 시각이라면 07:05에 나와야 해요. 전날 앱으로 꼭 확인", w:"chatswood"},
   {t:"10:45", type:"move", name:"카툼바역 도착 → 686번 버스", lines:["B"], via:["central"], w:"katoomba"},
@@ -402,7 +405,7 @@ const DAYS = [
   {t:"16:30", type:"move", name:"루라역에서 기차로 귀가", lines:["BMT","M"], desc:"채스우드 도착 약 7:00~7:30", via:["leurast","central"], w:"chatswood"},
   {t:"19:30", type:"meal", name:"저녁 (숙소)"}
  ]},
- {id:"d4", day:4, dow:"금", out:"08:35", title:"수산시장 (구경·점심) · 시드니대학교 · 싱글오 카페 · 패디스 마켓 · 타운홀 · QVB · 로열 아케이드 · 레고 스토어 · 달링하버 놀이터 · 달링하버 저녁 & 야경",
+ {id:"d4", day:4, dow:"금", date:"2026-10-30", back:"20:30", sunset:"19:20", out:"08:35", title:"수산시장 (구경·점심) · 시드니대학교 · 싱글오 카페 · 패디스 마켓 · 타운홀 · QVB · 로열 아케이드 · 레고 스토어 · 달링하버 놀이터 · 달링하버 저녁 & 야경",
   minus:["시드니대학교","수산시장 (빼면 숙소 출발 10:00)","달링하버 (놀이터 · 저녁 · 야경)"], stops:[
   {t:"08:00", type:"meal", name:"아침"},
   {t:"08:35", type:"move", name:"숙소 출발 → 수산시장", lines:["M","LR"], desc:"메트로로 센트럴역 → 라이트레일 L1 → 피시 마켓역", via:["central"], w:"fishlr"},
@@ -414,10 +417,10 @@ const DAYS = [
   {t:"15:30", s:1, name:"QVB · 로열 아케이드", web:"https://www.qvb.com.au/", q:"Queen Victoria Building", ll:[-33.8718,151.2067], desc:"QVB 건물 구경 · 로열 아케이드 등 주변 아케이드 쇼핑", fee:"무료 입장", hours:"평일 상점은 대부분 18:00 무렵 마감", img:"qvb"},
   {t:"16:30", s:1, name:"레고 스토어 (for kids)", q:"LEGO Store Pitt Street Mall Sydney", ll:[-33.8700,151.2085], desc:"피트 스트리트 몰 · 2층 규모의 큰 레고 매장", fee:"무료 입장", hours:"시간은 방문 전 확인", wiki:["Pitt_Street_Mall"]},
   {t:"17:00", s:1, name:"달링 쿼터 어린이 놀이터", q:"Darling Quarter Playground", ll:[-33.8750,151.2003], desc:"걸어서 약 15분 · 아이들 놀이 시간", fee:"무료", hours:"상시", img:"playground"},
-  {t:"18:15", s:1, type:"meal", name:"달링하버 저녁 & 야경", q:"Darling Harbour Sydney", ll:[-33.8720,151.1993], desc:"저녁 (외식) · 해 진 뒤 야경 (일몰 약 7:10)", fee:"음식값 별도", hours:"상시", img:"darling"},
+  {t:"18:15", s:1, type:"meal", name:"달링하버 저녁 & 야경", q:"Darling Harbour Sydney", ll:[-33.8720,151.1993], desc:"저녁 (외식) · 해 진 뒤 야경 (일몰 약 7:20)", fee:"음식값 별도", hours:"상시", img:"darling"},
   {t:"20:00", type:"move", name:"귀가", lines:["T1"], desc:"타운홀역에서 T1, 환승 없이 채스우드까지", via:["townhall"], w:"chatswood"}
  ]},
- {id:"d5", day:5, dow:"토", out:"09:00", title:"웬디 화이틀리 시크릿 가든 · 노스 시드니 올림픽 풀 · 밀슨스 포인트 페리 · 서큘러 키 점심 · 현대미술관 & 카페 · 천문대 피크닉 & 선셋 · 고스트 인 더 록스 · 오페라하우스 프로젝션 쇼",
+ {id:"d5", day:5, dow:"토", date:"2026-10-31", back:"21:15", sunset:"19:21", out:"09:00", title:"웬디 화이틀리 시크릿 가든 · 노스 시드니 올림픽 풀 · 밀슨스 포인트 페리 · 서큘러 키 점심 · 현대미술관 & 카페 · 천문대 피크닉 & 선셋 · 고스트 인 더 록스 · 오페라하우스 프로젝션 쇼",
   minus:["웬디 화이틀리 시크릿 가든 (빼면 숙소 출발 09:45)","오페라하우스 프로젝션 쇼"], stops:[
   {t:"08:15", type:"meal", name:"아침"},
   {t:"09:00", type:"move", name:"숙소 출발 → 밀슨스 포인트역", lines:["T1"], desc:"채스우드역에서 약 15분", w:"milsons"},
@@ -426,12 +429,12 @@ const DAYS = [
   {t:"13:00", type:"move", name:"밀슨스 포인트에서 페리 → 서큘러 키", lines:["F"], desc:"약 10분 · 오팔 사용 가능", via:["milwharf"], w:"quay"},
   {t:"13:30", s:1, type:"meal", name:"점심 · 맥도날드", q:"McDonald's Circular Quay Sydney", ll:[-33.8614,151.2104], desc:"서큘러 키 (Sydney Gateway)", fee:"음식값 별도", hours:"상시"},
   {t:"14:15", s:1, name:"현대미술관 & 카페", web:"https://www.mca.com.au/", q:"Museum of Contemporary Art Australia", ll:[-33.8599,151.2090], desc:"서큘러 키 바로 옆 · 미술관 카페에서 하버 보며 쉬기", fee:"무료 (일부 특별전 유료)", hours:"토요일 10:00~17:00 · 화요일 휴관", img:"mca"},
-  {t:"17:00", s:1, type:"meal", name:"천문대 언덕 피크닉 & 선셋", web:"https://powerhouse.com.au/visit/sydney-observatory", q:"Sydney Observatory", ll:[-33.8597,151.2048], desc:"더 록스에서 저녁거리 포장 → 언덕 잔디밭에서 저녁 피크닉 · 일몰 약 7:20", fee:"무료", hours:"언덕 상시", img:"observatory"},
+  {t:"17:00", s:1, type:"meal", name:"천문대 언덕 피크닉 & 선셋", web:"https://powerhouse.com.au/visit/sydney-observatory", q:"Sydney Observatory", ll:[-33.8597,151.2048], desc:"더 록스에서 저녁거리 포장 → 언덕 잔디밭에서 저녁 피크닉 · 일몰 약 7:21", fee:"무료", hours:"언덕 상시", img:"observatory"},
   {t:"19:40", s:1, name:"고스트 인 더 록스", web:"https://www.therocks.com/whats-on/campaigns/ghost-in-the-rocks", q:"The Rocks Sydney", ll:[-33.8593,151.2087], desc:"할로윈 축제 · 아이들 코스튬 · 어두워진 뒤 분위기", fee:"무료 (음식·체험은 별도)", hours:"토요일 낮~23:00", img:"ghost"},
   {t:"20:30", s:1, name:"오페라하우스 프로젝션 쇼", web:"https://www.sydneyoperahouse.com/experiences/badu-gili-story-keepers", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"바두 길리 · 동쪽 지붕에 비추는 약 6분 쇼 · 앞 큰 계단 위쪽에서 보기 · 20:30 · 21:00 · 21:30 · 22:00", fee:"무료", hours:"매일 밤", wiki:["Sydney_Opera_House"]},
   {t:"20:45", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역까지 걸어서 약 15분 → 메트로 · 숙소 약 21:15 · 오늘 밤 짐을 반쯤 싸 두면 6·7일째가 편해요", via:["martin"], w:"chatswood"}
  ]},
- {id:"d6", day:6, dow:"일", out:"09:15", title:"록스 마켓 · 본다이 비치 (도시락 점심) · 조각 전시 해안산책 · 로열 보타닉 가든 피크닉 · 매쿼리 부인의 의자 선셋 · 서큘러 키 저녁 (외식)",
+ {id:"d6", day:6, dow:"일", date:"2026-11-01", back:"21:30", sunset:"19:22", out:"09:15", title:"록스 마켓 · 본다이 비치 (도시락 점심) · 조각 전시 해안산책 · 로열 보타닉 가든 피크닉 · 매쿼리 부인의 의자 선셋 · 서큘러 키 저녁 (외식)",
   minus:["로열 보타닉 가든","매쿼리 부인의 의자"], plus:["오페라하우스 프로젝션 쇼 (20:30 · 21:00 · 21:30 · 22:00) · 저녁 먹고 귀가 길에"], stops:[
   {t:"08:30", type:"meal", name:"아침 · 도시락 싸기"},
   {t:"09:15", type:"move", name:"숙소 출발 → 서큘러 키", lines:["M"], desc:"메트로로 마틴 플레이스역 → 걸어서 약 12분", via:["chatswood","martin"], w:"quay"},
@@ -441,11 +444,11 @@ const DAYS = [
   {t:"12:45", s:1, name:"본다이–타마라마 해안길 · 조각 전시", web:"https://sculpturebythesea.com/bondi/", q:"Tamarama Beach Sydney", ll:[-33.9010,151.2700], desc:"Sculpture by the Sea (11/2까지) · 해안 산책 약 2km", fee:"무료", hours:"상시 (낮 시간)", img:"bondibeach"},
   {t:"14:30", type:"move", name:"333번 버스로 시내", lines:["B"], desc:"세인트 제임스역 근처에서 내려 보타닉 가든까지 걸어서 약 10분", w:"stjames"},
   {t:"15:30", s:1, name:"로열 보타닉 가든", web:"https://www.botanicgardens.org.au/royal-botanic-garden-sydney", q:"Royal Botanic Garden Sydney", ll:[-33.8642,151.2166], desc:"잔디밭에서 간식 피크닉, 정원 산책", fee:"무료", hours:"7:00~19:30 (10~11월 기준)", img:"botanic"},
-  {t:"18:45", s:1, name:"매쿼리 부인의 의자", q:"Mrs Macquarie's Chair Sydney", ll:[-33.8597,151.2228], desc:"여행 마지막 선셋 (일몰 약 7:15) · 오페라하우스와 하버브릿지가 한 화면에", fee:"무료", hours:"상시", img:"macquarie"},
+  {t:"18:45", s:1, name:"매쿼리 부인의 의자", q:"Mrs Macquarie's Chair Sydney", ll:[-33.8597,151.2228], desc:"여행 마지막 선셋 (일몰 약 7:22) · 오페라하우스와 하버브릿지가 한 화면에", fee:"무료", hours:"상시", img:"macquarie"},
   {t:"19:30", type:"meal", name:"저녁 (외식)", desc:"서큘러 키 · 매쿼리 부인의 의자에서 걸어서 약 25분", w:"quay"},
   {t:"21:00", type:"move", name:"귀가 · 짐 마무리", lines:["M"], desc:"마틴 플레이스역에서 메트로", via:["martin"], w:"chatswood"}
  ]},
- {id:"d7", day:7, dow:"월", out:"08:00", title:"숙소 출발 · 공항 · 귀국 (12:15 출발)", stops:[
+ {id:"d7", day:7, dow:"월", date:"2026-11-02", back:"", arrive:"공항 도착 09:15", sunset:"", out:"08:00", title:"숙소 출발 · 공항 · 귀국 (12:15 출발)", stops:[
   {t:"07:00", type:"meal", name:"아침 · 체크아웃"},
   {t:"08:00", type:"move", name:"숙소 출발 → 공항", lines:["M","T8","B"], desc:"메트로 → T8 → 마스콧역 → 420번 버스 · 짐이 있으니 여유 있게 07:50 출발도 좋아요", w:"chatswood"},
   {t:"09:15", type:"move", name:"시드니 공항 도착", desc:"출발 3시간 전", via:["central","mascot"], w:"airport"},
@@ -648,7 +651,7 @@ function render(){
         <div class="content ${thumb?"has-thumb":""}"><div><div class="name">${esc(s.name)}</div>${s.desc?`<div class="desc">${esc(s.desc)}</div>`:""}${info}${row}</div>${thumb}</div></li>`;
     }).join("");
     return `<section class="day" id="${d.id}">
-      <div class="dayhead"><span class="date">${d.day}일째 <small>(${d.dow})</small></span>${d.out?`<span class="tag">숙소 출발 ${esc(d.out)}</span>`:""}<h2>${esc(d.title)}</h2></div>
+      <div class="dayhead"><span class="date">${d.day}일째 <small>(${d.dow})</small></span><span class="tags">${d.out?`<span class="tag">숙소 출발 ${esc(d.out)}</span>`:""}${d.back?`<span class="tag">숙소 도착 ${esc(d.back)}</span>`:(d.arrive?`<span class="tag">${esc(d.arrive)}</span>`:"")}${d.sunset?`<span class="tag sun">일몰 ${esc(d.sunset)}</span>`:""}<span class="tag wx" id="wx-${d.id}" title="Open-Meteo 일기예보 · 페이지를 열 때마다 새로 불러와요">날씨 불러오는 중</span></span><h2>${esc(d.title)}</h2></div>
       ${(d.minus||d.plus)?`<div class="opts">${d.minus?`<div class="opt minus"><b>− 마이너스 옵션</b><span class="optnote">컨디션 봐서 빼도 되는 일정</span><ul>${d.minus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}${d.plus?`<div class="opt plus"><b>+ 플러스 옵션</b><span class="optnote">컨디션 봐서 더해도 되는 일정</span><ul>${d.plus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}</div>`:""}
       <div class="mapcard"><div class="leaf" id="leaf-${d.id}"></div><div class="svgfb">${buildSvg(d)}</div><div class="maplegend">경로 · <b>점선</b> 걷기 · <b>실선</b> 기차·메트로·버스 · <b>긴 점선</b> 페리</div></div>
       <ol class="timeline">${items}</ol>
@@ -663,6 +666,30 @@ function render(){
   prep.addEventListener("toggle",()=>btn.setAttribute("aria-expanded", prep.open ? "true" : "false"));
 }
 render();
+
+/* live weather: Open-Meteo daily forecast (free, no key). Forecasts reach about 16 days ahead. */
+const WMO = c => c===0?["☀️","맑음"]:c===1?["🌤️","대체로 맑음"]:c===2?["⛅","구름 조금"]:c===3?["☁️","흐림"]:c<=48?["🌫️","안개"]:c<=57?["🌦️","이슬비"]:c<=67?["🌧️","비"]:c<=77?["❄️","눈"]:c<=82?["🌦️","소나기"]:["⛈️","뇌우"];
+(async function loadWeather(){
+  const groups = {};
+  DAYS.forEach(d=>{ const k = (d.wx||[-33.8688,151.2093]).join(","); (groups[k]=groups[k]||[]).push(d); });
+  for (const k in groups){
+    const [lat,lon] = k.split(",");
+    let j = null;
+    try{
+      const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Australia%2FSydney&forecast_days=16`);
+      if (r.ok) j = await r.json();
+    } catch(e){}
+    groups[k].forEach(d=>{
+      const el = document.getElementById("wx-"+d.id); if (!el) return;
+      const i = j && j.daily ? j.daily.time.indexOf(d.date) : -1;
+      if (!j){ el.textContent = "날씨 정보를 불러오지 못했어요"; return; }
+      if (i < 0){ el.textContent = d.date < j.daily.time[0] ? "날씨 · 지난 날짜" : "날씨 · 여행 약 2주 전부터 예보"; return; }
+      const D = j.daily, [ic,tx] = WMO(D.weather_code[i]);
+      const rain = D.precipitation_probability_max[i];
+      el.textContent = `${ic} ${tx} ${Math.round(D.temperature_2m_min[i])}~${Math.round(D.temperature_2m_max[i])}°C${rain!=null?` · 비 ${rain}%`:""}${d.wx?" (블루마운틴)":""}`;
+    });
+  }
+})();
 
 /* checklist ticks: on screen only, not saved */
 document.querySelectorAll("ul.check input[type=checkbox]").forEach(cb=>{

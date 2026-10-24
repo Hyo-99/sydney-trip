@@ -364,6 +364,7 @@ const WP = {
   stjames:  {name:"세인트 제임스역",   q:"St James Station Sydney",         ll:[-33.8708,151.2112]},
   townhall: {name:"타운홀역",          q:"Town Hall Station Sydney",        ll:[-33.8735,151.2068]},
   leurast:  {name:"루라역",            q:"Leura Station",                   ll:[-33.7121,150.3312]},
+  museumst: {name:"뮤지엄역",          q:"Museum Station Sydney",           ll:[-33.8763,151.2097]},
   milwharf: {name:"밀슨스 포인트 선착장", q:"Milsons Point Wharf",          ll:[-33.8488,151.2101]}
 };
 /* s = sight (numbered), w = waypoint on this timeline item, via = waypoints passed before this item (map only)
@@ -384,20 +385,21 @@ const DAYS = [
   {t:"20:00", s:1, name:"슈퍼마켓 장보기", q:"Woolworths Chatswood", ll:[-33.7964,151.1828], desc:"저녁거리, 도시락 재료, 아침거리, 군것질거리 · 늦은 시간이니 저녁은 통닭·샐러드처럼 바로 먹을 수 있는 걸로 하면 편해요", fee:"", hours:"보통 밤까지 영업 (방문 전 확인)"},
   {t:"20:40", type:"meal", name:"저녁 (숙소)"}
  ]},
- {id:"d2", day:2, dow:"수", date:"2026-10-28", back:"18:50", sunset:"19:19", out:"07:55", title:"타롱가 주 · 하이드 파크 · 세인트 메리 대성당 · 주립미술관 · 주립도서관",
-  minus:["타롱가 주 체류 시간 줄이기","하이드 파크 · 대성당 · 미술관 · 도서관 중 일부 생략"], stops:[
+ {id:"d2", day:2, dow:"수", date:"2026-10-28", back:"19:15", sunset:"19:19", out:"07:55", title:"타롱가 주 · 오스트레일리안 뮤지엄 · 하이드 파크 · 세인트 메리 대성당 · 주립미술관 · 주립도서관",
+  minus:["타롱가 주 체류 시간 줄이기","오스트레일리안 뮤지엄 · 하이드 파크 · 대성당 · 미술관 · 도서관 중 일부 생략"], stops:[
   {t:"07:55", type:"move", name:"숙소 출발 → 서큘러 키", lines:["M"], desc:"메트로로 마틴 플레이스역 → 걸어서 약 12분", via:["chatswood","martin"], w:"quay"},
   {t:"08:49", type:"move", name:"타롱가행 페리", lines:["F"], desc:"약 12분 · 30분 간격이라 전날 시간표 확인"},
   {t:"09:05", type:"move", name:"238번 버스로 동물원 위쪽 정문", lines:["B"], desc:"케이블카(스카이 사파리)는 공사로 2027년 말까지 운행 안 함 · 붐비는 날엔 동물원 셔틀버스도 운행", w:"twharf"},
   {t:"09:30", s:1, name:"타롱가 주", web:"https://www.taronga.org.au/sydney-zoo", q:"Taronga Zoo Sydney", ll:[-33.8430,151.2412], desc:"언덕이라 위쪽 정문에서 시작해 내려오며 핵심만 구경 · 11:00 물개 공연 · 도시락 점심 · 아래쪽 입구로 나오면 선착장까지 걸어서 3분", fee:"온라인 예매 권장 · 성인 51.30AUD~, 아동 29.70AUD~ (가족권 있음)", hours:"9:30~17:00", img:"taronga"},
   {t:"14:00", type:"move", name:"페리로 서큘러 키", lines:["F"], via:["twharf"], w:"quay"},
-  {t:"14:30", type:"move", name:"기차로 세인트 제임스역", lines:["T8"], desc:"시티 서클 기차 (T2·T3·T8 아무거나) · 약 5분", w:"stjames"},
-  {t:"14:45", s:1, name:"하이드 파크", q:"Hyde Park Sydney", ll:[-33.8722,151.2113], desc:"공원 산책, 아치볼드 분수 · 간식 피크닉", fee:"무료", hours:"상시", img:"hydepark"},
-  {t:"15:20", s:1, name:"세인트 메리 대성당", web:"https://stmaryscathedral.org.au/", q:"St Mary's Cathedral Sydney", ll:[-33.8711,151.2133], desc:"성당 내부 구경 · 미술관보다 먼저 (평일 18:30에 닫아요)", fee:"무료 (기부 환영)", hours:"6:30~18:30 (평일)", img:"stmary"},
-  {t:"15:50", s:1, name:"NSW 주립미술관", web:"https://www.artgallery.nsw.gov.au/", q:"Art Gallery of New South Wales", ll:[-33.8688,151.2174], desc:"상설전 관람 · 미술관 카페에서 쉬기", fee:"무료 (일부 특별전 유료)", hours:"10:00~17:00 · 수요일은 밤까지 야간 개장", wiki:["Art_Gallery_of_New_South_Wales"]},
-  {t:"17:45", s:1, name:"NSW 주립도서관", web:"https://www.sl.nsw.gov.au/", q:"State Library of NSW", ll:[-33.8661,151.2131], desc:"미첼 열람실 구경 · 마틴 플레이스역과 가까워 마지막 순서", fee:"무료", hours:"월~목 9:00~20:00", img:"library"},
-  {t:"18:20", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역에서 메트로, 환승 없이 채스우드까지", via:["martin"], w:"chatswood"},
-  {t:"18:50", type:"meal", name:"저녁 (숙소)"}
+  {t:"14:30", type:"move", name:"기차로 뮤지엄역", lines:["T8"], desc:"시티 서클 기차 (T2·T3·T8 아무거나) · 약 7분", via:["stjames"], w:"museumst"},
+  {t:"14:45", s:1, name:"오스트레일리안 뮤지엄", web:"https://australian.museum/", q:"Australian Museum Sydney", ll:[-33.8743,151.2133], desc:"뮤지엄역에서 걸어서 약 3분 · 공룡 화석과 호주 동물 표본 · 오후 5시에 닫아서 오후 첫 순서로", fee:"무료 (특별 전시는 유료)", hours:"매일 10:00~17:00", wiki:["Australian_Museum"]},
+  {t:"15:50", s:1, name:"하이드 파크", q:"Hyde Park Sydney", ll:[-33.8722,151.2113], desc:"뮤지엄 바로 앞 · 공원 산책, 아치볼드 분수 · 간식 피크닉", fee:"무료", hours:"상시", img:"hydepark"},
+  {t:"16:10", s:1, name:"세인트 메리 대성당", web:"https://stmaryscathedral.org.au/", q:"St Mary's Cathedral Sydney", ll:[-33.8711,151.2133], desc:"성당 내부 구경 · 미술관보다 먼저 (평일 18:30에 닫아요)", fee:"무료 (기부 환영)", hours:"6:30~18:30 (평일)", img:"stmary"},
+  {t:"16:40", s:1, name:"NSW 주립미술관", web:"https://www.artgallery.nsw.gov.au/", q:"Art Gallery of New South Wales", ll:[-33.8688,151.2174], desc:"상설전 관람 · 미술관 카페에서 쉬기", fee:"무료 (일부 특별전 유료)", hours:"10:00~17:00 · 수요일은 밤까지 야간 개장", wiki:["Art_Gallery_of_New_South_Wales"]},
+  {t:"18:15", s:1, name:"NSW 주립도서관", web:"https://www.sl.nsw.gov.au/", q:"State Library of NSW", ll:[-33.8661,151.2131], desc:"미첼 열람실 구경 · 마틴 플레이스역과 가까워 마지막 순서", fee:"무료", hours:"월~목 9:00~20:00", img:"library"},
+  {t:"18:45", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역에서 메트로, 환승 없이 채스우드까지", via:["martin"], w:"chatswood"},
+  {t:"19:15", type:"meal", name:"저녁 (숙소)"}
  ]},
  {id:"d3", day:3, dow:"목", date:"2026-10-29", back:"18:00", sunset:"19:23", wx:[-33.7123,150.3115], out:"07:35", title:"블루마운틴 · 시닉 월드 · 루라 마을",
   plus:["채스우드 미니 투어 (도서관 및 상점가)"], stops:[
@@ -521,7 +523,7 @@ const LEGS = {
  d1:[["bus","bus_air_mascot"],["rail","t8"],["rail","m1c",PT.centralM,PT.chats],["rail","m1c",PT.chats,PT.martin],["walk","w_martin_quay"],["ferry","f1"],["walk","w_manly_mbeach"],
      ["walk","w_rocks_opera",PT.quay,PT.opera],["walk",[PT.opera,[-33.8580,151.2127]]],["walk","w_opera_martin"],["rail","m1c",PT.martin,PT.chats],["walk",[PT.chats,[-33.7964,151.1828]]]],
  d2:[["rail","m1c",PT.chats,PT.martin],["walk","w_martin_quay"],["ferry","f2"],["bus","bus_twharf_tzoo"],["walk","w_tzoo_twharf"],
-     ["rail",[PT.quay,[-33.8640,151.2125],PT.stjames]],["walk",[PT.stjames,[-33.8722,151.2113]]],["walk","w_stm_hyde"],["walk","w_ag_stm"],["walk","w_lib_ag"],["walk",[[-33.8661,151.2131],PT.martin]],["rail","m1c",PT.martin,PT.chats]],
+     ["rail",[PT.quay,[-33.8640,151.2125],PT.stjames,[-33.8763,151.2097]]],["walk",[[-33.8763,151.2097],[-33.8750,151.2124],[-33.8743,151.2133]]],["walk",[[-33.8743,151.2133],[-33.8732,151.2120],[-33.8722,151.2113]]],["walk","w_stm_hyde"],["walk","w_ag_stm"],["walk","w_lib_ag"],["walk",[[-33.8661,151.2131],PT.martin]],["rail","m1c",PT.martin,PT.chats]],
  d3:[["rail","m1c",PT.chats,PT.centralM],["rail","bmt"],["bus","bus_kat_scenic"],["rail","bkl"],["walk","w_leuras_lmall"],["rail","bmt",PT.leura,PT.central],["rail","m1c",PT.centralM,PT.chats]],
  d4:[["rail","m1c",PT.chats,PT.centralM],["rail","l1"],
      ["bus",[[-33.8729,151.1944],[-33.8790,151.1925],[-33.8835,151.1905],[-33.8858,151.1890]]],

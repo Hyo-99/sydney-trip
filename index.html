@@ -369,20 +369,20 @@ const WP = {
 /* s = sight (numbered), w = waypoint on this timeline item, via = waypoints passed before this item (map only)
    fee / hours = shown under each sight; img = chosen photo, wiki = Wikipedia fallback photos */
 const DAYS = [
- {id:"d1", day:1, dow:"화", date:"2026-10-27", back:"20:30", sunset:"19:18", land:"10:15", title:"도착 · 맨리 비치 · 오페라하우스 & 오페라 바 · 슈퍼마켓 장보기", stops:[
+ {id:"d1", day:1, dow:"화", date:"2026-10-27", back:"20:40", sunset:"19:18", land:"10:15", title:"도착 · 맨리 비치 · 오페라하우스 & 오페라 바 · 슈퍼마켓 장보기", stops:[
   {t:"10:15", type:"move", name:"시드니 공항 착륙", w:"airport"},
   {t:"11:00", type:"move", name:"공항 나와서 숙소로 출발", lines:["B","T8","M"], desc:"420번 버스 → 마스콧역 → T8 → 센트럴역 → 메트로 → 채스우드역 → 도보 7분"},
-  {t:"12:20", type:"move", name:"숙소 도착", desc:"얼리체크인 가능하면 하고, 불가하면 짐만 맡기기", via:["mascot","central"], w:"chatswood"},
-  {t:"12:40", type:"meal", name:"점심 (외식)", desc:"채스우드역 주변"},
-  {t:"13:40", type:"move", name:"숙소 출발 → 서큘러 키", lines:["M"], desc:"메트로로 마틴 플레이스역 → 걸어서 약 12분", via:["martin"], w:"quay"},
-  {t:"14:30", type:"move", name:"맨리행 페리", lines:["F"], desc:"고속 페리 약 20분 또는 F1 일반 페리 약 30분 · 둘 다 오팔 사용 가능, 요금 같음 · 오페라하우스와 하버브릿지 옆을 지나가요", w:"manly"},
-  {t:"15:00", s:1, name:"맨리 비치", q:"Manly Beach", ll:[-33.7970,151.2885], desc:"코르소 거리 지나 해변 산책, 모래놀이 · 피시 앤 칩스 간식", fee:"무료", hours:"상시", wiki:["Manly_Beach","Manly,_New_South_Wales"]},
-  {t:"16:45", type:"move", name:"페리로 서큘러 키 복귀", lines:["F"], via:["manly"], w:"quay"},
-  {t:"17:30", s:1, name:"오페라하우스", web:"https://www.sydneyoperahouse.com/", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"서큘러 키에서 걸어서 약 5분 · 건물 외관과 앞 계단 구경", fee:"무료 (외관)", hours:"상시 · 내부 투어는 유료 예약", wiki:["Sydney_Opera_House"]},
-  {t:"18:00", s:1, name:"오페라 바", web:"https://operabar.com.au/", q:"Opera Bar Sydney", ll:[-33.8580,151.2127], desc:"하버브릿지를 보며 음료 한잔 · 해 질 녘까지 (일몰 약 7:18)", fee:"음료값 별도", hours:"매일 낮~밤 (방문 전 확인)", img:"operabar"},
-  {t:"19:15", type:"move", name:"채스우드로 귀가", lines:["M"], desc:"마틴 플레이스역까지 걸어서 약 15분 → 메트로", via:["martin"], w:"chatswood"},
-  {t:"19:50", s:1, name:"슈퍼마켓 장보기", q:"Woolworths Chatswood", ll:[-33.7964,151.1828], desc:"저녁거리, 도시락 재료, 아침거리, 군것질거리 · 늦은 시간이니 저녁은 통닭·샐러드처럼 바로 먹을 수 있는 걸로 하면 편해요", fee:"", hours:"보통 밤까지 영업 (방문 전 확인)"},
-  {t:"20:30", type:"meal", name:"저녁 (숙소)"}
+  {t:"12:30", type:"move", name:"숙소 도착", desc:"얼리체크인 가능하면 하고, 불가하면 짐만 맡기기", via:["mascot","central"], w:"chatswood"},
+  {t:"12:50", type:"meal", name:"점심 (외식)", desc:"채스우드역 주변"},
+  {t:"13:50", type:"move", name:"숙소 출발 → 서큘러 키", lines:["M"], desc:"메트로로 마틴 플레이스역 → 걸어서 약 12분", via:["martin"], w:"quay"},
+  {t:"14:40", type:"move", name:"맨리행 페리", lines:["F"], desc:"고속 페리 약 20분 또는 F1 일반 페리 약 30분 · 둘 다 오팔 사용 가능, 요금 같음 · 오페라하우스와 하버브릿지 옆을 지나가요", w:"manly"},
+  {t:"15:10", s:1, name:"맨리 비치", q:"Manly Beach", ll:[-33.7970,151.2885], desc:"코르소 거리 지나 해변 산책, 모래놀이 · 피시 앤 칩스 간식", fee:"무료", hours:"상시", wiki:["Manly_Beach","Manly,_New_South_Wales"]},
+  {t:"16:55", type:"move", name:"페리로 서큘러 키 복귀", lines:["F"], via:["manly"], w:"quay"},
+  {t:"17:40", s:1, name:"오페라하우스", web:"https://www.sydneyoperahouse.com/", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"서큘러 키에서 걸어서 약 5분 · 건물 외관과 앞 계단 구경", fee:"무료 (외관)", hours:"상시 · 내부 투어는 유료 예약", wiki:["Sydney_Opera_House"]},
+  {t:"18:10", s:1, name:"오페라 바", web:"https://operabar.com.au/", q:"Opera Bar Sydney", ll:[-33.8580,151.2127], desc:"하버브릿지를 보며 음료 한잔 · 해 질 녘까지 (일몰 약 7:18)", fee:"음료값 별도", hours:"매일 낮~밤 (방문 전 확인)", img:"operabar"},
+  {t:"19:25", type:"move", name:"채스우드로 귀가", lines:["M"], desc:"마틴 플레이스역까지 걸어서 약 15분 → 메트로", via:["martin"], w:"chatswood"},
+  {t:"20:00", s:1, name:"슈퍼마켓 장보기", q:"Woolworths Chatswood", ll:[-33.7964,151.1828], desc:"저녁거리, 도시락 재료, 아침거리, 군것질거리 · 늦은 시간이니 저녁은 통닭·샐러드처럼 바로 먹을 수 있는 걸로 하면 편해요", fee:"", hours:"보통 밤까지 영업 (방문 전 확인)"},
+  {t:"20:40", type:"meal", name:"저녁 (숙소)"}
  ]},
  {id:"d2", day:2, dow:"수", date:"2026-10-28", back:"18:50", sunset:"19:19", out:"07:55", title:"타롱가 주 · 하이드 파크 · 세인트 메리 대성당 · 주립미술관 · 주립도서관",
   minus:["타롱가 주 체류 시간 줄이기","하이드 파크 · 대성당 · 미술관 · 도서관 중 일부 생략"], stops:[

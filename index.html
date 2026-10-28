@@ -155,6 +155,9 @@ ol.timeline{list-style:none;margin:0;padding:0;display:grid}
 .stop.move .name,.stop.wp .name{color:var(--muted);font-weight:500}
 .stop.meal.sight .name{color:var(--ink);font-weight:600}
 .stop .desc{color:var(--muted);font-size:13px;margin-top:2px}
+.stop .steps{margin:6px 0 0;padding-left:20px;font-size:13px;color:var(--muted);line-height:1.55}
+.stop .steps li{margin:3px 0}
+.stop .steps b{color:var(--ink);font-weight:600}
 .stop .infoline{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin-top:6px;font-size:12px}
 .stop .fee{border-radius:999px;padding:2px 9px;background:var(--meal-soft);color:var(--meal);font-weight:600}
 .stop .fee.free{background:var(--free-bg);color:var(--free-fg)}
@@ -401,15 +404,27 @@ const DAYS = [
   {t:"18:45", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역에서 메트로, 환승 없이 채스우드까지", via:["martin"], w:"chatswood"},
   {t:"19:15", type:"meal", name:"저녁 (숙소)"}
  ]},
- {id:"d3", day:3, dow:"목", date:"2026-10-29", back:"18:00", sunset:"19:23", wx:[-33.7123,150.3115], out:"07:35", title:"블루마운틴 · 시닉 월드 · 루라 마을",
-  plus:["채스우드 미니 투어 (도서관 및 상점가)"], stops:[
-  {t:"07:35", type:"move", name:"숙소 출발 → 07:51 기차", lines:["M","BMT"], desc:"센트럴역에서 블루마운틴선 · 07:51이 센트럴역 출발 시각이라면 07:05에 나와야 해요. 전날 앱으로 꼭 확인", w:"chatswood"},
-  {t:"10:45", type:"move", name:"카툼바역 도착 → 686번 버스", lines:["B"], via:["central"], w:"katoomba"},
-  {t:"11:15", s:1, name:"시닉 월드", web:"https://www.scenicworld.com.au/", q:"Scenic World Katoomba", ll:[-33.7287,150.3016], desc:"레일웨이 · 스카이웨이 · 케이블웨이 · 워크웨이", fee:"사전 예약 권장 · 성인 64AUD~, 아동 38.40AUD~", hours:"평일 10:00~16:00", img:"scenic"},
-  {t:"13:00", type:"move", name:"686번 버스 → 기차 한 정거장 루라역", lines:["B","BMT"], via:["katoomba"], w:"leurast"},
-  {t:"13:30", s:1, type:"meal", name:"루라 마을", q:"Leura Mall NSW", ll:[-33.7124,150.3329], desc:"도시락 점심 · 작은 마을 거리, 카페·상점 구경 · 약 1시간 반 머물고 15:00 기차", fee:"무료", hours:"상점은 대부분 17:00 무렵 마감", img:"leura"},
-  {t:"15:00", type:"move", name:"루라역에서 기차로 귀가", lines:["BMT","M"], desc:"센트럴역에서 메트로로 환승 · 채스우드 도착 약 17:45 · 기차가 1시간 간격이라 시간표 미리 확인", via:["leurast","central"], w:"chatswood"},
-  {t:"18:00", type:"meal", name:"저녁 (숙소)"}
+ {id:"d3", day:3, dow:"목", date:"2026-10-29", back:"19:45", sunset:"19:23", wx:[-33.7123,150.3115], out:"07:30", title:"블루마운틴 · 시닉 월드 · 에코포인트 · 루라 마을",
+  plus:["채스우드 미니 투어 (도서관 및 상점가)"], minus:["워크웨이는 10분 코스로 짧게","루라 마을 (지치면 카툼바역에서 바로 귀가)"], stops:[
+  {t:"07:30", type:"move", name:"숙소 출발 → 센트럴역", lines:["M"], desc:"메트로로 센트럴역 · 약 20분", w:"chatswood"},
+  {t:"08:25", type:"move", name:"센트럴역에서 카툼바행 블루마운틴선 탑승", lines:["BMT"], desc:"약 2시간 · 장거리 승강장(4~15번)에서 Lithgow 또는 Mount Victoria행 · Springwood·Emu Plains행은 카툼바까지 안 가요 · 다음 열차는 약 1시간 뒤", via:["chatswood"], w:"central"},
+  {t:"10:24", type:"move", name:"카툼바역 도착 → 686번 버스로 시닉 월드", lines:["B"], desc:"역 근처 정류장에서 686번(또는 686G) · 오팔·신용카드 가능 · 시닉 월드 정류장(Violet St)에서 하차", w:"katoomba"},
+  {t:"10:46", s:1, name:"시닉 월드", web:"https://www.scenicworld.com.au/", q:"Scenic World Katoomba", ll:[-33.7287,150.3016],
+   desc:"클룩 바우처로 매표소 체크인 (시간 지정 없음, 캡처해 두기) · 점심은 스카이웨이 공원 피크닉 테이블에서 도시락 (돗자리 필요 없음, 가져온 음식은 이곳에서만) 또는 카페·레스토랑 · 무제한권이라 좋았던 건 한 번 더 타도 돼요",
+   steps:[
+    ["스카이웨이","유리 바닥 케이블카로 협곡 위 270m 높이를 건너요. 세 자매봉과 카툼바 폭포가 보여요. 건너편 역에서 내렸다가 다시 타고 돌아오면 왕복 약 15분"],
+    ["레일웨이","세계에서 가장 가파른 기차(최대 52도)로 계곡 바닥까지 내려가요. 옛 탄광 운반용 철길로 짧은 굴도 지나요. 약 5분 · 오늘의 하이라이트"],
+    ["워크웨이","계곡 숲속 나무 데크 길(총 2.4km). 10분 코스: 두 하부역 직통 500m, 평탄 · 30분 코스: 숲속 순환, 계단·경사 있음, 옛 탄광 입구와 광부 오두막 · 50분 코스: 더 깊은 숲까지, 계단 많음 (아이 걸음으로 1시간 이상) · 가족 상태 보고 선택, 갈림길에서 짧게 돌아올 수 있어요"],
+    ["케이블웨이","84명이 타는 큰 통유리 케이블카로 계곡 바닥에서 절벽 위 본관까지 약 510m를 올라와요. 오펀 록과 마운트 솔리터리 경치 · 약 5분"],
+    ["공룡 전시","본관으로 돌아와 공룡 전시 구경 · 아이들 쉬는 시간"]
+   ],
+   fee:"클룩 구매 완료", hours:"목 10:00~16:00 · 마지막 탑승 15:40경", img:"scenic"},
+  {t:"14:00", type:"move", name:"686번 버스로 에코포인트", lines:["B"], desc:"시닉 월드 정류장에서 686번 · 에코포인트(세 자매봉)까지 약 10분 · 걸어서 가면 절벽길 약 45분이라 버스 추천"},
+  {t:"14:15", s:1, name:"에코포인트 (세 자매봉 전망대)", q:"Echo Point Lookout Katoomba", ll:[-33.7320,150.3120], desc:"전망대에서 세 자매봉 구경 · 방문자 센터 화장실 · 허니문 브리지까지 내려가는 길은 계단이 가팔라서 생략", fee:"무료", hours:"상시", wiki:["Echo_Point","Three_Sisters_(Australia)"]},
+  {t:"15:15", type:"move", name:"686번 버스 → 카툼바역 → 기차 한 정거장 루라역", lines:["B","BMT"], desc:"에코포인트에서 686번으로 카툼바 시내(카툼바역 근처)까지 약 10분 → 역까지 걸어서 → 루라행(시드니 방향) 기차 약 5분 · 기차가 대략 1시간 간격이라 앱으로 시간 확인 · 루라역에서 루라 몰까지 걸어서 2분", via:["katoomba"], w:"leurast"},
+  {t:"15:45", s:1, name:"루라 마을", q:"Leura Mall NSW", ll:[-33.7124,150.3329], desc:"작은 마을 거리(루라 몰), 카페·상점 구경 · 상점이 17:00 무렵 닫으니 카페 먼저 · 역이 바로 앞이라 구경 끝나고 그대로 기차", fee:"무료", hours:"상점은 대부분 17:00 무렵 마감", img:"leura"},
+  {t:"17:30", type:"move", name:"루라역에서 기차로 귀가", lines:["BMT","M"], desc:"센트럴역에서 메트로로 환승 · 채스우드 도착 약 19:45 · 기차 시간 미리 확인 · 아이들 기차에서 먹을 간식", via:["leurast","central"], w:"chatswood"},
+  {t:"19:45", type:"meal", name:"저녁 (숙소)"}
  ]},
  {id:"d4", day:4, dow:"금", date:"2026-10-30", back:"20:30", sunset:"19:20", out:"08:35", title:"수산시장 · 시드니대학교 · 싱글오 카페 · 패디스 마켓 · 타운홀 · QVB · 로열 아케이드 · 레고 스토어 · 달링하버",
   minus:["시드니대학교","싱글오 카페","수산시장 (빼면 숙소 출발 10:00)","달링하버 (놀이터 · 저녁 · 야경)"], stops:[
@@ -524,7 +539,7 @@ const LEGS = {
      ["walk","w_rocks_opera",PT.quay,PT.opera],["walk",[PT.opera,[-33.8580,151.2127]]],["walk","w_opera_martin"],["rail","m1c",PT.martin,PT.chats],["walk",[PT.chats,[-33.7964,151.1828]]]],
  d2:[["rail","m1c",PT.chats,PT.martin],["walk","w_martin_quay"],["ferry","f2"],["bus","bus_twharf_tzoo"],["walk","w_tzoo_twharf"],
      ["rail",[PT.quay,[-33.8640,151.2125],PT.stjames,[-33.8763,151.2097]]],["walk",[[-33.8763,151.2097],[-33.8750,151.2124],[-33.8743,151.2133]]],["walk",[[-33.8743,151.2133],[-33.8732,151.2120],[-33.8722,151.2113]]],["walk","w_stm_hyde"],["walk","w_ag_stm"],["walk","w_lib_ag"],["walk",[[-33.8661,151.2131],PT.martin]],["rail","m1c",PT.martin,PT.chats]],
- d3:[["rail","m1c",PT.chats,PT.centralM],["rail","bmt"],["bus","bus_kat_scenic"],["rail","bkl"],["walk","w_leuras_lmall"],["rail","bmt",PT.leura,PT.central],["rail","m1c",PT.centralM,PT.chats]],
+ d3:[["rail","m1c",PT.chats,PT.centralM],["rail","bmt"],["bus","bus_kat_scenic"],["bus",[[-33.7287,150.3016],[-33.7296,150.3050],[-33.7305,150.3085],[-33.7320,150.3120]]],["bus",[[-33.7320,150.3120],[-33.7270,150.3125],[-33.7200,150.3122],PT.katoomba]],["rail","bkl"],["walk","w_leuras_lmall"],["rail","bmt",PT.leura,PT.central],["rail","m1c",PT.centralM,PT.chats]],
  d4:[["rail","m1c",PT.chats,PT.centralM],["rail","l1"],
      ["bus",[[-33.8729,151.1944],[-33.8790,151.1925],[-33.8835,151.1905],[-33.8858,151.1890]]],
      ["bus",[[-33.8858,151.1890],[-33.8868,151.1960],[-33.8850,151.2010],[-33.8832,151.2063]]],
@@ -655,7 +670,7 @@ function render(){
       const thumb = (sight && (s.img || wiki.length)) ? `<figure class="thumb" data-img="${s.img||""}" data-wiki="${esc(JSON.stringify(wiki))}" data-alt="${esc(s.name)}"><div class="ph">사진 불러오는 중</div></figure>` : "";
       return `<li class="stop ${cls}" ${s.key?`data-key="${s.key}"`:""}>
         <div class="time">${s.t}</div><div class="badge" aria-hidden="true">${badge}</div>
-        <div class="content ${thumb?"has-thumb":""}"><div><div class="name">${esc(s.name)}</div>${s.desc?`<div class="desc">${esc(s.desc)}</div>`:""}${info}${row}</div>${thumb}</div></li>`;
+        <div class="content ${thumb?"has-thumb":""}"><div><div class="name">${esc(s.name)}</div>${s.desc?`<div class="desc">${esc(s.desc)}</div>`:""}${s.steps?`<ol class="steps">${s.steps.map(x=>`<li><b>${esc(x[0])}</b> · ${esc(x[1])}</li>`).join("")}</ol>`:""}${info}${row}</div>${thumb}</div></li>`;
     }).join("");
     return `<section class="day" id="${d.id}">
       <div class="dayhead"><span class="date">${d.day}일째 <small>(${d.dow})</small></span><span class="tags">${d.land?`<span class="tag">공항 착륙 ${esc(d.land)}</span>`:(d.out?`<span class="tag">숙소 출발 ${esc(d.out)}</span>`:"")}${d.back?`<span class="tag">숙소 도착 ${esc(d.back)}</span>`:(d.arrive?`<span class="tag">${esc(d.arrive)}</span>`:"")}${d.sunset?`<span class="tag sun">일몰 ${esc(d.sunset)}</span>`:""}<span class="tag wx" id="wx-${d.id}" title="Open-Meteo 일기예보 · 페이지를 열 때마다 새로 불러와요">날씨 불러오는 중</span></span><h2>${esc(d.title)}</h2></div>

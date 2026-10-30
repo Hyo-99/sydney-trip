@@ -86,6 +86,17 @@ ul.check li.done label>span:first-child{text-decoration:line-through;color:var(-
 .panel .local{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--accent-soft);font-size:13px}
 .panel .local b{display:block;margin-bottom:4px}
 .panel.wide{grid-column:1/-1}
+.sumtotal{font-weight:500;color:var(--muted)}
+.costsum{background:var(--accent-soft);border-color:transparent}
+.costsum .big{font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1.2;margin-bottom:12px}
+.costsum .big .sub{font-family:inherit;font-size:12px;font-weight:400}
+.costsum .bars{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.costsum .bars li{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:14px}
+.costsum .amt{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.costsum .amt small{font-weight:400;color:var(--muted);margin-left:4px}
+.costsum .bar{grid-column:1/-1;height:8px;border-radius:4px;background:var(--surface);overflow:hidden}
+.costsum .bar i{display:block;height:100%;background:var(--accent);border-radius:4px}
+
 details.memo{margin-top:12px;border:1px dashed var(--line);border-radius:10px;background:var(--bg)}
 details.memo summary{cursor:pointer;padding:9px 12px;font-size:13px;font-weight:600;color:var(--muted);list-style:none;display:flex;justify-content:space-between;gap:8px}
 details.memo summary::-webkit-details-marker{display:none}
@@ -327,8 +338,17 @@ footer{margin-top:28px;font-size:12px;color:var(--muted)}
   </details>
 
   <details class="prep" id="cost">
-    <summary>경비</summary>
+    <summary><span>경비 <span class="sumtotal">· 총 약 732만 원</span></span></summary>
     <div class="info">
+      <div class="panel wide costsum">
+        <h3>전체 경비</h3>
+        <div class="big">약 732만 원<span class="sub">7,319,316KRW · 1AUD ≈ 940KRW 기준 · 10/30 기준 (식비는 계속 추가 중)</span></div>
+        <ul class="bars">
+          <li><span class="lbl">출발 전 경비</span><span class="amt">약 615만 원 <small>84%</small></span><span class="bar"><i style="width:84%"></i></span></li>
+          <li><span class="lbl">현지 경비</span><span class="amt">약 81만 원 <small>11%</small></span><span class="bar"><i style="width:11%"></i></span></li>
+          <li><span class="lbl">식비</span><span class="amt">약 35만 원 <small>5%</small></span><span class="bar"><i style="width:5%"></i></span></li>
+        </ul>
+      </div>
       <div class="panel wide">
         <h3>1. 출발 전 경비</h3>
         <div class="costwrap">
@@ -337,7 +357,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted)}
           <tr><td>항공권</td><td class="n">885,495KRW</td><td class="n">858,893KRW</td><td class="n">4,374,271KRW</td></tr>
           <tr><td>숙박료 <span class="sub">에어비앤비 · 6인 기준 (성인 4, 아동 2)</span></td><td class="n">–</td><td class="n">–</td><td class="n">1,685,000KRW<span class="sub">1,719.65AUD</span></td></tr>
           <tr><td>ETA (관광비자)</td><td class="n">20AUD</td><td class="n">20AUD</td><td class="n">100AUD</td></tr>
-          <tr class="total"><td>합계</td><td class="n"></td><td class="n"></td><td class="n">6,059,271KRW + 100AUD<span class="sub">모두 원화로 약 615만KRW (1AUD ≈ 931KRW 기준)</span></td></tr>
+          <tr class="total"><td>합계</td><td class="n"></td><td class="n"></td><td class="n">6,059,271KRW + 100AUD<span class="sub">모두 원화로 약 615만KRW (1AUD ≈ 940KRW 기준)</span></td></tr>
         </table>
         </div>
       </div>

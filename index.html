@@ -582,13 +582,12 @@ const DAYS = [
    steps:[
     ["스카이웨이","유리 바닥 케이블카로 협곡 위 270m 높이를 건너요. 세 자매봉과 카툼바 폭포가 보여요. 건너편 역에서 내렸다가 다시 타고 돌아오면 왕복 약 15분"],
     ["레일웨이","세계에서 가장 가파른 기차(최대 52도)로 계곡 바닥까지 내려가요. 옛 탄광 운반용 철길로 짧은 굴도 지나요. 약 5분 · 오늘의 하이라이트"],
-    ["워크웨이","계곡 숲속 나무 데크 길(총 2.4km). 10분 코스: 두 하부역 직통 500m, 평탄 · 30분 코스: 숲속 순환, 계단·경사 있음, 옛 탄광 입구와 광부 오두막 · 50분 코스: 더 깊은 숲까지, 계단 많음 (아이 걸음으로 1시간 이상) · 가족 상태 보고 선택, 갈림길에서 짧게 돌아올 수 있어요"],
-    ["케이블웨이","84명이 타는 큰 통유리 케이블카로 계곡 바닥에서 절벽 위 본관까지 약 510m를 올라와요. 오펀 록과 마운트 솔리터리 경치 · 약 5분"],
-    ["공룡 전시","본관으로 돌아와 공룡 전시 구경 · 아이들 쉬는 시간"]
+    ["워크웨이","계곡 숲속 나무 데크 길(총 2.4km). 10분 코스: 두 하부역 직통 500m, 평탄 · 30분 코스: 숲속 순환, 계단·경사 있음, 옛 탄광 입구와 광부 오두막 · 50분 코스: 더 깊은 숲까지, 계단 많음 (아이 걸음으로 1시간 이상) · 가족 상태 보고 선택, 갈림길에서 짧게 돌아올 수 있어요 · 공룡 전시도 워크웨이 숲길에 함께 있어요"],
+    ["케이블웨이","84명이 타는 큰 통유리 케이블카로 계곡 바닥에서 절벽 위 본관까지 약 510m를 올라와요. 오펀 록과 마운트 솔리터리 경치 · 약 5분"]
    ],
    fee:"클룩 구매 완료", hours:"목 10:00~16:00 · 마지막 탑승 15:40경", img:"scenic"},
   {t:"14:00", type:"move", name:"686번 버스로 에코포인트", lines:["B"], desc:"시닉 월드 정류장에서 686번 · 에코포인트(세 자매봉)까지 약 10분 · 걸어서 가면 절벽길 약 45분이라 버스 추천"},
-  {t:"14:15", s:1, name:"에코포인트 (세 자매봉 전망대)", q:"Echo Point Lookout Katoomba", ll:[-33.7320,150.3120], desc:"전망대에서 세 자매봉 구경 · 방문자 센터 화장실 · 허니문 브리지까지 내려가는 길은 계단이 가팔라서 생략", fee:"무료", hours:"상시", wiki:["Echo_Point","Three_Sisters_(Australia)"]},
+  {t:"14:15", s:1, name:"에코포인트 (세 자매봉 전망대)", q:"Echo Point Lookout Katoomba", ll:[-33.7320,150.3120], img:"echopoint", desc:"전망대에서 세 자매봉 구경 · 방문자 센터 화장실 · 허니문 브리지까지 내려가는 길은 계단이 가팔라서 생략", fee:"무료", hours:"상시", wiki:["Echo_Point","Three_Sisters_(Australia)"]},
   {t:"15:15", type:"move", name:"686번 버스 → 카툼바역 → 기차 한 정거장 루라역", lines:["B","BMT"], desc:"에코포인트에서 686번으로 카툼바 시내(카툼바역 근처)까지 약 10분 → 역까지 걸어서 → 루라행(시드니 방향) 기차 약 5분 · 기차가 대략 1시간 간격이라 앱으로 시간 확인 · 루라역에서 루라 몰까지 걸어서 2분", via:["katoomba"], w:"leurast"},
   {t:"15:45", s:1, name:"루라 마을", q:"Leura Mall NSW", ll:[-33.7124,150.3329], desc:"작은 마을 거리(루라 몰), 카페·상점 구경 · 상점이 17:00 무렵 닫으니 카페 먼저 · 역이 바로 앞이라 구경 끝나고 그대로 기차", fee:"무료", hours:"상점은 대부분 17:00 무렵 마감", img:"leura"},
   {t:"17:30", type:"move", name:"루라역에서 기차로 귀가", lines:["BMT","M"], desc:"센트럴역에서 메트로로 환승 · 채스우드 도착 약 19:45 · 기차 시간 미리 확인 · 아이들 기차에서 먹을 간식", via:["leurast","central"], w:"chatswood"},
@@ -758,6 +757,7 @@ const IMG = {
   bondi:      {src:"images/bondi.jpg", credit:"모모"},
   bondibeach: {src:"images/bondibeach.jpg", credit:"모모"},
   bluemountains:{src:"images/bluemountains.jpg", credit:"모모"},
+  echopoint:  {src:"images/echopoint.jpg", credit:"모모"},
   leura:      {src:"images/leura.jpg", credit:"모모"},
   hydepark:   {src:"images/hydepark.jpg", credit:"모모"},
   qvb:        {src:"images/qvb.jpg", credit:"모모"},
@@ -782,7 +782,7 @@ const IMG = {
   ghost:      {src:"https://www.therocks.com/getmedia/846c46b6-0e56-460d-bd1f-651a50004e78/ghost-festival-first-fleet-park.png?width=1200", credit:"The Rocks", page:"https://www.therocks.com/whats-on/campaigns/ghost-in-the-rocks"}
 };
 /* Wikipedia fallback for chosen photos that fail to load */
-const IMG_FALLBACK = {operabar:["Sydney_Opera_House"], lego:["Pitt_Street_Mall"], badugili:["Sydney_Opera_House"], qvb:["Queen_Victoria_Building"], library:["State_Library_of_New_South_Wales"], scenic:["Scenic_World"], taronga:["Taronga_Zoo_Sydney"],
+const IMG_FALLBACK = {echopoint:["Echo_Point","Three_Sisters_(Australia)"], operabar:["Sydney_Opera_House"], lego:["Pitt_Street_Mall"], badugili:["Sydney_Opera_House"], qvb:["Queen_Victoria_Building"], library:["State_Library_of_New_South_Wales"], scenic:["Scenic_World"], taronga:["Taronga_Zoo_Sydney"],
   mca:["Museum_of_Contemporary_Art_Australia"], observatory:["Sydney_Observatory"], rocks:["The_Rocks,_Sydney"], wendy:["Wendy_Whiteley's_Secret_Garden","Lavender_Bay,_New_South_Wales"],
   pool:["North_Sydney_Olympic_Pool"], uni:["Main_Quadrangle,_University_of_Sydney","University_of_Sydney"], milsons:["Milsons_Point,_New_South_Wales","Luna_Park_Sydney"], ghost:["The_Rocks,_Sydney"]};
 const LINE_LABEL = {T1:"T1",T4:"T4",T8:"T8",M:"메트로",F:"페리",B:"버스",BMT:"블루마운틴선",LR:"라이트레일"};

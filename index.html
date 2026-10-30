@@ -140,6 +140,15 @@ section.day{scroll-margin-top:64px;padding-block:30px 10px;border-bottom:1px sol
 .opt .optnote{font-size:12px;color:var(--muted)}
 .opts{align-items:start}
 .actual{background:var(--meal-soft);border:1px solid transparent;border-left:3px solid var(--meal);border-radius:12px;padding:10px 14px;font-size:14px;margin:0 0 14px}
+details.actual > summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 0}
+details.actual > summary::-webkit-details-marker{display:none}
+details.actual > summary::after{content:"보기 +";margin-left:auto;padding-left:8px;font-size:12px;color:var(--meal);font-weight:500}
+details.actual[open] > summary::after{content:"접기 −"}
+details.detail > summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-weight:600;font-size:15px}
+details.detail > summary::-webkit-details-marker{display:none}
+details.detail > summary::after{content:"펼치기 +";font-weight:500;color:var(--accent);font-size:13px}
+details.detail[open] > summary::after{content:"접기 −"}
+details.detail[open] > summary{margin-bottom:14px}
 .actual b{color:var(--meal);font-weight:700;margin-right:8px}
 .actual ul{margin:6px 0 0;padding-left:18px}
 .actual li{margin:2px 0}
@@ -843,9 +852,9 @@ function render(){
     }).join("");
     return `<section class="day" id="${d.id}">
       <div class="dayhead"><span class="date">${d.day}일째 <small>(${d.dow})</small></span><span class="tags">${d.land?`<span class="tag">공항 착륙 ${esc(d.land)}</span>`:(d.out?`<span class="tag">숙소 출발 ${esc(d.out)}</span>`:"")}${d.back?`<span class="tag">숙소 도착 ${esc(d.back)}</span>`:(d.arrive?`<span class="tag">${esc(d.arrive)}</span>`:"")}${d.sunset?`<span class="tag sun">일몰 ${esc(d.sunset)}</span>`:""}<span class="tag wx" id="wx-${d.id}" title="Open-Meteo 일기예보 · 페이지를 열 때마다 새로 불러와요">날씨 불러오는 중</span></span><h2>${esc(d.title)}</h2></div>
-      ${(d.minus||d.plus)?`<div class="opts">${d.minus?`<details class="opt minus"><summary><b>− 마이너스 옵션</b><span class="optnote">컨디션 봐서 빼도 되는 일정</span></summary><ul>${d.minus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`:""}${d.plus?`<details class="opt plus"><summary><b>+ 플러스 옵션</b><span class="optnote">컨디션 봐서 더해도 되는 일정</span></summary><ul>${d.plus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`:""}</div>`:""}${d.actual?`<div class="actual"><b>✎ 실제로는</b><span class="optnote">달라진 일정, 먹은 것</span><ul>${d.actual.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}
+      ${(d.minus||d.plus)?`<div class="opts">${d.minus?`<details class="opt minus"><summary><b>− 마이너스 옵션</b><span class="optnote">컨디션 봐서 빼도 되는 일정</span></summary><ul>${d.minus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`:""}${d.plus?`<details class="opt plus"><summary><b>+ 플러스 옵션</b><span class="optnote">컨디션 봐서 더해도 되는 일정</span></summary><ul>${d.plus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`:""}</div>`:""}${d.actual?`<details class="actual"><summary><b>✎ 실제로는</b><span class="optnote">달라진 일정, 먹은 것</span></summary><ul>${d.actual.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`:""}
       <div class="mapcard"><div class="leaf" id="leaf-${d.id}"></div><div class="svgfb">${buildSvg(d)}</div><div class="maplegend">경로 · <b>점선</b> 걷기 · <b>실선</b> 기차·메트로·버스 · <b>긴 점선</b> 페리</div></div>
-      <ol class="timeline">${items}</ol>
+      <details class="detail"><summary>상세일정</summary><ol class="timeline">${items}</ol></details>
     </section>`;
   }).join("");
 

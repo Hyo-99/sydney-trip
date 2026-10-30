@@ -127,6 +127,11 @@ section.day{scroll-margin-top:64px;padding-block:30px 10px;border-bottom:1px sol
 .opt.minus b{color:var(--muted)}
 .opt.plus b{color:var(--accent)}
 .opt .optnote{font-size:12px;color:var(--muted)}
+.opts{align-items:start}
+details.opt > summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 0}
+details.opt > summary::-webkit-details-marker{display:none}
+details.opt > summary::after{content:"보기 +";margin-left:auto;padding-left:8px;font-size:12px;color:var(--accent);font-weight:500}
+details.opt[open] > summary::after{content:"접기 −"}
 .opt ul{margin:6px 0 0;padding-left:18px}
 .opt li{margin:2px 0}
 .dayhead .tags{display:flex;flex-wrap:wrap;gap:6px}
@@ -318,9 +323,14 @@ footer{margin-top:28px;font-size:12px;color:var(--muted)}
             <li><input type="checkbox" id="c6-12"><label for="c6-12"><span>사과 주스 · 오렌지 주스</span></label></li>
           </ul></div>
       </div>
+    </div>
+  </details>
 
+  <details class="prep" id="cost">
+    <summary>경비</summary>
+    <div class="info">
       <div class="panel wide">
-        <h3>6. 출발 전 경비</h3>
+        <h3>1. 출발 전 경비</h3>
         <div class="costwrap">
         <table class="cost">
           <tr><th>항목</th><th>성인 1인</th><th>아동 1인</th><th>5명 (성인 3, 아동 2)<span class="sub" style="font-size:11px;font-weight:400">모모는 현지에</span></th></tr>
@@ -333,7 +343,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted)}
       </div>
 
       <div class="panel wide">
-        <h3>7. 현지 경비</h3>
+        <h3>2. 현지 경비</h3>
         <div class="costwrap">
         <table class="cost">
           <tr><th>항목</th><th>성인 1인</th><th>아동 1인</th><th>6명 (성인 4, 아동 2)</th></tr>
@@ -347,7 +357,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted)}
       </div>
 
       <div class="panel wide">
-        <h3>8. 식비</h3>
+        <h3>3. 식비</h3>
         <p class="sub" style="margin:0 0 8px">영수증 기준 · 항목을 누르면 품목별 금액이 열려요 · 1AUD ≈ 940KRW 기준</p>
         <div class="receipts">
           <details class="receipt">
@@ -737,6 +747,7 @@ function buildSvg(day){
 function render(){
   document.getElementById("daynav").innerHTML =
     `<button type="button" class="prep" id="prepbtn" aria-expanded="false" aria-controls="prep">준비사항</button>` +
+    `<button type="button" class="prep" id="costbtn" aria-expanded="false" aria-controls="cost">경비</button>` +
     DAYS.map(d=>`<a href="#${d.id}">${d.day}일째<small>${d.dow}</small></a>`).join("");
 
   document.getElementById("days").innerHTML = DAYS.map(d=>{
@@ -755,18 +766,20 @@ function render(){
     }).join("");
     return `<section class="day" id="${d.id}">
       <div class="dayhead"><span class="date">${d.day}일째 <small>(${d.dow})</small></span><span class="tags">${d.land?`<span class="tag">공항 착륙 ${esc(d.land)}</span>`:(d.out?`<span class="tag">숙소 출발 ${esc(d.out)}</span>`:"")}${d.back?`<span class="tag">숙소 도착 ${esc(d.back)}</span>`:(d.arrive?`<span class="tag">${esc(d.arrive)}</span>`:"")}${d.sunset?`<span class="tag sun">일몰 ${esc(d.sunset)}</span>`:""}<span class="tag wx" id="wx-${d.id}" title="Open-Meteo 일기예보 · 페이지를 열 때마다 새로 불러와요">날씨 불러오는 중</span></span><h2>${esc(d.title)}</h2></div>
-      ${(d.minus||d.plus)?`<div class="opts">${d.minus?`<div class="opt minus"><b>− 마이너스 옵션</b><span class="optnote">컨디션 봐서 빼도 되는 일정</span><ul>${d.minus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}${d.plus?`<div class="opt plus"><b>+ 플러스 옵션</b><span class="optnote">컨디션 봐서 더해도 되는 일정</span><ul>${d.plus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}</div>`:""}
+      ${(d.minus||d.plus)?`<div class="opts">${d.minus?`<details class="opt minus"><summary><b>− 마이너스 옵션</b><span class="optnote">컨디션 봐서 빼도 되는 일정</span></summary><ul>${d.minus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`:""}${d.plus?`<details class="opt plus"><summary><b>+ 플러스 옵션</b><span class="optnote">컨디션 봐서 더해도 되는 일정</span></summary><ul>${d.plus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`:""}</div>`:""}
       <div class="mapcard"><div class="leaf" id="leaf-${d.id}"></div><div class="svgfb">${buildSvg(d)}</div><div class="maplegend">경로 · <b>점선</b> 걷기 · <b>실선</b> 기차·메트로·버스 · <b>긴 점선</b> 페리</div></div>
       <ol class="timeline">${items}</ol>
     </section>`;
   }).join("");
 
-  const prep = document.getElementById("prep"), btn = document.getElementById("prepbtn");
-  btn.addEventListener("click",()=>{
-    prep.open = !prep.open;
-    if (prep.open) prep.scrollIntoView({block:"start"});
+  [["prep","prepbtn"],["cost","costbtn"]].forEach(([pid,bid])=>{
+    const panel = document.getElementById(pid), btn = document.getElementById(bid);
+    btn.addEventListener("click",()=>{
+      panel.open = !panel.open;
+      if (panel.open) panel.scrollIntoView({block:"start"});
+    });
+    panel.addEventListener("toggle",()=>btn.setAttribute("aria-expanded", panel.open ? "true" : "false"));
   });
-  prep.addEventListener("toggle",()=>btn.setAttribute("aria-expanded", prep.open ? "true" : "false"));
 }
 render();
 

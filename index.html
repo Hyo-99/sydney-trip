@@ -354,15 +354,15 @@ footer{margin-top:28px;font-size:12px;color:var(--muted)}
   </details>
 
   <details class="prep" id="cost">
-    <summary><span>경비 <span class="sumtotal">· 총 약 769만 원</span></span></summary>
+    <summary><span>경비 <span class="sumtotal">· 총 약 770만 원</span></span></summary>
     <div class="info">
       <div class="panel wide costsum">
         <h3>전체 경비</h3>
-        <div class="big">약 769만 원<span class="sub">7,686,461KRW · 1AUD ≈ 940KRW 기준 · 11/1 기준 (식비는 계속 추가 중)</span></div>
+        <div class="big">약 770만 원<span class="sub">7,701,360KRW · 1AUD ≈ 940KRW 기준 · 11/1 기준 (식비는 계속 추가 중)</span></div>
         <ul class="bars">
           <li><span class="lbl">출발 전 경비</span><span class="amt">약 615만 원 <small>80%</small></span><span class="bar"><i style="width:80%"></i></span></li>
           <li><span class="lbl">현지 경비</span><span class="amt">약 81만 원 <small>11%</small></span><span class="bar"><i style="width:11%"></i></span></li>
-          <li><span class="lbl">식비</span><span class="amt">약 72만 원 <small>9%</small></span><span class="bar"><i style="width:9%"></i></span></li>
+          <li><span class="lbl">식비</span><span class="amt">약 73만 원 <small>9%</small></span><span class="bar"><i style="width:9%"></i></span></li>
         </ul>
       </div>
       <div class="panel wide">
@@ -564,8 +564,19 @@ footer{margin-top:28px;font-size:12px;color:var(--muted)}
               <tr class="total"><td>합계</td><td class="n">61.35AUD</td></tr>
             </table>
           </details>
+          <details class="receipt">
+            <summary><span class="rmain"><b>11/1 (일)</b> · 알디 채스우드</span><span class="ramt">15.85AUD<span class="sub">14,899KRW</span></span></summary>
+            <table class="cost items">
+              <tr><td>농심 라면 멀티팩 480g</td><td class="n">4.99</td></tr>
+              <tr><td>점피스 치킨 과자 6봉</td><td class="n">3.99</td></tr>
+              <tr><td>딜리시오 감자칩 허니 소이 치킨 175g</td><td class="n">2.99</td></tr>
+              <tr><td>딜리시오 감자칩 칠리 175g</td><td class="n">2.99</td></tr>
+              <tr><td>생수 1.5L</td><td class="n">0.89</td></tr>
+              <tr class="total"><td>합계</td><td class="n">15.85AUD</td></tr>
+            </table>
+          </details>
         </div>
-        <table class="cost"><tr class="total"><td>식비 합계</td><td class="n">765.23AUD<span class="sub">719,316KRW</span></td></tr></table>
+        <table class="cost"><tr class="total"><td>식비 합계</td><td class="n">781.08AUD<span class="sub">734,215KRW</span></td></tr></table>
       </div>
     </div>
   </details>
@@ -683,7 +694,7 @@ const DAYS = [
   {t:"20:30", s:1, name:"오페라하우스 프로젝션 쇼", web:"https://www.sydneyoperahouse.com/experiences/badu-gili", q:"Sydney Opera House", ll:[-33.8568,151.2153], desc:"바두 길리 · 동쪽 지붕에 비추는 약 6분 쇼 · 앞 큰 계단 위쪽에서 보기 · 20:30 · 21:00 · 21:30 · 22:00", fee:"무료", hours:"매일 밤", img:"badugili"},
   {t:"20:45", type:"move", name:"귀가", lines:["M"], desc:"마틴 플레이스역까지 걸어서 약 15분 → 메트로 · 숙소 약 21:15 · 오늘 밤 짐을 반쯤 싸 두면 6·7일째가 편해요", via:["martin"], w:"chatswood"}
  ]},
- {id:"d6", actual:["아침은 숙소에서 계란밥", "록스 마켓을 본다이 파머스 마켓으로 대체", "점심은 본다이 비치 다예 피체리아 로마나에서 조각 피자, 수플리", "본다이 비치 조각 전시는 못 봄"], day:6, dow:"일", date:"2026-11-01", back:"21:30", sunset:"19:22", out:"09:15", title:"록스 마켓 · 본다이 비치 · 조각 전시 해안산책 · 로열 보타닉 가든 · 매쿼리 부인의 의자 선셋",
+ {id:"d6", actual:["아침은 숙소에서 계란밥", "록스 마켓을 본다이 파머스 마켓으로 대체", "점심은 본다이 비치 다예 피체리아 로마나에서 조각 피자, 수플리", "본다이 비치 조각 전시는 못 봄", "저녁은 숙소에서 신라면 + 콜스 로스트 치킨"], day:6, dow:"일", date:"2026-11-01", back:"21:30", sunset:"19:22", out:"09:15", title:"록스 마켓 · 본다이 비치 · 조각 전시 해안산책 · 로열 보타닉 가든 · 매쿼리 부인의 의자 선셋",
   minus:["로열 보타닉 가든","매쿼리 부인의 의자"], plus:["오페라하우스 프로젝션 쇼 (20:30 · 21:00 · 21:30 · 22:00) · 저녁 먹고 귀가 길에"], stops:[
   {t:"09:15", type:"move", name:"숙소 출발 → 서큘러 키", lines:["M"], desc:"메트로로 마틴 플레이스역 → 걸어서 약 12분", via:["chatswood","martin"], w:"quay"},
   {t:"10:00", s:1, name:"록스 마켓", web:"https://www.therocks.com/things-to-do/the-rocks-markets", q:"The Rocks Markets", ll:[-33.8589,151.2084], desc:"수공예품, 그림, 길거리 음식 · 1시간 정도 구경", fee:"무료 입장", hours:"토·일 10:00~17:00", img:"rocks"},

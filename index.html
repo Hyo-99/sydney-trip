@@ -95,20 +95,6 @@ ul.check li.done label>span:first-child{text-decoration:line-through;color:var(-
 .costsum .amt{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
 .costsum .amt small{font-weight:400;color:var(--muted);margin-left:4px}
 .costsum .bar{grid-column:1/-1;height:8px;border-radius:4px;background:var(--surface);overflow:hidden}
-.stepchart{width:100%;height:auto;display:block;font-family:var(--font-body)}
-.stepchart .gl{stroke:var(--line);stroke-dasharray:3 4}
-.stepchart .base{stroke:var(--muted)}
-.stepchart .ax{font-size:15px;fill:var(--muted)}
-.stepchart .vl{font-size:15px;font-weight:600}
-.stepchart .st{fill:var(--accent)}
-.stepchart .km{fill:var(--meal)}
-.stepchart .sbar{fill:var(--accent);opacity:.75}
-.stepchart .kline{fill:none;stroke:var(--meal);stroke-width:2.5;stroke-linejoin:round}
-.stepchart .kdot{fill:var(--surface);stroke:var(--meal);stroke-width:2.5}
-.chartkey{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted);margin:0 0 6px}
-.chartkey .ksw{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
-.chartkey .ksw.sbar{background:var(--accent);opacity:.75}
-.chartkey .ksw.kline{height:3px;background:var(--meal)}
 .costsum .bar i{display:block;height:100%;background:var(--accent);border-radius:4px}
 
 details.memo{margin-top:12px;border:1px dashed var(--line);border-radius:10px;background:var(--bg)}
@@ -626,11 +612,6 @@ footer{margin-top:28px;font-size:12px;color:var(--muted)}
           <li><span class="lbl">11/2 (월) <small>· 공항 배웅</small></span><span class="amt">4,745보 <small>3.39km</small></span><span class="bar"><i style="width:20%"></i></span></li>
         </ul>
         <p class="sub" style="margin:12px 0 0">10/27은 공항까지 마중 나간 거리를 빼려고, 11/2 공항 배웅 기록(4,745보 · 3.39km)만큼 뺀 값이에요 (원래 14,898보 · 10.74km).</p>
-      </div>
-      <div class="panel wide">
-        <h3>그래프로 보기</h3>
-        <div class="chartkey"><span><i class="ksw sbar"></i>걸음 수 (막대 · 왼쪽 눈금, 만 보)</span><span><i class="ksw kline"></i>거리 (꺾은선 · 오른쪽 눈금, km)</span></div>
-        <svg class="stepchart" viewBox="0 0 520 340" role="img" aria-label="날짜별 걸음 수(막대)와 거리(꺾은선)"><line x1="44" y1="284.0" x2="476" y2="284.0" class="base"/><text x="38" y="289.0" class="ax st" text-anchor="end">0</text><line x1="44" y1="233.2" x2="476" y2="233.2" class="gl"/><text x="38" y="238.2" class="ax st" text-anchor="end">1만</text><line x1="44" y1="182.4" x2="476" y2="182.4" class="gl"/><text x="38" y="187.4" class="ax st" text-anchor="end">2만</text><line x1="44" y1="131.6" x2="476" y2="131.6" class="gl"/><text x="38" y="136.6" class="ax st" text-anchor="end">3만</text><line x1="44" y1="80.8" x2="476" y2="80.8" class="gl"/><text x="38" y="85.8" class="ax st" text-anchor="end">4만</text><line x1="44" y1="30.0" x2="476" y2="30.0" class="gl"/><text x="38" y="35.0" class="ax st" text-anchor="end">5만</text><text x="482" y="289.0" class="ax km">0km</text><text x="482" y="204.3" class="ax km">6km</text><text x="482" y="119.7" class="ax km">12km</text><text x="482" y="35.0" class="ax km">18km</text><rect x="57.6" y="232.4" width="34.6" height="51.6" rx="4" class="sbar"/><text x="74.9" y="225.4" class="vl st" text-anchor="middle">1.0만</text><text x="74.9" y="306" class="ax" text-anchor="middle">10/27</text><text x="74.9" y="326" class="ax" text-anchor="middle">화</text><rect x="119.3" y="165.0" width="34.6" height="119.0" rx="4" class="sbar"/><text x="136.6" y="158.0" class="vl st" text-anchor="middle">2.3만</text><text x="136.6" y="306" class="ax" text-anchor="middle">10/28</text><text x="136.6" y="326" class="ax" text-anchor="middle">수</text><rect x="181.0" y="182.7" width="34.6" height="101.3" rx="4" class="sbar"/><text x="198.3" y="175.7" class="vl st" text-anchor="middle">2.0만</text><text x="198.3" y="306" class="ax" text-anchor="middle">10/29</text><text x="198.3" y="326" class="ax" text-anchor="middle">목</text><rect x="242.7" y="185.6" width="34.6" height="98.4" rx="4" class="sbar"/><text x="260.0" y="178.6" class="vl st" text-anchor="middle">1.9만</text><text x="260.0" y="306" class="ax" text-anchor="middle">10/30</text><text x="260.0" y="326" class="ax" text-anchor="middle">금</text><rect x="304.4" y="196.7" width="34.6" height="87.3" rx="4" class="sbar"/><text x="321.7" y="189.7" class="vl st" text-anchor="middle">1.7만</text><text x="321.7" y="306" class="ax" text-anchor="middle">10/31</text><text x="321.7" y="326" class="ax" text-anchor="middle">토</text><rect x="366.1" y="196.9" width="34.6" height="87.1" rx="4" class="sbar"/><text x="383.4" y="189.9" class="vl st" text-anchor="middle">1.7만</text><text x="383.4" y="306" class="ax" text-anchor="middle">11/1</text><text x="383.4" y="326" class="ax" text-anchor="middle">일</text><rect x="427.9" y="259.9" width="34.6" height="24.1" rx="4" class="sbar"/><text x="445.1" y="252.9" class="vl st" text-anchor="middle">0.5만</text><text x="445.1" y="306" class="ax" text-anchor="middle">11/2</text><text x="445.1" y="326" class="ax" text-anchor="middle">월</text><polyline points="74.9,180.3 136.6,51.0 198.3,86.9 260.0,91.2 321.7,113.1 383.4,113.4 445.1,236.2" class="kline"/><circle cx="74.9" cy="180.3" r="5" class="kdot"/><text x="74.9" y="168.3" class="vl km" text-anchor="middle">7.35</text><circle cx="136.6" cy="51.0" r="5" class="kdot"/><text x="136.6" y="39.0" class="vl km" text-anchor="middle">16.51</text><circle cx="198.3" cy="86.9" r="5" class="kdot"/><text x="198.3" y="74.9" class="vl km" text-anchor="middle">13.97</text><circle cx="260.0" cy="91.2" r="5" class="kdot"/><text x="260.0" y="79.2" class="vl km" text-anchor="middle">13.66</text><circle cx="321.7" cy="113.1" r="5" class="kdot"/><text x="321.7" y="101.1" class="vl km" text-anchor="middle">12.11</text><circle cx="383.4" cy="113.4" r="5" class="kdot"/><text x="383.4" y="101.4" class="vl km" text-anchor="middle">12.09</text><circle cx="445.1" cy="236.2" r="5" class="kdot"/><text x="459.1" y="241.2" class="vl km" text-anchor="start">3.39</text></svg>
       </div>
     </div>
   </details>
